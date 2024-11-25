@@ -27,7 +27,7 @@
               <div class="card-footer text-center pt-0 px-lg-2 px-1">
                 <p class="mb-4 text-sm mx-auto">
                   Tidak menemukan paket Anda?
-                  <a href="contact-support" class="text-info text-gradient font-weight-bold">Hubungi Dukungan</a>
+                  <a href="contact-support" class="text-info text-gradient font-weight-bold">Hubungi Bantuan</a>
                 </p>
               </div>
             </div>
