@@ -10,8 +10,7 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  {{-- <h3 class="font-weight-bolder text-info text-gradient">Mari Lacak Paketmu !</h3> --}}
-                  <h3 class="font-weight-bolder text-red">Mari Lacak Paketmu!</h3>
+                  <h3 class="font-weight-bolder text-info text-gradient">Mari Lacak Paketmu !</h3>
                   <p class="mb-0">Create a new acount<br></p>
                   <p class="mb-0">OR Sign in with these credentials:</p>
                   <p class="mb-0">Email <b>admin@softui.com</b></p>
@@ -39,8 +38,8 @@
                       <label class="form-check-label" for="rememberMe">Ingat saya</label>
                     </div>
                     <div class="text-center">
-                              <button type="submit" class="btn btn-red w-100 mt-4 mb-0">Masuk</button>
-                        </div>
+                        <button type="submit" class="btn w-100 mt-4 mb-0" style="background: linear-gradient(to right, #17c1e8, #007bff); color: #fff;">Masuk</button>
+                    </div>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
@@ -65,25 +64,5 @@
    </section>
 </main>
 
-
-  <style>
-        .custom-card {
-            background-color: #f8f9fa;
-           border: 1px solid #ced4da;
-       }
-        .text-red {
-            color: red;
-        }
-       .btn-red {
-            background-color: red;
-            color: white;
-       }
-        .btn-red:hover {
-            background-color: darkred;
-        }
-        .text-muted {
-            color: #6c757d !important;
-        }
-    </style>
 
 @endsection
