@@ -11,10 +11,10 @@
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Mari Lacak Paketmu !</h3>
-                  <p class="mb-0">Buat akun baru<br></p>
+                  <!-- <p class="mb-0">Buat akun baru<br></p>
                   <p class="mb-0">Atau Masuk dengan otoritas berikut:</p>
                   <p class="mb-0">Email <b>admin@softui.com</b></p>
-                  <p class="mb-0">Password <b>secret</b></p>
+                  <p class="mb-0">Password <b>secret</b></p> -->
                 </div>
                 <div class="card-body">
                   <form role="form" method="POST" action="/session">
