@@ -11,8 +11,8 @@
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Mari Lacak Paketmu !</h3>
-                  <p class="mb-0">Create a new acount<br></p>
-                  <p class="mb-0">OR Sign in with these credentials:</p>
+                  <p class="mb-0">Buat akun baru<br></p>
+                  <p class="mb-0">Atau Masuk dengan otoritas berikut:</p>
                   <p class="mb-0">Email <b>admin@softui.com</b></p>
                   <p class="mb-0">Password <b>secret</b></p>
                 </div>
@@ -43,12 +43,12 @@
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                        <small class="text-muted"> Lupa password? Reset password
-                           <a href="/login/forgot-password" class="text-danger text-gradient font-weight-bold">Disini</a>
-                        </small>
+                    <small class="text-muted">Lupa Password? Reset Password
+                        <a href="/login/forgot-password" class="text-info text-gradient font-weight-bold">Disini</a>
+                      </small>
                         <p class="mb-4 text-sm mx-auto">
-                            Belum punya akun?
-                            <a href="register" class="text-danger text-gradient font-weight-bold">Daftar</a>
+                          Tidak Punya akun?
+                          <a href="register" class="text-info text-gradient font-weight-bold">Daftar</a>
                         </p>
                     </div>
                     </div>
