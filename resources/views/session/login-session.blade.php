@@ -43,12 +43,12 @@
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                        <small class="text-muted"> Lupa password? Reset password
-                           <a href="/login/forgot-password" class="text-danger text-gradient font-weight-bold">Disini</a>
-                        </small>
+                    <small class="text-muted">Lupa Password? Reset Password
+                        <a href="/login/forgot-password" class="text-info text-gradient font-weight-bold">Disini</a>
+                      </small>
                         <p class="mb-4 text-sm mx-auto">
-                            Belum punya akun?
-                            <a href="register" class="text-danger text-gradient font-weight-bold">Daftar</a>
+                          Tidak Punya akun?
+                          <a href="register" class="text-info text-gradient font-weight-bold">Daftar</a>
                         </p>
                     </div>
                     </div>
