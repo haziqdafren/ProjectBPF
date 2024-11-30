@@ -1,7 +1,7 @@
 section {
-    background-image: url('../assets/img/curved-images/curved14.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .card {
@@ -12,6 +12,6 @@ section {
     color: #fff !important;
 }
 
-h1,h5 {
+h1, h5 {
     font-weight: 700;
 }
