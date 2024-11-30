@@ -25,7 +25,6 @@
                 </form>
               </div>
 
-              <!-- Table to display search results -->
               @if(isset($results) && count($results) > 0)
               <div class="table-responsive mt-4">
                 <table class="table">
