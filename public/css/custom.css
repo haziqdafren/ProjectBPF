@@ -1,0 +1,17 @@
+section {
+    background-image: url('../assets/img/curved-images/curved14.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+h1,h5 {
+    font-weight: 700;
+}
