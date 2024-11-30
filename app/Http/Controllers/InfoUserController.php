@@ -56,6 +56,6 @@ class InfoUserController extends Controller
     }
 
     public function lacakpaket(){
-        return view('lacakpaket');
+        return view('session/lacakpaket');
     }
 }

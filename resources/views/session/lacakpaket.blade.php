@@ -24,23 +24,34 @@
                   </div>
                 </form>
               </div>
-              <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                <p class="mb-4 text-sm mx-auto">
-                  Tidak menemukan paket Anda?
-                  <a href="contact-support" class="text-info text-gradient font-weight-bold">Hubungi Bantuan</a>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-              <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('../assets/img/curved-images/curved6.jpg')"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
 
+              @if(isset($results) && count($results) > 0)
+              <div class="table-responsive mt-4">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>No Resi</th>
+                      <th>Nama Security</th>
+                      <th>Lokasi</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($results as $index => $result)
+                    <tr>
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ $result->resi }}</td>
+                      <td>{{ $result->nama_security }}</td>
+                      <td>{{ $result->lokasi }}</td>
+                      <td>{{ $result->status }}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+              @else
+              <p class="text-center mt-4">Tidak ada data ditemukan.</p>
+              @endif
+</div>
 @endsection

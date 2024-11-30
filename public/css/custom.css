@@ -1,0 +1,17 @@
+section {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+h1, h5 {
+    font-weight: 700;
+}
