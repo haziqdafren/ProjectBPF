@@ -3,15 +3,22 @@
 @section('content')
 
 <main class="main-content mt-0">
-  <section>
+  <section style="min-height: 100vh;
+                 background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.289)),
+                 url('{{ asset('assets/img/curved-images/ocean.jpg') }}');
+                 background-size: cover;
+                 background-position: center;
+                 background-repeat: no-repeat;">
     <div class="page-header min-vh-75">
       <div class="container">
         <div class="row">
           <div class="col-xl-6 col-lg-7 col-md-8 d-flex flex-column mx-auto">
-            <div class="card card-plain mt-8">
+            <div class="card card-plain mt-4"> <!-- Adjusted margin-top -->
               <div class="card-header pb-0 text-left bg-transparent">
-                <h3 class="font-weight-bolder text-info text-gradient">Lacak Paket</h3>
-                <p class="mb-0">Masukkan nomor resi atau detail terkait untuk mencari data paket Anda.</p>
+                <div class="mb-4"> <!-- Added a margin bottom for spacing -->
+                  <h3 class="font-weight-bolder text-info text-gradient">Lacak Paket</h3>
+                  <p class="mb-0">Masukkan nomor resi atau detail terkait untuk mencari data paket Anda.</p>
+                </div>
               </div>
               <div class="card-body">
                 <form role="form" method="GET" action="{{ url('search-paket') }}">
@@ -53,5 +60,12 @@
               @else
               <p class="text-center mt-4">Tidak ada data ditemukan.</p>
               @endif
-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
 @endsection
