@@ -4,7 +4,7 @@
 
 <main class="main-content mt-0">
   <section class="min-vh-100 d-flex align-items-center justify-content-center"
-    style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.289)), url('{{ asset('assets/img/curved-images/bg.jpg') }}');
+    style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.289)), url('{{ asset('assets/img/curved-images/ocean.jpg') }}');
            background-size: cover;
            background-position: center;
            background-repeat: no-repeat;">
@@ -69,4 +69,3 @@
 </main>
 
 @endsection
-  
