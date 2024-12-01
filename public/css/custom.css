@@ -15,3 +15,49 @@ section {
 h1, h5 {
     font-weight: 700;
 }
+
+   /* styles.css */
+
+/* custom.css */
+
+/* Light Theme */
+[data-theme=light-blue] {
+    --c-text-primary: #1b2559;
+    --c-bg-primary: #f4f7fe;
+    --c-bg-second: #fff;
+    --c-bg-third: #f8fafd;
+    color: var(--c-text-primary);
+    background-color: var(--c-bg-primary);
+}
+
+/* Dark Theme */
+[data-theme=dark-blue] {
+    --c-text-primary: #fefefe;
+    --c-bg-primary: #0d0d1f;
+    --c-bg-second: #151429;
+    --c-bg-third: #0d0d1f;
+    color: var(--c-text-primary);
+    background-color: var(--c-bg-primary);
+}
+
+/* Additional styles for the container and button */
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--c-bg-second);
+    color: var(--c-text-primary);
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--c-bg-third);
+}
+
+
