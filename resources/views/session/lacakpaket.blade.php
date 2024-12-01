@@ -3,7 +3,12 @@
 @section('content')
 
 <main class="main-content mt-0">
-  <section>
+  <section style="min-height: 100vh;
+                 background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.289)),
+                 url('{{ asset('assets/img/curved-images/ocean.jpg') }}');
+                 background-size: cover;
+                 background-position: center;
+                 background-repeat: no-repeat;">
     <div class="page-header min-vh-75">
       <div class="container">
         <div class="row">
@@ -53,5 +58,12 @@
               @else
               <p class="text-center mt-4">Tidak ada data ditemukan.</p>
               @endif
-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
 @endsection
