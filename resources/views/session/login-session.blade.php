@@ -53,12 +53,6 @@
             </div>
           </div>
 
-          <div class="col-md-6">
-            <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('../assets/img/curved-images/bg.png')"></div>
-             </div>
-        </div>
-{{-- 
           <!-- Kolom Gambar -->
           <div class="col-lg-7 col-md-6 d-none d-md-block">
             <div class="position-relative h-100" style="background-image: url('{{ asset('assets/img/curved-images/gambar.png') }}'); background-size: cover; background-position: center; height: 100vh;">
