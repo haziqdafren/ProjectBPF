@@ -59,7 +59,7 @@
 
         <!-- Kolom Gambar -->
         <div class="col-lg-7 col-md-6 d-none d-md-block">
-          <div class="position-relative h-100" style="background-image: url('{{ asset('assets/img/curved-images/bg.png') }}'); background-size: cover; background-position: center; height: 100vh;">
+          <div class="position-relative h-100" style="background-image: url('{{ asset('assets/img/curved-images/paket.png') }}'); background-size: cover; background-position: center; height: 100vh;">
             <!-- Gambar di sisi kanan sepenuhnya -->
           </div>
         </div>
