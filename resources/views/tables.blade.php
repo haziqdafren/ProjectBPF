@@ -4,6 +4,11 @@
 
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
     <div class="container-fluid py-4">
+        <div class="row mb-3 mt-3">
+            <div class="col-md-6">
+                <a href="/paket" class="btn bg-gradient-dark btn-md mt-4 mb-4">Tambah Data</a>
+            </div>
+        </div>
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
@@ -29,7 +34,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    
+
                       <td class="align-middle">
                         <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
                           <i class="fa fa-ellipsis-v text-xs"></i>
