@@ -32,7 +32,7 @@ h1, h5 {
 }
 
 .logo-large {
-    width: 80px; /* Set your desired width */
+    width: 150px; /* Set your desired width */
     height: auto; /* Maintain aspect ratio */
 }
 .navbar {
