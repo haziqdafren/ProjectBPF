@@ -15,21 +15,21 @@
         <div class="col-lg-5 col-md-6 d-flex flex-column mx-auto">
           <div class="card card-plain mt-8">
             <div class="card-header pb-0 text-left bg-transparent">
-              <h3 class="font-weight-bolder text-info text-gradient">Mari Lacak Paketmu!</h3>
+              <h3 style="color: white">Mari Lacak Paketmu!</h3>
               <p class="mb-0" style="color: white;">Buat Akun Baru<br></p>
               <p class="mb-0" style="color: white;">Atau Masuk dengan Otoritas berikut:</p>
             </div>
             <div class="card-body">
               <form role="form" method="POST" action="/session">
                 @csrf
-                <label for="email" style="color: black;">Email</label>
+                <label for="email" style="color: white;">Email</label>
                 <div class="mb-3">
                   <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="admin@softui.com" aria-label="Email" aria-describedby="email-addon">
                   @error('email')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>
-                <label for="password" style="color: black;">Password</label>
+                <label for="password" style="color: white;">Password</label>
                 <div class="mb-3">
                   <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="secret" aria-label="Password" aria-describedby="password-addon">
                   @error('password')
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
-                  <label class="form-check-label" for="rememberMe" style="color: black;">Ingat saya</label>
+                  <label class="form-check-label" for="rememberMe" style="color: white;">Ingat saya</label>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn w-100 mt-4 mb-0" style="background: linear-gradient(to right, #17c1e8, #007bff); color: #fff;">Masuk</button>
@@ -47,11 +47,11 @@
             </div>
             <div class="card-footer text-center pt-0 px-lg-2 px-1">
               <small style="color: white;">Lupa Password? Reset Password
-                <a href="/login/forgot-password" class="text-info text-gradient font-weight-bold">Disini</a>
+                <a href="register"  style="color: white">Disini</a>
               </small>
               <p class="mb-4 text-sm mx-auto" style="color: white;">
                 Tidak Punya akun?
-                <a href="register" class="text-info text-gradient font-weight-bold">Daftar</a>
+                <a href="register"  style="color: white">Daftar</a>
               </p>
             </div>
           </div>
