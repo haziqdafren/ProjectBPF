@@ -7,3 +7,8 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
         body.setAttribute('data-theme', 'light-blue');
     }
 });
+
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+});
