@@ -16,7 +16,7 @@
                         <h6>Tambah Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
-                        <form action="{{ route('paket.store') }}" method="POST">
+                        <form action="{{ route('tables') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
@@ -55,7 +55,6 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-sm mt-3">Simpan</button>
-                                <a href="{{ route('#') }}" class="btn btn-secondary btn-sm mt-3">Kembali</a>
                             </div>
                         </form>
                     </div>

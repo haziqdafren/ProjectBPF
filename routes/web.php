@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/paket', function () {
+    return view('paket'); // Pastikan file 'paket.blade.php' ada di resources/views
+});
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -40,17 +43,14 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('rtl');
 	})->name('rtl');
 
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
+	Route::get('histori', function () {
+		return view('laravel-examples/histori');
+	})->name('histori');
 
-	Route::get('tables', function () {
-		return view('tables');
-	})->name('tables');
+	Route::get('dataPaket', function () {
+		return view('dataPaket');
+	})->name('dataPaket');
 
-    Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
 
     Route::get('static-sign-in', function () {
 		return view('static-sign-in');
@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
     Route::get('/login', function () {
-		return view('dashboard');
+		return view('beranda');
 	})->name('sign-up');
 });
 

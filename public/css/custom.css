@@ -80,4 +80,10 @@ button:hover {
     background-color: var(--c-bg-third);
 }
 
+#theme-toggle img {
+    width: 24px; /* Atur lebar gambar */
+    height: 24px; /* Atur tinggi gambar */
+    margin-right: 8px; /* Jarak antara gambar dan teks */
+}
+
 
