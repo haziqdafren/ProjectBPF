@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_pakets', function (Blueprint $table) {
-            $table->id();
+            $table->id('no_resi');
+            $table->string('produk');
+            $table->string('pemilik');
+            $table->eloquent('ekspedisi');
+            $table->date('tanggal_tiba')->nullable();
+            $table->eloquent('lokasi')->nullable();
             $table->timestamps();
         });
     }
