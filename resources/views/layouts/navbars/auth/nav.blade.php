@@ -13,14 +13,14 @@
             <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
                 <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold px-0">
-                    <span class="d-sm-inline d-none">Sign Out</span>
+                    <span class="d-sm-inline d-none" style="color: red "> <strong>Sign Out</strong></span>
                 </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center">
+            {{-- <li class="nav-item px-3 d-flex align-items-center">
                 <a href="javascript:;" class="nav-link text-body p-0">
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                 </a>
-            </li>
+            </li> --}}
             </ul>
         </div>
     </div>

@@ -16,7 +16,7 @@
             <div class="card card-plain mt-4"> <!-- Adjusted margin-top -->
               <div class="card-header pb-0 text-left bg-transparent">
                 <div class="mb-4"> <!-- Added a margin bottom for spacing -->
-                  <h3 class="font-weight-bolder text-info text-gradient">Lacak Paket</h3>
+                  <h3 style="color: white">Lacak Paket</h3>
                   <p class="mb-0" style="color: white;">Masukkan nomor resi atau detail terkait untuk mencari data paket Anda.</p>
                 </div>
               </div>
