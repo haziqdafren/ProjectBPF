@@ -52,7 +52,7 @@ class InfoUserController extends Controller
         ]);
 
 
-        return redirect('/user-profile')->with('success','Profile updated successfully');
+        return redirect('/user-profile')->with('success','Profil Sudah Berhasil Diupdate');
     }
 
     public function lacakpaket(){
