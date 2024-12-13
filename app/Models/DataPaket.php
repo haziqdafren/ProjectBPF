@@ -8,18 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class DataPaket extends Model
 {
     use HasFactory;
-<<<<<<< HEAD
+
+    // Specify the table name if it does not follow Laravel's naming conventions
     protected $table = 'data_pakets';
 
-    // Kolom yang dapat diisi secara massal (mass assignment)
+    // Fillable fields to allow mass assignment
     protected $fillable = [
-        'no_resi',
-        'produk',
-        'pemilik',
-        'ekspedisi',
-        'tanggal_tiba',
+        'no_resi', // Assuming this is the correct column name for the tracking number
+        'produk', // Product or package details
+        'pemilik', // Owner of the package
+        'ekspedisi', // Shipping or courier company
+        'tgl_tiba', // Arrival date of the package
     ];
-=======
-    
->>>>>>> bf8a7a6c211956420fb8ed0edf97fe8b6ccdb254
+
+    // Optionally, define any other properties or relationships if needed in the future
 }
