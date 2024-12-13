@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id('no_resi');
             $table->string('produk');
             $table->string('pemilik');
-            $table->eloquent('ekspedisi');
+            $table->enum('ekspedisi',['ekpedisi1','ekpedisi2','ekpedisi3','ekpedisi4']);
             $table->date('tanggal_tiba')->nullable();
-            $table->eloquent('lokasi')->nullable();
             $table->timestamps();
         });
     }

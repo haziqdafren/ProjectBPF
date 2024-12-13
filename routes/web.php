@@ -9,6 +9,7 @@ use App\Http\Controllers\SessionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataPaketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +95,4 @@ Route::get('/login', function () {
 
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::resource('data_pakets', DataPaketController::class);

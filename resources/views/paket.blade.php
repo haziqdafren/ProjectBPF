@@ -11,7 +11,7 @@
                         <h6>Tambah Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
-                        {{-- <form action="{{ route('tables') }}" method="POST"> --}}
+                        <form action="{{ route('data_pakets.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
