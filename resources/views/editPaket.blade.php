@@ -8,15 +8,23 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Tambah Data Paket</h6>
+                        <h6>Edit Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
                         {{-- <form action="{{ route('tables') }}" method="POST"> --}}
                             @csrf
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
-                                <input type="text" class="form-control" id="no_resi" name="no_resi" required>
+                                <select class="form-control" id="no_resi" name="no_resi" required>
+                                    <option value="" disabled selected>Pilih No Resi</option>
+                                    <option value="resi1">No Resi 1</option>
+                                    <option value="resi2">No Resi 2</option>
+                                    <option value="resi3">No Resi 3</option>
+                                    <option value="resi4">No Resi 4</option>
+                                    <!-- Add more options as needed -->
+                                </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="produk" class="form-control-label">Deskripsi Paket</label>
                                 <input type="text" class="form-control" id="produk" name="produk" required>

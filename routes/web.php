@@ -20,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/paket', function () {
+Route::get('/Tambah-Paket', function () {
     return view('paket'); // Pastikan file 'paket.blade.php' ada di resources/views
+});
+
+Route::get('/Edit_Paket', function () {
+    return view('editPaket'); // Pastikan file 'paket.blade.php' ada di resources/views
 });
 
 Route::group(['middleware' => 'auth'], function () {
