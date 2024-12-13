@@ -12,11 +12,11 @@ class DataPaketController extends Controller
      */
     public function index()
     {
-        // Ambil data paket dan paginasi
-        $dataPakets = DataPaket::latest()->paginate(10);
+        // Ambil semua data atau gunakan paginasi
+        $data_pakets = DataPaket::latest()->paginate(10);
 
         // Kirim data ke view
-        return view('dataPaket', compact('dataPakets'));
+        return view('data_pakets.index', compact('data_pakets'));
     }
 
     /**
@@ -35,6 +35,7 @@ class DataPaketController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
+            'no_resi' => 'required',
             'produk' => 'required|string|max:255',
             'pemilik' => 'required|string|max:255',
             'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
