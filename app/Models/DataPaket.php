@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class DataPaket extends Model
 {
     use HasFactory;
+    
 }
