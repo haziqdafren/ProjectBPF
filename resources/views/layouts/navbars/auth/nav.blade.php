@@ -13,7 +13,7 @@
             <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
                 <a href="{{ url('/logout')}}" class="nav-link text-body font-weight-bold px-0">
-                    <span class="d-sm-inline d-none" style="color: red "> <strong>Sign Out</strong></span>
+                    <span class="d-sm-inline d-none" style="color: red "> <strong>Keluar</strong></span>
                 </a>
             </li>
             {{-- <li class="nav-item px-3 d-flex align-items-center">

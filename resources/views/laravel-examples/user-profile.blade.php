@@ -12,7 +12,7 @@
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
                         <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
-                        
+
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -25,7 +25,7 @@
                         </p>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
+                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Ubah Data' }}</button>
                     </div>
                 </form>
 
