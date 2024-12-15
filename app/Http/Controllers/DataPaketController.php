@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataPaket;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Log;
 
+=======
+use Illuminate\Support\Facades\Storage;
+>>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
 
 class DataPaketController extends Controller
 {
@@ -15,10 +19,21 @@ class DataPaketController extends Controller
     public function index()
     {
         // Ambil data paket dan paginasi
+<<<<<<< HEAD
         $dataPakets = DataPaket::latest()->paginate(10);
 
         // Kirim data ke view
         return view('dataPaket', compact('dataPakets'));
+=======
+        $data_pakets = DataPaket::latest()->paginate(10);
+
+        if (request()->wantsJson()) {
+            return response()->json($data_pakets);
+        }
+
+        $data['data_pakets'] = $data_pakets;
+        return view('dataPaket', $data);
+>>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
     }
 
     /**
@@ -27,7 +42,7 @@ class DataPaketController extends Controller
     public function create()
     {
         // Tampilkan form untuk membuat data baru
-        return view('dataPaketCreate');
+        return view('data_paket_create');
     }
 
     /**
@@ -37,6 +52,7 @@ class DataPaketController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
+<<<<<<< HEAD
             'produk' => 'required|string|max:255',
             'pemilik' => 'required|string|max:255',
             'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
@@ -44,14 +60,21 @@ class DataPaketController extends Controller
              'lokasi' => 'required|in:Pos Security Utama,Pos Security GSG, Pos Security Rektorat,Rumah Tangga',
         ]);
 
+=======
+            'no_resi' => 'required|string|max:255',
+            'produk' => 'required|string|max:255',
+            'pemilik' => 'required|string|max:255',
+            'ekspedisi' => 'required|string|max:255',
+            'tanggal_tiba' => 'required|date',
+        ]);
+>>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
 
         // Simpan data ke database
         DataPaket::create($validated);
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('data_pakets.index')->with('success', 'Data paket berhasil ditambahkan.');
+        // Redirect ke halaman lain atau kembali dengan pesan sukses
+        return redirect()->route('data_pakets.index')->with('success', 'Data Paket Berhasil Disimpan');
     }
-
     /**
      * Display the specified resource.
      */
@@ -61,7 +84,7 @@ class DataPaketController extends Controller
         $dataPaket = DataPaket::findOrFail($id);
 
         // Tampilkan data di view
-        return view('dataPaketShow', compact('dataPaket'));
+        return view('data_paket_show', compact('dataPaket'));
     }
 
     /**
@@ -73,7 +96,7 @@ class DataPaketController extends Controller
         $dataPaket = DataPaket::findOrFail($id);
 
         // Tampilkan form edit
-        return view('dataPaketEdit', compact('dataPaket'));
+        return view('data_paket_edit', compact('dataPaket'));
     }
 
     /**
@@ -87,14 +110,24 @@ class DataPaketController extends Controller
             'pemilik' => 'required|string|max:255',
             'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
             'tanggal_tiba' => 'nullable|date',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
         ]);
 
-        // Update data
+        // Ambil data yang akan diupdate
         $dataPaket = DataPaket::findOrFail($id);
-        $dataPaket->update($validated);
+        $dataPaket->fill($validated);
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('data_pakets.index')->with('success', 'Data paket berhasil diperbarui.');
+        // Jika ada foto baru, hapus foto lama dan simpan foto baru
+        if ($request->hasFile('foto')) {
+            if ($dataPaket->foto && Storage::exists($dataPaket->foto)) {
+                Storage::delete($dataPaket->foto);
+            }
+            $dataPaket->foto = $request->file('foto')->store('public');
+        }
+
+        $dataPaket->save();
+
+        return redirect()->route('data_pakets.index');
     }
 
     /**
@@ -104,9 +137,15 @@ class DataPaketController extends Controller
     {
         // Hapus data berdasarkan ID
         $dataPaket = DataPaket::findOrFail($id);
+
+        // Jika ada foto yang terkait, hapus foto dari storage
+        if ($dataPaket->foto && Storage::exists($dataPaket->foto)) {
+            Storage::delete($dataPaket->foto);
+        }
+
+        // Hapus data paket
         $dataPaket->delete();
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('data_pakets.index')->with('success', 'Data paket berhasil dihapus.');
+        return redirect()->route('data_pakets.index');
     }
 }

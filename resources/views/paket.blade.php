@@ -37,8 +37,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="tgl_tiba" class="form-control-label">Tanggal Tiba</label>
-                                <input type="date" class="form-control" id="tgl_tiba" name="tgl_tiba" required>
+                                <label for="tanggal_tiba" class="form-control-label">Tanggal Tiba</label>
+                                <input type="date" class="form-control" id="tanggal_tiba" name="tanggal_tiba" required>
                             </div>
                             <div class="form-group">
                                 <label for="status" class="form-control-label">Lokasi</label>
