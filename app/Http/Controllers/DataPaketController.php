@@ -13,28 +13,19 @@ class DataPaketController extends Controller
      */
     public function index()
     {
-        // Ambil data paket dan paginasi
+        // Mengambil data paket dari database dengan paginasi
         $dataPakets = DataPaket::latest()->paginate(10);
 
-        // Kirim data ke view
-        return view('dataPaket', compact('dataPakets'));
-        $data_pakets = DataPaket::latest()->paginate(10);
-
-        if (request()->wantsJson()) {
-            return response()->json($data_pakets);
-        }
-
-        $data['data_pakets'] = $data_pakets;
-        return view('dataPaket', $data);
+        // Kirim variabel dataPakets ke view
+        return view('data_pakets.index', compact('dataPakets'));
     }
-
-    /**
+        /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         // Tampilkan form untuk membuat data baru
-        return view('data_paket_create');
+        return view('data_pakets_create');
     }
 
     /**
@@ -48,7 +39,7 @@ class DataPaketController extends Controller
             'pemilik' => 'required|string|max:255',
             'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
             'tanggal_tiba' => 'nullable|date',
-             'lokasi' => 'required|in:Pos Security Utama,Pos Security GSG, Pos Security Rektorat,Rumah Tangga',
+            'lokasi' => 'required|in:Pos Security Utama,Pos Security GSG, Pos Security Rektorat,Rumah Tangga',
         ]);
 
 
@@ -67,7 +58,7 @@ class DataPaketController extends Controller
         $dataPaket = DataPaket::findOrFail($id);
 
         // Tampilkan data di view
-        return view('data_paket_show', compact('dataPaket'));
+        return view('data_pakets_show', compact('dataPaket'));
     }
 
     /**
@@ -79,7 +70,7 @@ class DataPaketController extends Controller
         $dataPaket = DataPaket::findOrFail($id);
 
         // Tampilkan form edit
-        return view('data_paket_edit', compact('dataPaket'));
+        return view('data_pakets_edit', compact('dataPaket'));
     }
 
     /**
