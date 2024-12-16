@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DataPaket;
-<<<<<<< HEAD
-use Illuminate\Support\Facades\Log;
-
-=======
 use Illuminate\Support\Facades\Storage;
->>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
 
 class DataPaketController extends Controller
 {
@@ -19,12 +14,10 @@ class DataPaketController extends Controller
     public function index()
     {
         // Ambil data paket dan paginasi
-<<<<<<< HEAD
         $dataPakets = DataPaket::latest()->paginate(10);
 
         // Kirim data ke view
         return view('dataPaket', compact('dataPakets'));
-=======
         $data_pakets = DataPaket::latest()->paginate(10);
 
         if (request()->wantsJson()) {
@@ -33,7 +26,6 @@ class DataPaketController extends Controller
 
         $data['data_pakets'] = $data_pakets;
         return view('dataPaket', $data);
->>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
     }
 
     /**
@@ -52,7 +44,6 @@ class DataPaketController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-<<<<<<< HEAD
             'produk' => 'required|string|max:255',
             'pemilik' => 'required|string|max:255',
             'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
@@ -60,14 +51,6 @@ class DataPaketController extends Controller
              'lokasi' => 'required|in:Pos Security Utama,Pos Security GSG, Pos Security Rektorat,Rumah Tangga',
         ]);
 
-=======
-            'no_resi' => 'required|string|max:255',
-            'produk' => 'required|string|max:255',
-            'pemilik' => 'required|string|max:255',
-            'ekspedisi' => 'required|string|max:255',
-            'tanggal_tiba' => 'required|date',
-        ]);
->>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
 
         // Simpan data ke database
         DataPaket::create($validated);

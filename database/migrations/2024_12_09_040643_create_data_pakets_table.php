@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id('no_resi'); // Primary key
             $table->string('produk');
             $table->string('pemilik');
-<<<<<<< HEAD
             $table->enum('ekspedisi',['ekspedisi1','ekspedisi2','ekspedisi3','ekspedisi4']);
-=======
-            $table->enum('ekspedisi', ['ekspedisi1', 'ekspedisi2', 'ekspedisi3', 'ekspedisi4']);
->>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
             $table->date('tanggal_tiba')->nullable();
             $table->timestamps(); // Created at and updated at timestamps
         });
