@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DataPaket extends Model
 {
     use HasFactory;
-<<<<<<< HEAD
-=======
-
-    // Specify the table name if it does not follow Laravel's naming conventions
->>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
     protected $table = 'data_pakets';
 
     // Fillable fields to allow mass assignment
@@ -23,9 +18,4 @@ class DataPaket extends Model
         'ekspedisi', // Shipping or courier company
         'tgl_tiba', // Arrival date of the package
     ];
-<<<<<<< HEAD
-=======
-
-    // Optionally, define any other properties or relationships if needed in the future
->>>>>>> bec937a998c5f48ffe82336305fe73ec1c21d77e
 }

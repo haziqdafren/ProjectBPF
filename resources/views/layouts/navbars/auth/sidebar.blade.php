@@ -95,6 +95,17 @@
             <span class="nav-link-text ms-1">Histori</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (Request::is('logout') ? 'active' : '') }}" href="{{ url('logout') }}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <svg width="12px" height="12px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 13H9v-2h7V4l5 5-5 5v-2z" fill="#FFFFFF"/>
+                    <path d="M3 3h10v2H3v16h10v2H3c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2z" fill="#FFFFFF"/>
+                </svg>
+            </div>
+            <span class="nav-link-text ms-1">Logout</span>
+        </a>
+      </li>
     </ul>
   </div>
 </aside>
