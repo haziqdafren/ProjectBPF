@@ -12,10 +12,11 @@ class DataPaket extends Model
 
     // Fillable fields to allow mass assignment
     protected $fillable = [
-        'no_resi', // Assuming this is the correct column name for the tracking number
-        'produk', // Product or package details
-        'pemilik', // Owner of the package
-        'ekspedisi', // Shipping or courier company
-        'tgl_tiba', // Arrival date of the package
+        'no_resi',  // Nomor resi
+        'produk',   // Produk atau detail paket
+        'pemilik',  // Pemilik paket
+        'ekspedisi',// Ekspedisi pengiriman
+        'tgl_tiba', // Tanggal tiba paket
+        'lokasi',   // Lokasi pengiriman
     ];
 }
