@@ -11,60 +11,80 @@
                         <h6>Edit Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
-                        {{-- <form action="{{ route('tables') }}" method="POST"> --}}
+                        <form action="{{ route('data-paket.update', $dataPaket->no_resi) }}" method="POST">
                             @csrf
+                            @method('PUT') <!-- Menggunakan metode PUT untuk update -->
+
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
-                                <select class="form-control" id="no_resi" name="no_resi" required>
-                                    <option value="" disabled selected>Pilih No Resi</option>
-                                    <option value="resi1">No Resi 1</option>
-                                    <option value="resi2">No Resi 2</option>
-                                    <option value="resi3">No Resi 3</option>
-                                    <option value="resi4">No Resi 4</option>
-                                    <!-- Add more options as needed -->
-                                </select>
+                                <input type="text" class="form-control" id="no_resi" name="no_resi" value="{{ $dataPaket->no_resi }}" readonly required>
                             </div>
 
                             <div class="form-group">
-                                <label for="produk" class="form-control-label">Deskripsi Paket</label>
-                                <input type="text" class="form-control" id="produk" name="produk" required>
+                                <label for="nama_produk" class="form-control-label">Deskripsi Paket</label>
+                                <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="{{ $dataPaket->nama_produk }}" required>
+                                @error('nama_produk')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="form-group">
-                                <label for="pemilik" class="form-control-label">Nama Pemilik</label>
-                                <input type="text" class="form-control" id="pemilik" name="pemilik" required>
+                                <label for="no_hpPenerima" class="form-control-label">No HP Penerima</label>
+                                <input type="text" class="form-control" id="no_hpPenerima" name="no_hpPenerima" value="{{ $dataPaket->no_hpPenerima }}" required>
+                                @error('no_hpPenerima')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="form-group">
-                                <label for="ekspedisi" class="form-control-label">Nama Ekspedisi</label>
-                                <select class="form-control" id="ekspedisi" name="ekspedisi" required>
-                                    <option value="" disabled selected>Pilih Ekspedisi</option>
-                                    <option value="ekspedisi1">Ekspedisi 1</option>
-                                    <option value="ekspedisi2">Ekspedisi 2</option>
-                                    <option value="ekspedisi3">Ekspedisi 3</option>
-                                    <option value="ekspedisi4">Ekspedisi 4</option>
-                                    <!-- Add more options as needed -->
+                                <label for="nama_ekspedisi" class="form-control-label">Nama Ekspedisi</label>
+                                <select class="form-control" id="nama_ekspedisi" name="nama_ekspedisi" required>
+                                    <option value="" disabled>Pilih Ekspedisi</option>
+                                    <option value="JNE" {{ $dataPaket->nama_ekspedisi == 'JNE' ? 'selected' : '' }}>JNE</option>
+                                    <option value="Tiki" {{ $dataPaket->nama_ekspedisi == 'Tiki' ? 'selected' : '' }}>Tiki</option>
+                                    <option value="Pos Indonesia" {{ $dataPaket->nama_ekspedisi == 'Pos Indonesia' ? 'selected' : '' }}>Pos Indonesia</option>
+                                    <option value="Gojek" {{ $dataPaket->nama_ekspedisi == 'Gojek' ? 'selected' : '' }}>Gojek</option>
+                                    <option value="Grab" {{ $dataPaket->nama_ekspedisi == 'Grab' ? 'selected' : '' }}>Grab</option>
                                 </select>
+                                @error('nama_ekspedisi')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label for="tgl_tiba" class="form-control-label">Tanggal Tiba</label>
-                                <input type="date" class="form-control" id="tgl_tiba" name="tgl_tiba" required>
+                                <input type="date" class="form-control" id="tgl_tiba" name="tgl_tiba" value="{{ $dataPaket->tgl_tiba }}" required>
+                                @error('tgl_tiba')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
                             <div class="form-group">
-                                <label for="status" class="form-control-label">Lokasi</label>
+                                <label for="lokasi" class="form-control-label">Lokasi</label>
                                 <select class="form-control" id="lokasi" name="lokasi" required>
-                                    <option value="security">Pos Security Utama</option>
-                                    <option value="securityGSG">Pos Security GSG</option>
-                                    <option value="securityRektorat">Pos Security Rektorat</option>
-                                    <option value="rumahTangga">Rumah Tangga</option>
+                                    <option value="" disabled>Pilih Lokasi</option>
+                                    <option value="Kampus A" {{ $dataPaket->lokasi == 'Kampus A' ? 'selected' : '' }}>Kampus A</option>
+                                    <option value="Kampus B" {{ $dataPaket->lokasi == 'Kampus B' ? 'selected' : '' }}>Kampus B</option>
+                                    <option value="Kampus C" {{ $dataPaket->lokasi == 'Kampus C' ? 'selected' : '' }}>Kampus C</option>
                                 </select>
+                                @error('lokasi')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="serah_terima" class="form-control-label">Serah Terima</label>
-                                <input type="text" class="form-control" id="serah_terima" name="serah_terima">
-                            </div>
+
                             <div class="form-group">
-                                <label for="tanda_terima" class="form-control-label">Tanda Terima</label>
-                                <input type="file" class="form-control" id="tanda_terima" name="tanda_terima">
-                            </div> --}}
+                                <label for="status" class="form-control-label">Status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="" disabled>Pilih Status</option>
+                                    <option value="Dikirim" {{ $dataPaket->status == 'Dikirim' ? 'selected' : '' }}>Dikirim</option>
+                                    <option value="Dalam Perjalanan" {{ $dataPaket->status == 'Dalam Perjalanan' ? 'selected' : '' }}>Dalam Perjalanan</option>
+                                    <option value="Sampai" {{ $dataPaket->status == 'Sampai' ? 'selected' : '' }}>Sampai</option>
+                                </select>
+                                @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary bg-gradient-dark btn-sm mt-3">Simpan</button>
                             </div>

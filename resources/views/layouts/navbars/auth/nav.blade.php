@@ -11,16 +11,9 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 d-flex justify-content-end" id="navbar">
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item d-flex align-items-center me-2">
-                    <a href="{{ url('/add-package') }}" class="nav-link text-body text-dark font-weight-bold px-0">
+                    <a href="{{ url('/tambahPaket') }}" class="nav-link text-body text-dark font-weight-bold px-0">
                         <button class="btn" style="background-color: transparent;">
                             <strong>Tambah Data Paket</strong>
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item d-flex align-items-center">
-                    <a href="{{ url('/edit-package') }}" class="nav-link text-body text-dark  font-weight-bold px-0">
-                        <button class="btn" style="background-color: transparent;">
-                            <strong>Edit Data Paket</strong>
                         </button>
                     </a>
                 </li>

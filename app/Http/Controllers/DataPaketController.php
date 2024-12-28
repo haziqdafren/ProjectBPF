@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataPaket; // Pastikan untuk mengimpor model DataPaket
+use App\Models\Histori; // Pastikan untuk mengimpor model Histori
+use App\Models\LacakPaket; // Pastikan untuk mengimpor model LacakPaket
 use Illuminate\Http\Request;
-use App\Models\DataPaket;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Log;
-use  Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
-=======
-use Illuminate\Support\Facades\Storage;
->>>>>>> 60021730f9381677a4d613bd82aeee6bfe10d783
+
 
 class DataPaketController extends Controller
 {
@@ -19,27 +18,23 @@ class DataPaketController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        // Ambil data paket dan paginasi
-        $dataPakets = DataPaket::latest()->paginate(10);
+        // Ambil semua data paket dari database
+        $dataPakets = DataPaket::all();
+
+
+
 
         // Kirim data ke view
         return view('dataPaket', compact('dataPakets'));
-=======
-        // Mengambil data paket dari database dengan paginasi
-        $dataPakets = DataPaket::latest()->paginate(10);
-
-        // Kirim variabel dataPakets ke view
-        return view('data_pakets.index', compact('dataPakets'));
->>>>>>> 60021730f9381677a4d613bd82aeee6bfe10d783
     }
-        /**
+
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // Tampilkan form untuk membuat data baru
-        return view('data_pakets_create');
+        return view('paket'); // Ganti dengan view yang sesuai
     }
 
     /**
@@ -48,92 +43,131 @@ class DataPaketController extends Controller
     public function store(Request $request)
     {
         // Validasi input
-        $validated = $request->validate([
-            'produk' => 'required|string|max:255',
-            'pemilik' => 'required|string|max:255',
-            'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
-            'tanggal_tiba' => 'nullable|date',
-            'lokasi' => 'required|in:Pos Security Utama,Pos Security GSG, Pos Security Rektorat,Rumah Tangga',
+        $request->validate([
+            'no_resi' => 'required|string|unique:data_paket,no_resi',
+            'nama_produk' => 'required|string',
+            'no_hpPenerima' => 'required|string',
+            'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
+            'tgl_tiba' => 'required|date',
+            'lokasi' => 'required|in:Kampus A,Kampus B,Kampus C', // Pastikan nilai ini sesuai
+            'status' => 'required|in:Dikirim,Dalam Perjalanan,Sampai',
         ]);
 
+        // Simpan data paket
+        $dataPaket = DataPaket::create($request->all());
 
-        // Simpan data ke database
-        DataPaket::create($validated);
+        // Simpan ke histori
+        Histori::create([
+            'no_resi' => $dataPaket->no_resi,
+            'nama_produk' => $dataPaket->nama_produk,
+            'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
+            'no_hpPenerima' => $dataPaket->no_hpPenerima,
+            'tgl_tiba' => $dataPaket->tgl_tiba,
+            'lokasi' => $dataPaket->lokasi,
+            'status' => $dataPaket->status,
+        ]);
 
-        // Redirect ke halaman lain atau kembali dengan pesan sukses
-        return redirect()->route('data_pakets.index')->with('success', 'Data Paket Berhasil Disimpan');
+        // Simpan ke lacak paket
+        LacakPaket::create([
+            'no_resi' => $dataPaket->no_resi,
+            'nama_produk' => $dataPaket->nama_produk,
+            'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
+            'tgl_tiba' => $dataPaket->tgl_tiba,
+            'lokasi' => $dataPaket->lokasi,
+        ]);
+
+        // Kirim pesan WhatsApp (jika diperlukan)
+        // $this->sendWhatsAppMessage($dataPaket->no_hpPenerima, $dataPaket->no_resi);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil disimpan!');
     }
+
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($no_resi)
     {
-        // Ambil data berdasarkan ID
-        $dataPaket = DataPaket::findOrFail($id);
-
-        // Tampilkan data di view
-        return view('data_pakets_show', compact('dataPaket'));
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
+        return view('editPaket', compact('dataPaket', 'currentNoResi')); // Ganti 'your_view_name' dengan nama view Anda
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($no_resi)
     {
-        // Ambil data untuk diedit
-        $dataPaket = DataPaket::findOrFail($id);
-
-        // Tampilkan form edit
-        return view('data_pakets_edit', compact('dataPaket'));
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
+        return view('editPaket', compact('dataPaket'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $no_resi)
     {
         // Validasi input
-        $validated = $request->validate([
-            'produk' => 'required|string|max:255',
-            'pemilik' => 'required|string|max:255',
-            'ekspedisi' => 'required|in:ekspedisi1,ekspedisi2,ekspedisi3,ekspedisi4',
-            'tanggal_tiba' => 'nullable|date',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
+        $request->validate([
+            'nama_produk' => 'required|string|max:255',
+            'no_hpPenerima' => 'required|string|max:15',
+            'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
+            'tgl_tiba' => 'required|date',
+            'lokasi' => 'required|in:Kampus A,Kampus B,Kampus C',
         ]);
 
-        // Ambil data yang akan diupdate
-        $dataPaket = DataPaket::findOrFail($id);
-        $dataPaket->fill($validated);
+        // Ambil data paket untuk diperbarui
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
 
-        // Jika ada foto baru, hapus foto lama dan simpan foto baru
-        if ($request->hasFile('foto')) {
-            if ($dataPaket->foto && Storage::exists($dataPaket->foto)) {
-                Storage::delete($dataPaket->foto);
-            }
-            $dataPaket->foto = $request->file('foto')->store('public');
+        // Perbarui data paket
+        $dataPaket->update($request->all());
+
+        // Perbarui riwayat yang terkait
+        $history = Histori::where('no_resi', $no_resi)->first();
+        if ($history) {
+            $history->update([
+                'nama_produk' => $request->nama_produk,
+                'nama_ekspedisi' => $request->nama_ekspedisi,
+                'no_hpPenerima' => $request->no_hpPenerima,
+                'tgl_tiba' => $request->tgl_tiba,
+                'lokasi' => $request->lokasi,
+                // Anda bisa menambahkan kolom lain yang perlu diperbarui di sini
+            ]);
         }
 
-        $dataPaket->save();
-
-        return redirect()->route('data_pakets.index');
+        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($no_resi)
     {
-        // Hapus data berdasarkan ID
-        $dataPaket = DataPaket::findOrFail($id);
-
-        // Jika ada foto yang terkait, hapus foto dari storage
-        if ($dataPaket->foto && Storage::exists($dataPaket->foto)) {
-            Storage::delete($dataPaket->foto);
-        }
-
-        // Hapus data paket
+        // Temukan data berdasarkan no_resi, bukan id
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
         $dataPaket->delete();
 
-        return redirect()->route('data_pakets.index');
+        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil dihapus!');
     }
+
+    public function search(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'resi' => 'required|string|max:255',
+        ]);
+
+        $no_resi = $request->input('resi');
+
+        // Cari data berdasarkan no_resi
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->get();
+
+        // Hitung jumlah data yang masuk
+        $jumlahDataMasuk = DataPaket::count();
+
+        // Kembalikan view dengan data yang ditemukan
+        return view('beranda', compact('dataPaket', 'jumlahDataMasuk'));
+    }
+
 }
+

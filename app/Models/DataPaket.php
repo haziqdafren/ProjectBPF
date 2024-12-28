@@ -8,15 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class DataPaket extends Model
 {
     use HasFactory;
-    protected $table = 'data_pakets';
 
-    // Fillable fields to allow mass assignment
+    protected $table = 'data_paket';
+
+    protected $primaryKey = 'no_resi';
+
+    public $incrementing = false;
+
     protected $fillable = [
-        'no_resi',  // Nomor resi
-        'produk',   // Produk atau detail paket
-        'pemilik',  // Pemilik paket
-        'ekspedisi',// Ekspedisi pengiriman
-        'tgl_tiba', // Tanggal tiba paket
-        'lokasi',   // Lokasi pengiriman
+        'no_resi',
+        'nama_produk',
+        'nama_ekspedisi',
+        'no_hpPenerima',
+        'tgl_tiba',
+        'lokasi',
+        'status',
     ];
+
+    public function histories()
+    {
+        return $this->hasMany(Histori::class, 'no_resi', 'no_resi');
+    }
 }
+

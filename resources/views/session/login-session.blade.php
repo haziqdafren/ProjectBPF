@@ -15,30 +15,30 @@
         <div class="col-lg-5 col-md-6 d-flex flex-column mx-auto">
           <div class="card card-plain mt-8">
             <div class="card-header pb-0 text-left bg-transparent">
-              <h3 style="color: white">Mari Lacak Paketmu!</h3>
-              <p class="mb-0" style="color: white;">Buat Akun Baru<br></p>
-              <p class="mb-0" style="color: white;">Atau Masuk dengan Otoritas berikut:</p>
+              <h3 class="text-white">Mari Lacak Paketmu!</h3>
+              <p class="mb-0 text-white">Buat Akun Baru<br></p>
+              <p class="mb-0 text-white">Atau Masuk dengan Otoritas berikut:</p>
             </div>
             <div class="card-body">
               <form role="form" method="POST" action="/session">
                 @csrf
-                <label for="email" style="color: white;">Email</label>
+                <label for="email" class="text-white">Email</label>
                 <div class="mb-3">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="" aria-label="Email" aria-describedby="email-addon">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" aria-label="Email" aria-describedby="email-addon" required>
                   @error('email')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>
-                <label for="password" style="color: white;">Password</label>
+                <label for="password" class="text-white">Password</label>
                 <div class="mb-3">
-                  <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="" aria-label="Password" aria-describedby="password-addon">
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-label="Password" aria-describedby="password-addon" required>
                   @error('password')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
-                  <label class="form-check-label" for="rememberMe" style="color: white;">Ingat saya</label>
+                  <label class="form-check-label text-white" for="rememberMe">Ingat saya</label>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn w-100 mt-4 mb-0" style="background: linear-gradient(to right, #17c1e8, #007bff); color: #fff;">Masuk</button>
@@ -46,12 +46,12 @@
               </form>
             </div>
             <div class="card-footer text-center pt-0 px-lg-2 px-1">
-              <small style="color: white;">Lupa Password? Reset Password
-                <a href="register"  style="color: white">Disini</a>
+              <small class="text-white">Lupa Password? Reset Password
+                <a href="register" class="text-white">Disini</a>
               </small>
-              <p class="mb-4 text-sm mx-auto" style="color: white;">
+              <p class="mb-4 text-sm mx-auto text-white">
                 Tidak Punya akun?
-                <a href="register"  style="color: white">Daftar</a>
+                <a href="register" class="text-white">Daftar</a>
               </p>
             </div>
           </div>
@@ -62,7 +62,7 @@
                  style="border-radius: 50px;
                         background-image: url('{{ asset('assets/img/curved-images/bg3.png') }}');
                         background-size: cover;
-                        background-position: middle;
+                        background-position: center;
                         height: 50vh;
                         margin-top: 150px;">
               <!-- Gambar di sisi kanan sepenuhnya -->

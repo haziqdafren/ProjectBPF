@@ -1,0 +1,73 @@
+.custom-table {
+    width: 100%; /* Membuat tabel memenuhi lebar halaman */
+    border-radius: 10px; /* Membuat sudut tabel melengkung */
+    overflow: hidden; /* Menghindari konten melampaui batas */
+    background-color: rgba(255, 255, 255, 0.8); /* Latar belakang tabel */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada tabel */
+}
+
+.custom-table thead {
+    background-color: #007bff; /* Warna latar belakang header */
+    color: white; /* Warna teks header */
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px; /* Padding untuk sel */
+    text-align: center; /* Rata tengah teks */
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.custom-table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Warna latar belakang saat hover */
+}
+
+.custom-table tbody td {
+    color: #333; /* Warna teks untuk sel */
+    font-weight: 500; /* Ketebalan font */
+}
+
+.custom-table tbody td:nth-child(odd) {
+    background-color: rgba(240, 240, 240, 0.5); /* Warna latar belakang untuk sel ganjil */
+}
+
+
+body {
+    background-color: #f8f9fa; /* Warna latar belakang untuk seluruh halaman */
+}
+
+.card {
+    border-radius: 15px; /* Membuat sudut kartu melengkung */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada kartu */
+}
+
+.card-header {
+    border-bottom: none; /* Menghilangkan garis bawah pada header kartu */
+}
+
+.card-body {
+    padding: 2rem; /* Menambah padding di dalam kartu */
+}
+
+.form-control {
+    border-radius: 10px; /* Membuat sudut input melengkung */
+    border: 1px solid #ced4da; /* Warna border input */
+}
+
+.form-check-input {
+    margin-top: 0.3rem; /* Menyesuaikan posisi checkbox */
+}
+
+.btn {
+    border-radius: 10px; /* Membuat sudut tombol melengkung */
+}
+
+.text-white {
+    color: white; /* Memastikan teks berwarna putih */
+}
+
+.text-danger {
+    color: #dc3545; /* Warna merah untuk pesan error */
+}

@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataPaketController;
+use App\Http\Controllers\HistoriController;
+use App\Http\Controllers\LacakPaketController;
+use App\Models\Histori;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,40 +24,57 @@ use App\Http\Controllers\DataPaketController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/Tambah-Paket', function () {
+// Rute untuk menambah paket
+Route::get('/tambah-paket', function () {
     return view('paket'); // Pastikan file 'paket.blade.php' ada di resources/views
-});
+})->name('paket.tambah');
 
-Route::get('/Edit_Paket', function () {
-    return view('editPaket'); // Pastikan file 'paket.blade.php' ada di resources/views
-});
+Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
+Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
+
+// Rute untuk data paket
+Route::resource('data-paket', DataPaketController::class);
+Route::resource('histori', HistoriController::class);
+// Route untuk pencarian paket di dalam beranda
+Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
+
+// Route untuk pencarian paket di halaman lacak paket
+Route::get('search-lacak-paket', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
+
+// Route::get('/data-paket', [DataPaketController::class, 'index'])->name('data-paket.index');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/beranda', [HomeController::class, 'home'])->name('beranda'); // Menggunakan controller untuk beranda
+    Route::get('cari-paket', [DataPaketController::class, 'search'])->name('search.paket.data'); // Route untuk pencarian
 
-    Route::get('/', [HomeController::class, 'home']);
-	Route::get('beranda', function () {
-		return view('beranda');
-	})->name('beranda');
+    Route::get('billing', function () {
+        return view('billing');
+    })->name('billing');
 
-	Route::get('billing', function () {
-		return view('billing');
-	})->name('billing');
+    Route::get('profile', function () {
+        return view('profile');
+    })->name('profile');
 
-	Route::get('profile', function () {
-		return view('profile');
-	})->name('profile');
+    Route::get('rtl', function () {
+        return view('rtl');
+    })->name('rtl');
 
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
 
-	Route::get('histori', function () {
-		return view('laravel-examples/histori');
-	})->name('histori');
+	// Route::get('histori', function () {
+	// 	return view('laravel-examples/histori');
+	// })->name('histori');
 
-	Route::get('dataPaket', function () {
-		return view('dataPaket');
-	})->name('dataPaket');
+	// Route::get('dataPaket', function () {
+	// 	return view('dataPaket');
+	// })->name('dataPaket');
+
+	Route::get('tambahPaket', function () {
+		return view('paket');
+	})->name('tambah-paket');
+
+	Route::get('editPaket', function () {
+		return view('editPaket');
+	})->name('edit-paket');
 
 
     Route::get('static-sign-in', function () {

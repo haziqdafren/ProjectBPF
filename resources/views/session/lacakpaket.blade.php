@@ -21,10 +21,10 @@
                 </div>
               </div>
               <div class="card-body">
-                <form role="form" method="GET" action="{{ url('search-paket') }}">
+                <form role="form" method="GET" action="{{ route('search.paket.lacak') }}">
                   <label style="color: white;">Nomor Resi</label>
                   <div class="mb-3">
-                    <input type="text" name="resi" class="form-control" placeholder="Masukkan nomor resi" aria-label="Nomor Resi" aria-describedby="resi-addon">
+                    <input type="text" name="resi" class="form-control" placeholder="Masukkan nomor resi" aria-label="Nomor Resi" aria-describedby="resi-addon" required>
                   </div>
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Cari Paket</button>
@@ -33,32 +33,37 @@
               </div>
 
               @if(isset($results) && count($results) > 0)
-              <div class="table-responsive mt-4">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>No Resi</th>
-                      <th>Nama Security</th>
-                      <th>Lokasi</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($results as $index => $result)
-                    <tr>
-                      <td>{{ $index + 1 }}</td>
-                      <td>{{ $result->resi }}</td>
-                      <td>{{ $result->nama_security }}</td>
-                      <td>{{ $result->lokasi }}</td>
-                      <td>{{ $result->status }}</td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+            <div class="table-responsive mt-4">
+    <table class="table align-items-center mb-0 custom-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>No Resi</th>
+                <th>Nama Produk</th>
+                <th>Nama Ekspedisi</th>
+                <th>Tanggal Tiba</th>
+                <th>Lokasi</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($results as $index => $result)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $result->no_resi }}</td>
+                <td>{{ $result->nama_produk }}</td>
+                <td>{{ $result->nama_ekspedisi }}</td>
+                <td>{{ $result->tgl_tiba }}</td>
+                <td>{{ $result->lokasi }}</td>
+                <td>{{ $result->dataPaket->status ?? 'Tidak Diketahui' }}</td> <!-- Ambil status dari dataPaket -->
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
               </div>
-              @else
-              <p class="text-center mt-4" style="color: white;">Tidak ada data ditemukan.</p>
+              @elseif(isset($results) && count($results) === 0)
+              <p class="text-center mt-4" style="color: white;">Nomor resi tidak ditemukan.</p>
               @endif
             </div>
           </div>

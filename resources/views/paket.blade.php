@@ -11,52 +11,74 @@
                         <h6>Tambah Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
-                        <form action="{{ route('data_pakets.store') }}" method="POST">
+                        <form action="{{ route('data-paket.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
                                 <input type="text" class="form-control" id="no_resi" name="no_resi" required>
+                                @error('no_resi')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="produk" class="form-control-label">Deskripsi Paket</label>
-                                <input type="text" class="form-control" id="produk" name="produk" required>
+                                <label for="nama_produk" class="form-control-label">Deskripsi Paket</label>
+                                <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
+                                @error('nama_produk')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="pemilik" class="form-control-label">Nama Pemilik</label>
-                                <input type="text" class="form-control" id="pemilik" name="pemilik" required>
+                                <label for="no_hpPenerima" class="form-control-label">No HP Penerima</label>
+                                <input type="text" class="form-control" id="no_hpPenerima" name="no_hpPenerima" required>
+                                @error('no_hpPenerima')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="ekspedisi" class="form-control-label">Nama Ekspedisi</label>
-                                <select class="form-control" id="ekspedisi" name="ekspedisi" required>
+                                <label for="nama_ekspedisi" class="form-control-label">Nama Ekspedisi</label>
+                                <select class="form-control" id="nama_ekspedisi" name="nama_ekspedisi" required>
                                     <option value="" disabled selected>Pilih Ekspedisi</option>
-                                    <option value="ekspedisi1">Ekspedisi 1</option>
-                                    <option value="ekspedisi2">Ekspedisi 2</option>
-                                    <option value="ekspedisi3">Ekspedisi 3</option>
-                                    <option value="ekspedisi4">Ekspedisi 4</option>
-                                    <!-- Add more options as needed -->
+                                    <option value="JNE">JNE</option>
+                                    <option value="Tiki">Tiki</option>
+                                    <option value="Pos Indonesia">Pos Indonesia</option>
+                                    <option value="Gojek">Gojek</option>
+                                    <option value="Grab">Grab</option>
                                 </select>
+                                @error('nama_ekspedisi')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="tanggal_tiba" class="form-control-label">Tanggal Tiba</label>
-                                <input type="date" class="form-control" id="tanggal_tiba" name="tanggal_tiba" required>
+                                <label for="tgl_tiba" class="form-control-label">Tanggal Tiba</label>
+                                <input type="date" class="form-control" id="tgl_tiba" name="tgl_tiba" required>
+                                @error('tgl_tiba')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="status" class="form-control-label">Lokasi</label>
+                                <label for="lokasi" class="form-control-label">Lokasi</label>
                                 <select class="form-control" id="lokasi" name="lokasi" required>
-                                    <option value="security">Pos Security Utama</option>
-                                    <option value="securityGSG">Pos Security GSG</option>
-                                    <option value="securityRektorat">Pos Security Rektorat</option>
-                                    <option value="rumahTangga">Rumah Tangga</option>
+                                    <option value="" disabled selected>Pilih Lokasi</option>
+                                    <option value="Kampus A">Kampus A</option>
+                                    <option value="Kampus B">Kampus B</option>
+                                    <option value="Kampus C">Kampus C</option>
                                 </select>
-                            </div>
-                            {{-- <div class="form-group">
-                                <label for="serah_terima" class="form-control-label">Serah Terima</label>
-                                <input type="text" class="form-control" id="serah_terima" name="serah_terima">
+                                @error('lokasi')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="tanda_terima" class="form-control-label">Tanda Terima</label>
-                                <input type="file" class="form-control" id="tanda_terima" name="tanda_terima">
-                            </div> --}}
+                                <label for="status" class="form-control-label">Status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="Dikirim">Dikirim</option>
+                                    <option value="Dalam Perjalanan">Dalam Perjalanan</option>
+                                    <option value="Sampai">Sampai</option>
+                                </select>
+                                @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary bg-gradient-dark btn-sm mt-3">Simpan</button>
                             </div>
