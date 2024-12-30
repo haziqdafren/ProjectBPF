@@ -11,13 +11,21 @@ class HistoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // Menambahkan pencarian berdasarkan nomor resi
+    public function index(Request $request)
     {
-        // Ambil semua data histori dari database
-        $histories = Histori::all(); // Atau gunakan paginate() jika data banyak
+        // Ambil query pencarian dari request, jika ada
+        $search = $request->get('search');
+
+        // Jika ada query pencarian, filter data berdasarkan nomor resi
+        if ($search) {
+            $histories = Histori::where('no_resi', 'like', '%' . $search . '%')->get();
+        } else {
+            $histories = Histori::all(); // Ambil semua data histori jika tidak ada pencarian
+        }
 
         // Kirim data ke view
-        return view('laravel-examples/histori', compact('histories')); // Ganti 'histori.index' dengan nama view Anda
+        return view('laravel-examples/histori', compact('histories'));
     }
 
     /**
@@ -146,6 +154,10 @@ class HistoriController extends Controller
         $history->delete();
 
         return redirect()->route('histori.index')->with('success', 'Histori berhasil dihapus.');
+    }
+
+    public function search(Request $request)
+    {
     }
 }
 

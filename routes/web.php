@@ -37,6 +37,9 @@ Route::resource('data-paket', DataPaketController::class);
 Route::resource('histori', HistoriController::class);
 // Route untuk pencarian paket di dalam beranda
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
+// Route untuk mencari paket berdasarkan no resi
+Route::get('histori', [HistoriController::class, 'index'])->name('histori.index');
+Route::get('histori/search', [HistoriController::class, 'search'])->name('histori.search');
 
 // Route untuk pencarian paket di halaman lacak paket
 Route::get('search-lacak-paket', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
