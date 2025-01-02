@@ -35,6 +35,8 @@ Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name
 // Rute untuk data paket
 Route::resource('data-paket', DataPaketController::class);
 Route::resource('histori', HistoriController::class);
+Route::get('data-paket', [DataPaketController::class, 'index'])->name('data-paket.index');
+
 // Route untuk pencarian paket di dalam beranda
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
 // Route untuk mencari paket berdasarkan no resi

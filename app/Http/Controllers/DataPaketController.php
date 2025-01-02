@@ -18,15 +18,13 @@ class DataPaketController extends Controller
      */
     public function index()
     {
-        // Ambil semua data paket dari database
-        $dataPakets = DataPaket::all();
-
-
-
+        // Ambil data paket dengan pagination
+        $dataPakets = \App\Models\DataPaket::latest()->paginate(2); // Ambil 10 data per halaman
 
         // Kirim data ke view
         return view('dataPaket', compact('dataPakets'));
     }
+
 
 
     /**
