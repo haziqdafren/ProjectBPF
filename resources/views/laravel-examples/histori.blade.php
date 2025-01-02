@@ -9,7 +9,7 @@
                         <h5 class="mb-3">History</h5>
                         <form action="{{ route('histori.index') }}" method="GET" class="d-flex">
                             <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari berdasarkan nomor resi..." value="{{ request()->get('search') }}">
-                            <button class="btn btn-primary btn-sm ms-2" type="submit">Cari</button>
+                            <button class="btn btn-dark btn-sm ms-2" type="submit">Cari</button>
                         </form>
                     </div>
                 </div>

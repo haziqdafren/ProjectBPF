@@ -10,8 +10,8 @@ class ResetController extends Controller
 {
     public function create()
     {
-        return view('session/reset-password/sendEmail');
-        
+        return view('session/reset-password/resetPassword');
+
     }
 
     public function sendEmail(Request $request)

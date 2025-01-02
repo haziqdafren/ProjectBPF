@@ -19,12 +19,12 @@ class HistoriController extends Controller
 
         // Jika ada query pencarian, filter data berdasarkan nomor resi
         if ($search) {
-            $histories = \App\Models\Histori::where('no_resi', 'like', '%' . $search . '%')
+            $histories = Histori::where('no_resi', 'like', '%' . $search . '%')
                 ->latest() // Sortir berdasarkan tanggal terbaru
                 ->paginate(2); // Paginate dengan 2 data per halaman
         } else {
             // Ambil semua data histori dengan pagination jika tidak ada pencarian
-            $histories = \App\Models\Histori::latest()->paginate(2);
+            $histories = Histori::latest()->paginate(2);
         }
 
         // Kirim data ke view

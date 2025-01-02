@@ -47,7 +47,7 @@
             </div>
             <div class="card-footer text-center pt-0 px-lg-2 px-1">
               <small class="text-white">Lupa Password? Reset Password
-                <a href="register" class="text-white">Disini</a>
+                <a href="{{ url('/session/reset-password/resetPassword') }}" class="text-white">Disini</a>
               </small>
               <p class="mb-4 text-sm mx-auto text-white">
                 Tidak Punya akun?

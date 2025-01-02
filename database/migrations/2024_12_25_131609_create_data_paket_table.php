@@ -17,8 +17,8 @@ return new class extends Migration
             $table->enum('nama_ekspedisi', ['JNE', 'Tiki', 'Pos Indonesia', 'Gojek', 'Grab']);
             $table->string('no_hpPenerima');
             $table->date('tgl_tiba');
-            $table->enum('lokasi', ['Kampus A', 'Kampus B', 'Kampus C']);
-            $table->enum('status', ['Dikirim', 'Dalam Perjalanan', 'Sampai']);
+            $table->enum('lokasi', ['Kampus A', 'Kampus B', 'Kampus C']);//security dan rumah tangga
+            $table->enum('status', ['Dikirim', 'Dalam Perjalanan', 'Sampai']);// sudah diterima dan belum diterima
             $table->timestamps();
         });
     }
