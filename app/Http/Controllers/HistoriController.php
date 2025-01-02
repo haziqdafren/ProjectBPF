@@ -91,40 +91,24 @@ class HistoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $no_resi)
     {
-        // Ambil data histori untuk diedit
-        $history = Histori::findOrFail($id);
-        return view('histori.edit', compact('history')); // Ganti dengan nama view yang sesuai
+        // Cari histori berdasarkan no_resi
+        $history = Histori::where('no_resi', $no_resi)->firstOrFail();
+        return view('editHistoriFoto', compact('history')); // Mengarahkan ke file yang benar
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $no_resi)
     {
-        // Validasi input
-        $request->validate([
-            'no_resi' => 'required|string|max:255',
-            'nama_produk' => 'required|string|max:255',
-            'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
-            'no_hpPenerima' => 'required|string|max:15',
-            'tgl_tiba' => 'required|date',
-            'lokasi' => 'required|in:Kampus A,Kampus B,Kampus C',
-            'status' => 'required|in:Dikirim,Dalam Perjalanan,Sampai',
-            'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk foto
-        ]);
-
-        // Ambil histori yang akan diperbarui
-        $history = Histori::findOrFail($id);
+        // Validasi dan update data histori seperti sebelumnya
+        $history = Histori::where('no_resi', $no_resi)->firstOrFail();
 
         // Menyimpan foto jika ada
         if ($request->hasFile('foto_serah_terima')) {
-            // Hapus foto lama jika ada
             if ($history->foto_serah_terima) {
                 Storage::disk('public')->delete($history->foto_serah_terima);
             }
-            $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public'); // Simpan foto baru
+            $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public');
         }
 
         // Perbarui data histori
