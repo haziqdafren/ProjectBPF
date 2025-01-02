@@ -11,7 +11,7 @@
                         <h6>Edit Foto Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
-                        <form action="{{ route('histori.update', $history->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('histori.update', $history->no_resi) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 

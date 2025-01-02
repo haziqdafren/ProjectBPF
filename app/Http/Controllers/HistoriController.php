@@ -28,7 +28,7 @@ class HistoriController extends Controller
         }
 
         // Kirim data ke view
-        return view('laravel-examples.histori', compact('histories'));
+        return view('laravel-examples.histori',compact('histories'));
     }
 
     /**
@@ -81,13 +81,12 @@ class HistoriController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $no_resi)
     {
-        // Tampilkan detail histori berdasarkan ID
-        $history = Histori::findOrFail($id);
-        return view('histori.show', compact('history')); // Ganti dengan nama view yang sesuai
+        // Tampilkan detail histori
+        $history = Histori::where('no_resi', $no_resi)->firstOrFail();
+        return view('histori.show', compact('history'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -97,34 +96,29 @@ class HistoriController extends Controller
         $history = Histori::where('no_resi', $no_resi)->firstOrFail();
         return view('editHistoriFoto', compact('history')); // Mengarahkan ke file yang benar
     }
-
     public function update(Request $request, string $no_resi)
     {
-        // Validasi dan update data histori seperti sebelumnya
+        // Validate and update the history entry
         $history = Histori::where('no_resi', $no_resi)->firstOrFail();
 
-        // Menyimpan foto jika ada
+        // Check if a new photo is uploaded
         if ($request->hasFile('foto_serah_terima')) {
+            // Delete the old photo if it exists
             if ($history->foto_serah_terima) {
                 Storage::disk('public')->delete($history->foto_serah_terima);
             }
+            // Store the new photo
             $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public');
         }
 
-        // Perbarui data histori
+        // Update only the photo field
         $history->update([
-            'no_resi' => $request->no_resi,
-            'nama_produk' => $request->nama_produk,
-            'nama_ekspedisi' => $request->nama_ekspedisi,
-            'no_hpPenerima' => $request->no_hpPenerima,
-            'tgl_tiba' => $request->tgl_tiba,
-            'lokasi' => $request->lokasi,
-            'status' => $request->status,
+            'foto_serah_terima' => $history->foto_serah_terima,
         ]);
 
-        return redirect()->route('histori.index')->with('success', 'Histori berhasil diperbarui.');
+        // Redirect back to the index after updating
+        return redirect()->route('histori.index')->with('success', 'Foto berhasil diperbarui.');
     }
-
     /**
      * Remove the specified resource from storage.
      */

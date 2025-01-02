@@ -8,14 +8,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="mb-3">History</h5>
                         <form action="{{ route('histori.index') }}" method="GET" class="d-flex">
-<<<<<<< HEAD
                             <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari berdasarkan nomor resi..." value="{{ request()->get('search') }}">
                             <button class="btn btn-dark btn-sm ms-2" type="submit">Cari</button>
-=======
-                            <input type="text" name="search" class="form-control form-control-sm"
-                                placeholder="Cari berdasarkan nomor resi..." value="{{ request()->get('search') }}">
-                            <button class="btn btn-primary btn-sm ms-2" type="submit">Cari</button>
->>>>>>> dfc0c2c9d2c5e1576d0a611d7b1f5290145bf872
                         </form>
                     </div>
                 </div>
@@ -61,8 +55,11 @@
                                     @foreach ($histories as $history)
                                         <tr>
                                             <td>
-                                                <img src="{{ $history->foto_serah_terima }}" class="avatar avatar-sm me-3"
-                                                    alt="Foto Serah Terima">
+                                                @if($history->foto_serah_terima)
+                                                    <img src="{{ Storage::url($history->foto_serah_terima) }}" class="avatar avatar-sm me-3" alt="Foto Serah Terima">
+                                                @else
+                                                    <p class="text-muted">Tidak ada foto</p>
+                                                @endif
                                             </td>
                                             <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">{{ $history->no_resi }}</p>
@@ -93,7 +90,7 @@
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <!-- Tombol Hapus -->
-                                                <form action="{{ route('data-paket.destroy', $history->no_resi) }}"
+                                                <form action="{{ route('histori.destroy', $history->no_resi) }}"
                                                     method="POST" class="d-inline"
                                                     onsubmit="return confirm('Yakin ingin menghapus data?')">
                                                     @csrf
