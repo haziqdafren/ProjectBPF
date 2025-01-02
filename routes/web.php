@@ -43,6 +43,8 @@ Route::get('search-paket', [DataPaketController::class, 'search'])->name('search
 Route::get('histori', [HistoriController::class, 'index'])->name('histori.index');
 Route::get('histori/search', [HistoriController::class, 'search'])->name('histori.search');
 
+Route::put('histori/update/{no_resi}', [HistoriController::class, 'update'])->name('histori.update');
+
 // Route untuk pencarian paket di halaman lacak paket
 Route::get('search-lacak-paket', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
 
