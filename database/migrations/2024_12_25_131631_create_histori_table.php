@@ -18,8 +18,8 @@ return new class extends Migration
             $table->enum('nama_ekspedisi', ['JNE', 'Tiki', 'Pos Indonesia', 'Gojek', 'Grab']);//diubah
             $table->string('no_hpPenerima');
             $table->date('tgl_tiba');
-            $table->enum('lokasi', ['Kampus A', 'Kampus B', 'Kampus C']);//diubah
-            $table->enum('status', ['Dikirim', 'Dalam Perjalanan', 'Sampai']);//diubah
+            $table->enum('lokasi', ['Pos Security', 'Rumah Tangga']);//diubah
+            $table->enum('status', ['Sudah Diterima', 'Belum Diterima']);//diubah
             $table->string('foto_serah_terima')->nullable(); // Menambahkan kolom foto serah terima
             $table->timestamps();
         });

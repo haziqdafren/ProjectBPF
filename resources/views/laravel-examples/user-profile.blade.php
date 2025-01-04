@@ -10,9 +10,6 @@
         <div class="card card-body blur shadow-blur mx-4 mt-n6">
             <div class="row gx-4">
                 <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
-                    </div>
                 </div>
                 <div class="col-auto my-auto">
                     <div class="h-100">
@@ -33,7 +30,7 @@
                 <h6 class="mb-0">{{ __('Profile Information') }}</h6>
             </div>
             <div class="card-body pt-4 p-3">
-                <form action="/user-profile" method="POST" role="form text-left">
+                <form action="/profil-user" method="POST" role="form text-left">
                     @csrf
                     @if($errors->any())
                     <div class="mt-3 alert alert-primary alert-dismissible fade show" role="alert">
@@ -88,26 +85,6 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user-location" class="form-control-label">{{ __('Lokasi') }}</label>
-                                <div class="@error('location') border border-danger rounded-3 @enderror">
-                                    <input class="form-control" type="text" placeholder="Jl.intisari" id="user-location" name="location" value="{{ auth()->user()->location }}">
-                                    @error('location')
-                                    <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="about">{{ __('Tentang Saya') }}</label>
-                        <div class="@error('about_me') border border-danger rounded-3 @enderror">
-                            <textarea class="form-control" id="about" rows="3" placeholder="Tentang Kamu" name="about_me">{{ auth()->user()->about_me }}</textarea>
-                            @error('about_me')
-                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                            @enderror
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">

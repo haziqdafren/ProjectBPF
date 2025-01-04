@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_produk');
             $table->enum('nama_ekspedisi', ['JNE', 'Tiki', 'Pos Indonesia', 'Gojek', 'Grab']);
             $table->date('tgl_tiba');
-            $table->enum('lokasi', ['Kampus A', 'Kampus B', 'Kampus C']);
+            $table->enum('lokasi', ['Pos Security', 'Rumah Tangga']);
             $table->timestamps();
         });
     }

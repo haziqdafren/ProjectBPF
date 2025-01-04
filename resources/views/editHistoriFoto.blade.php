@@ -21,8 +21,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="nama_produk" class="form-control-label">Deskripsi Paket</label>
-                                <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="{{ $history->nama_produk }}" required>
+                                <label for="status" class="form-control-label">Status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="" disabled>Pilih Status</option>
+                                    <option value="Sudah Diterima" {{ $history->status == 'Sudah Diterima' ? 'selected' : '' }}>Sudah Diterima</option>
+                                    <option value="Belum Diterima" {{ $history->status == 'Belum Diterima' ? 'selected' : '' }}>Belum Diterima</option>
+                                </select>
+                                @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">

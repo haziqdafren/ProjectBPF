@@ -102,15 +102,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/lacakpaket', [InfoUserController::class, 'lacakpaket'])->withoutMiddleware('auth');
 
     Route::get('/logout', [SessionsController::class, 'destroy']);
-	Route::get('/user-profile', [InfoUserController::class, 'create']);
-	Route::post('/user-profile', [InfoUserController::class, 'store']);
+	Route::get('/profil-user', [InfoUserController::class, 'create']);
+	Route::post('/profil-user', [InfoUserController::class, 'store']);
     Route::get('/login', function () {
 		return view('beranda');
 	})->name('sign-up');
 });
 
 
-
+Route::get('auth/google', [SessionsController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [SessionsController::class, 'handleGoogleCallback']);
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [RegisterController::class, 'create']);
     Route::post('/register', [RegisterController::class, 'store']);

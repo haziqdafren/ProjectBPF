@@ -47,12 +47,10 @@ class InfoUserController extends Controller
             'name'    => $attributes['name'],
             'email' => $attribute['email'],
             'phone'     => $attributes['phone'],
-            'location' => $attributes['location'],
-            'about_me'    => $attributes["about_me"],
         ]);
 
 
-        return redirect('/user-profile')->with('success','Profil Sudah Berhasil Diupdate');
+        return redirect('/profil-user')->with('success','Profil Sudah Berhasil Diupdate');
     }
 
     public function lacakpaket(){

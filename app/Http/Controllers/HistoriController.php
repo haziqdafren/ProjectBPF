@@ -24,7 +24,7 @@ class HistoriController extends Controller
                 ->paginate(2); // Paginate dengan 2 data per halaman
         } else {
             // Ambil semua data histori dengan pagination jika tidak ada pencarian
-            $histories = Histori::latest()->paginate(2);
+            $histories = Histori::latest()->paginate(5);
         }
 
         // Kirim data ke view
@@ -52,8 +52,8 @@ class HistoriController extends Controller
             'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
             'no_hpPenerima' => 'required|string|max:15',
             'tgl_tiba' => 'required|date',
-            'lokasi' => 'required|in:Kampus A,Kampus B,Kampus C',
-            'status' => 'required|in:Dikirim,Dalam Perjalanan,Sampai',
+            'lokasi' => 'required|in:Pos Security,Rumah Tangga',
+            'status' => 'required|in:Sudah Diterima,Belum Diterima',
             'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk foto
         ]);
 
@@ -98,7 +98,13 @@ class HistoriController extends Controller
     }
     public function update(Request $request, string $no_resi)
     {
-        // Validate and update the history entry
+        // Validate the incoming request
+        $request->validate([
+            'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the photo upload
+            'status' => 'required|in:Sudah Diterima,Belum Diterima', // Validate the status as an enum
+        ]);
+
+        // Find the history entry by no_resi
         $history = Histori::where('no_resi', $no_resi)->firstOrFail();
 
         // Check if a new photo is uploaded
@@ -111,14 +117,16 @@ class HistoriController extends Controller
             $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public');
         }
 
-        // Update only the photo field
+        // Update the history entry with the new photo and status
         $history->update([
             'foto_serah_terima' => $history->foto_serah_terima,
+            'status' => $request->input('status'), // Update the status from the request
         ]);
 
         // Redirect back to the index after updating
-        return redirect()->route('histori.index')->with('success', 'Foto berhasil diperbarui.');
+        return redirect()->route('histori.index')->with('success', 'Foto dan status berhasil diperbarui.');
     }
+
     /**
      * Remove the specified resource from storage.
      */

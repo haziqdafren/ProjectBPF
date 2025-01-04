@@ -63,9 +63,8 @@
                                 <label for="lokasi" class="form-control-label">Lokasi</label>
                                 <select class="form-control" id="lokasi" name="lokasi" required>
                                     <option value="" disabled>Pilih Lokasi</option>
-                                    <option value="Kampus A" {{ $dataPaket->lokasi == 'Kampus A' ? 'selected' : '' }}>Kampus A</option>
-                                    <option value="Kampus B" {{ $dataPaket->lokasi == 'Kampus B' ? 'selected' : '' }}>Kampus B</option>
-                                    <option value="Kampus C" {{ $dataPaket->lokasi == 'Kampus C' ? 'selected' : '' }}>Kampus C</option>
+                                    <option value="Pos Security" {{ $dataPaket->lokasi == 'Pos Security' ? 'selected' : '' }}>Pos Security</option>
+                                    <option value="Rumah Tangga" {{ $dataPaket->lokasi == 'Rumah Tangga' ? 'selected' : '' }}>Rumah Tangga</option>
                                 </select>
                                 @error('lokasi')
                                     <div class="text-danger">{{ $message }}</div>
@@ -76,9 +75,8 @@
                                 <label for="status" class="form-control-label">Status</label>
                                 <select class="form-control" id="status" name="status" required>
                                     <option value="" disabled>Pilih Status</option>
-                                    <option value="Dikirim" {{ $dataPaket->status == 'Dikirim' ? 'selected' : '' }}>Dikirim</option>
-                                    <option value="Dalam Perjalanan" {{ $dataPaket->status == 'Dalam Perjalanan' ? 'selected' : '' }}>Dalam Perjalanan</option>
-                                    <option value="Sampai" {{ $dataPaket->status == 'Sampai' ? 'selected' : '' }}>Sampai</option>
+                                    <option value="Sudah Diterima" {{ $dataPaket->status == 'Sudah Diterima' ? 'selected' : '' }}>Sudah Diterima</option>
+                                    <option value="Belum Diterima" {{ $dataPaket->status == 'Belum Diterima' ? 'selected' : '' }}>Belum Diterima</option>
                                 </select>
                                 @error('status')
                                     <div class="text-danger">{{ $message }}</div>

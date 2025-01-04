@@ -44,6 +44,13 @@
                   <button type="submit" class="btn w-100 mt-4 mb-0" style="background: linear-gradient(to right, #17c1e8, #007bff); color: #fff;">Masuk</button>
                 </div>
               </form>
+
+            <!-- Google Login Button -->
+                <div class="text-center mt-3">
+                    <a href="{{ url('auth/google') }}" class="btn btn-light w-100">
+                        Masuk dengan Google
+                    </a>
+                </div>
             </div>
             <div class="card-footer text-center pt-0 px-lg-2 px-1">
               <small class="text-white">Lupa Password? Reset Password
@@ -59,9 +66,9 @@
 
         <div class="col-lg-7 col-md-6 d-none d-md-block">
             <div class="curved-image"
-                 style="border-radius: 50px;
-                        background-image: url('{{ asset('assets/img/curved-images/bg3.png') }}');
-                        background-size: cover;
+                 style="border-radius: 100px;
+                        background-image: url('{{ asset('assets/img/curved-images/bg.png') }}');
+                        background-size: contain;
                         background-position: center;
                         height: 50vh;
                         margin-top: 150px;">

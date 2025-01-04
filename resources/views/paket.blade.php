@@ -11,6 +11,18 @@
                         <h6>Tambah Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         <form action="{{ route('data-paket.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
@@ -59,9 +71,8 @@
                                 <label for="lokasi" class="form-control-label">Lokasi</label>
                                 <select class="form-control" id="lokasi" name="lokasi" required>
                                     <option value="" disabled selected>Pilih Lokasi</option>
-                                    <option value="Kampus A">Kampus A</option>
-                                    <option value="Kampus B">Kampus B</option>
-                                    <option value="Kampus C">Kampus C</option>
+                                    <option value="Pos Security">Pos Security</option>
+                                    <option value="Rumah Tangga">Rumah Tangga</option>
                                 </select>
                                 @error('lokasi')
                                     <div class="text-danger">{{ $message }}</div>
@@ -71,9 +82,8 @@
                                 <label for="status" class="form-control-label">Status</label>
                                 <select class="form-control" id="status" name="status" required>
                                     <option value="" disabled selected>Pilih Status</option>
-                                    <option value="Dikirim">Dikirim</option>
-                                    <option value="Dalam Perjalanan">Dalam Perjalanan</option>
-                                    <option value="Sampai">Sampai</option>
+                                    <option value="Sudah Diterima">Sudah Diterima</option>
+                                    <option value="Belum Diterima">Belum Diterima</option>
                                 </select>
                                 @error('status')
                                     <div class="text-danger">{{ $message }}</div>

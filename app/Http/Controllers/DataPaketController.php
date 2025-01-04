@@ -2,41 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataPaket; // Pastikan untuk mengimpor model DataPaket
-use App\Models\Histori; // Pastikan untuk mengimpor model Histori
-use App\Models\LacakPaket; // Pastikan untuk mengimpor model LacakPaket
+use App\Models\DataPaket; // Mengimpor model DataPaket
+use App\Models\Histori; // Mengimpor model Histori
+use App\Models\LacakPaket; // Mengimpor model LacakPaket
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
-
-
+use Carbon\Carbon; // Mengimpor Carbon untuk penanganan tanggal
 
 class DataPaketController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar sumber daya.
      */
     public function index()
     {
-        // Ambil data paket dengan pagination
-        $dataPakets = DataPaket::latest()->paginate(2); // Ambil 10 data per halaman
+        // Mengambil data paket dengan paginasi
+        $dataPakets = DataPaket::latest()->paginate(5); // Mengambil 2 data per halaman
 
-        // Kirim data ke view
+        // Mengirim data ke tampilan
         return view('dataPaket', compact('dataPakets'));
     }
 
-
-
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan formulir untuk membuat sumber daya baru.
      */
     public function create()
     {
-        return view('paket'); // Ganti dengan view yang sesuai
+        return view('paket'); // Mengembalikan tampilan untuk membuat paket baru
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan sumber daya yang baru dibuat ke dalam penyimpanan.
      */
     public function store(Request $request)
     {
@@ -47,61 +43,49 @@ class DataPaketController extends Controller
             'no_hpPenerima' => 'required|string',
             'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
             'tgl_tiba' => 'required|date',
-            'lokasi' => 'required|in:Kampus A,Kampus B,Kampus C', // Pastikan nilai ini sesuai
-            'status' => 'required|in:Dikirim,Dalam Perjalanan,Sampai',
+            'lokasi' => 'required|in:Pos Security,Rumah Tangga',
+            'status' => 'required|in:Sudah Diterima,Belum Diterima',
         ]);
 
-        // Simpan data paket
-        $dataPaket = DataPaket::create($request->all());
+        // Memformat nomor telepon sebelum disimpan
+        $formattedPhoneNumber = $this->formatPhoneNumber($request->no_hpPenerima);
 
-        // Simpan ke histori
+        // Memeriksa apakah paket lebih dari 2 hari
+        $tglTiba = Carbon::parse($request->tgl_tiba);
+        $isOlderThanTwoDays = $tglTiba->isPast() && $tglTiba->diffInDays(Carbon::now()) > 2;
+
+        // Menetapkan lokasi berdasarkan pemeriksaan tanggal
+        $location = $isOlderThanTwoDays ? 'Rumah Tangga' : $request->lokasi;
+
+        // Menyimpan data paket
+        $dataPaket = DataPaket::create(array_merge($request->all(), ['lokasi' => $location]));
+
+        // Menyimpan ke histori dengan lokasi yang diperbarui
         Histori::create([
             'no_resi' => $dataPaket->no_resi,
             'nama_produk' => $dataPaket->nama_produk,
             'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
-            'no_hpPenerima' => $dataPaket->no_hpPenerima,
+            'no_hpPenerima' => $formattedPhoneNumber, // Menggunakan nomor telepon yang diformat
             'tgl_tiba' => $dataPaket->tgl_tiba,
-            'lokasi' => $dataPaket->lokasi,
+            'lokasi' => $location, // Menggunakan lokasi yang diperbarui
             'status' => $dataPaket->status,
         ]);
 
-        // Simpan ke lacak paket
+        // Menyimpan untuk melacak paket dengan lokasi yang diperbarui
         LacakPaket::create([
             'no_resi' => $dataPaket->no_resi,
             'nama_produk' => $dataPaket->nama_produk,
             'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
             'tgl_tiba' => $dataPaket->tgl_tiba,
-            'lokasi' => $dataPaket->lokasi,
+            'lokasi' => $location, // Menggunakan lokasi yang diperbarui
         ]);
 
-        // Kirim pesan WhatsApp (jika diperlukan)
-        // $this->sendWhatsAppMessage($dataPaket->no_hpPenerima, $dataPaket->no_resi);
-
-        // Redirect dengan pesan sukses
-        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil disimpan!');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($no_resi)
-    {
-        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
-        return view('editPaket', compact('dataPaket', 'currentNoResi')); // Ganti 'your_view_name' dengan nama view Anda
+        // Menghasilkan URL Click to Chat
+        return $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($no_resi)
-    {
-        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
-        return view('editPaket', compact('dataPaket'));
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Memperbarui sumber daya yang ditentukan dalam penyimpanan.
      */
     public function update(Request $request, $no_resi)
     {
@@ -111,61 +95,83 @@ class DataPaketController extends Controller
             'no_hpPenerima' => 'required|string|max:15',
             'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
             'tgl_tiba' => 'required|date',
-            'lokasi' => 'required|in:Kampus A,Kampus B,Kampus C',
+            'lokasi' => 'required|in:Pos Security,Rumah Tangga',
         ]);
 
-        // Ambil data paket untuk diperbarui
+        // Mengambil paket data yang akan diperbarui
         $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
 
-        // Perbarui data paket
-        $dataPaket->update($request->all());
+        // Memeriksa apakah paket lebih dari 2 hari
+        $tglTiba = Carbon::parse($request->tgl_tiba);
+        $isOlderThanTwoDays = $tglTiba->isPast() && $tglTiba->diffInDays(Carbon::now()) > 2;
 
-        // Perbarui riwayat yang terkait
+        // Menetapkan lokasi berdasarkan pemeriksaan tanggal
+        $location = $isOlderThanTwoDays ? 'Rumah Tangga' : $request->lokasi;
+
+        // Memperbarui paket data
+        $dataPaket->update(array_merge($request->all(), ['lokasi' => $location]));
+
+        // Memformat nomor telepon sebelum mengirim pesan
+        $formattedPhoneNumber = $this->formatPhoneNumber($request->no_hpPenerima);
+
+        // Memperbarui histori terkait dengan lokasi baru
         $history = Histori::where('no_resi', $no_resi)->first();
         if ($history) {
             $history->update([
                 'nama_produk' => $request->nama_produk,
                 'nama_ekspedisi' => $request->nama_ekspedisi,
-                'no_hpPenerima' => $request->no_hpPenerima,
+                'no_hpPenerima' => $formattedPhoneNumber, // Menggunakan nomor telepon yang diformat
                 'tgl_tiba' => $request->tgl_tiba,
-                'lokasi' => $request->lokasi,
-                // Anda bisa menambahkan kolom lain yang perlu diperbarui di sini
+                'lokasi' => $location, // Menggunakan lokasi yang diperbarui
             ]);
         }
 
-        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil diperbarui.');
+        // Memperbarui paket pelacakan terkait dengan lokasi baru
+        $tracking = LacakPaket::where('no_resi', $no_resi)->first();
+        if ($tracking) {
+            $tracking->update([
+                'nama_produk' => $request->nama_produk,
+                'nama_ekspedisi' => $request->nama_ekspedisi,
+                'tgl_tiba' => $request->tgl_tiba,
+                'lokasi' => $location, // Menggunakan lokasi yang diperbarui
+            ]);
+        }
+
+        // Menghasilkan URL Click to Chat
+        return $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Mengirim pesan Click to Chat WhatsApp.
      */
-    public function destroy($no_resi)
+    private function sendWhatsAppClickToChat($phoneNumber, $noResi, $location)
     {
-        // Temukan data berdasarkan no_resi, bukan id
-        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
-        $dataPaket->delete();
+        // Menyiapkan pesan
+        $message = "Paket Anda sudah berada di lokasi: $location.\n\n" .
+        "Mohon segera mengambil paket Anda. Jika Anda ingin melihat lokasi paket Anda, silakan kunjungi link berikut: [surpa.com](https://surpa.com) dan masukkan No. Resi Anda: $noResi.\n\n" .
+        "Terima kasih.";
 
-        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil dihapus!');
+        // Membuat URL Click to Chat
+        $url = "https://wa.me/$phoneNumber?text=" . urlencode($message);
+
+        // Mencatat URL Click to Chat
+        Log::info('WhatsApp Click to Chat URL: ' . $url);
+
+        // Mengarahkan pengguna ke URL Click to Chat
+        return redirect()->away($url);
     }
 
-    public function search(Request $request)
+    /**
+     * Memformat nomor telepon ke format internasional.
+     */
+    private function formatPhoneNumber($phoneNumber)
     {
-        // Validasi input
-        $request->validate([
-            'resi' => 'required|string|max:255',
-        ]);
-
-        $no_resi = $request->input('resi');
-
-        // Cari data berdasarkan no_resi
-        $dataPaket = DataPaket::where('no_resi', $no_resi)->get();
-
-        // Hitung jumlah data yang masuk
-        $jumlahDataMasuk = DataPaket::count();
-
-        // Kembalikan view dengan data yang ditemukan
-        return view('beranda', compact('dataPaket', 'jumlahDataMasuk'));
+        // Memeriksa apakah nomor telepon dimulai dengan '0'
+        if (substr($phoneNumber, 0, 1) === '0') {
+            // Mengganti '0' dengan '+62'
+            return '+62' . substr($phoneNumber, 1);
+        }
+        // Jika nomor sudah dalam format internasional, kembalikan seperti semula
+        return $phoneNumber;
     }
-
 }
-
