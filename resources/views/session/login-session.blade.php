@@ -45,11 +45,10 @@
                 </div>
               </form>
 
-                        <!-- Google Login Button -->
-                <div class="text-center mt-3 btn w-100 mt-2 mb-0" style="background: linear-gradient(to right, #9ddcec, #007bff); color: #fff;>
-                    <a href="{{ url('auth/google') }}" class="google-btn">
-                             <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Logo" style="width: 16px; height: 16px; margin-right: 8px;">
-                        <span>Masuk Dengan Google</span>
+                <!-- Google Login Button -->
+                <div class="text-center mt-3">
+                    <a href="{{ url('auth/google') }}" class="btn btn-light w-100">
+                        Masuk dengan Google
                     </a>
                 </div>
 
