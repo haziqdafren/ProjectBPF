@@ -84,6 +84,7 @@ class DataPaketController extends Controller
         return $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
     }
 
+
     /**
      * Memperbarui sumber daya yang ditentukan dalam penyimpanan.
      */
@@ -140,6 +141,15 @@ class DataPaketController extends Controller
         // Menghasilkan URL Click to Chat
         return $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
     }
+
+    public function edit($no_resi)
+{
+    // Mengambil data paket berdasarkan no_resi
+    $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
+
+    // Mengembalikan tampilan untuk mengedit paket
+    return view('editPaket', compact('dataPaket'));
+}
 
     /**
      * Mengirim pesan Click to Chat WhatsApp.

@@ -69,7 +69,7 @@
                         background-image: url('{{ asset('assets/img/curved-images/bg.png') }}');
                         background-size: contain;
                         background-position: center;
-                        height: 50vh;
+                        height: 62vh;
                         margin-top: 150px;">
               <!-- Gambar di sisi kanan sepenuhnya -->
             </div>
