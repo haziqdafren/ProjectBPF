@@ -6,8 +6,8 @@
     <div class="row">
         @foreach ([
             ['title' => 'Jumlah Data yang Masuk', 'value' => $jumlahDataMasuk],
-            ['title' => 'Jumlah Paket pada Lokasi Security', 'value' => 20], // Ganti dengan logika yang sesuai
-            ['title' => 'Jumlah Paket pada Lokasi Lab', 'value' => 30] // Ganti dengan logika yang sesuai
+            ['title' => 'Jumlah Paket pada Pos Security', 'value' => $jumlahDataMasukPosSecurity], // Ganti dengan logika yang sesuai
+            ['title' => 'Jumlah Paket pada Rumah Tangga', 'value' => $jumlahDataMasukRumahTangga] // Ganti dengan logika yang sesuai
         ] as $card)
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">

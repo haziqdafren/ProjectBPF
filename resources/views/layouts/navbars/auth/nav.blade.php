@@ -12,7 +12,7 @@
             <ul class="navbar-nav justify-content-end">
                 <li class="nav-item d-flex align-items-center me-2">
                     <a href="{{ url('/tambahPaket') }}" class="nav-link text-body text-dark font-weight-bold px-0">
-                        <button class="btn" style="background-color: transparent;">
+                        <button class="btn btn-dark" >
                             <strong>Tambah Data Paket</strong>
                         </button>
                     </a>

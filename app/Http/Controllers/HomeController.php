@@ -11,11 +11,12 @@ class HomeController extends Controller
     {
         // Hitung jumlah data yang masuk
         $jumlahDataMasuk = DataPaket::count();
+        $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
+        $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
 
         // Kirim data ke view beranda
-        return view('beranda', compact('jumlahDataMasuk'));
+        return view('beranda', compact('jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
-
     public function search(Request $request)
     {
         // Validasi input

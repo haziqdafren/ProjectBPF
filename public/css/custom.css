@@ -94,3 +94,33 @@ button:hover {
     justify-content: center; /* Center text horizontally */
     font-size: 16px; /* Adjust font size if needed */
 }
+
+
+/* Custom styles for the sidebar active link */
+.nav-link.active {
+    background-color: black; /* Change background color to black */
+    color: white; /* Change text color to white for contrast */
+}
+
+/* Optional: Change the hover state as well */
+.nav-link:hover {
+    background-color: #333; /* Darker shade on hover */
+    color: white; /* Ensure text is white on hover */
+}
+
+/* Custom styles for dark pagination */
+.pagination {
+    background-color: #343a40; /* Dark background */
+}
+
+.pagination .page-link {
+    color: #ffffff; /* White text color */
+}
+
+.pagination .page-item.active .page-link {
+    color: #ffffff; /* White text color for active page */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d; /* Gray color for disabled links */
+}

@@ -1,15 +1,11 @@
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
-  <div class="sidenav-header">
-    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="align-items-center d-flex m-0 navbar-brand text-wrap justify-content-center" href="{{ route('beranda') }}">
-
-        Surpa
-        {{-- <span class="ms-3 font-weight-bold">Surpa</span> --}}
-    </a>
-
-
-  </div>
+    <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="align-items-center d-flex m-0 navbar-brand text-wrap justify-content-center" href="{{ route('beranda') }}">
+            <img src="../assets/img/logos/logo.png" alt="Surpa Logo" class="ms-3" style="max-height: 50px;"> <!-- Adjust max-height as needed -->
+        </a>
+    </div>
   <hr class="horizontal dark mt-0">
   <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
@@ -75,7 +71,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('histori') ? '' : '') }} " href="{{ url('histori') }}">
+        <a class="nav-link {{ (Request::is('histori') ? 'active' : '') }} " href="{{ url('histori') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>customer-support</title>

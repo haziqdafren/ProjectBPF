@@ -14,6 +14,7 @@ use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\LacakPaketController;
 use App\Models\Histori;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,8 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('sign-up');
 });
 
-
-Route::get('auth/google', [SessionsController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google', [SessionsController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [SessionsController::class, 'handleGoogleCallback']);
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [RegisterController::class, 'create']);

@@ -39,12 +39,7 @@ class SessionsController extends Controller
     // Redirect to Google for authentication
     public function redirectToGoogle()
     {
-        // Get the Google configuration from services.php
-        $googleConfig = config('services.google');
-
-        return Socialite::driver('google')
-            ->scopes($googleConfig['scopes']) // Use the scopes from the config
-            ->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     // Handle Google callback
