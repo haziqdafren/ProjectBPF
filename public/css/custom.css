@@ -124,3 +124,6 @@ button:hover {
 .pagination .page-item.disabled .page-link {
     color: #6c757d; /* Gray color for disabled links */
 }
+.nav-item .nav-link.active {
+    color: #344767 !important;
+}
