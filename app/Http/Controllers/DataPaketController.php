@@ -40,13 +40,12 @@ class DataPaketController extends Controller
         return view('paket', compact('user')); // Ensure 'paket' is the correct view name
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // Validate input
+        // Validasi input dari formulir
         $request->validate([
             'no_resi' => 'required|string|unique:data_paket,no_resi',
             'nama_produk' => 'required|string',
@@ -57,60 +56,63 @@ class DataPaketController extends Controller
             'status' => 'required|in:Sudah Diterima,Belum Diterima',
         ]);
 
-        // Check if the user is authenticated
+        // Cek apakah pengguna sudah terautentikasi
         if (!auth()->check()) {
-            Log::warning('User not authenticated when trying to create data paket.');
-            return redirect()->route('login')->with('error', 'You must be logged in to create a data package.');
+            Log::warning('Pengguna tidak terautentikasi saat mencoba membuat data paket.');
+            return redirect()->route('login')->with('error', 'Anda harus login untuk membuat data paket.');
         }
 
-        // Get the authenticated user's ID
+        // Ambil ID pengguna yang terautentikasi
         $userId = auth()->id();
-        Log::info('Authenticated User ID: ' . $userId);
+        Log::info('ID Pengguna Terautentikasi: ' . $userId);
 
-        // Format phone number before saving
+        // Format nomor telepon sebelum disimpan
         $formattedPhoneNumber = $this->formatPhoneNumber($request->no_hpPenerima);
 
-        // Check if the package is older than 2 days
+        // Cek apakah paket lebih dari 2 hari
         $tglTiba = Carbon::parse($request->tgl_tiba);
         $isOlderThanTwoDays = $tglTiba->isPast() && $tglTiba->diffInDays(Carbon::now()) > 2;
 
-        // Set location based on the date check
+        // Tentukan lokasi berdasarkan pengecekan tanggal
         $location = $isOlderThanTwoDays ? 'Rumah Tangga' : $request->lokasi;
 
-        // Prepare data for creating the data package
+        // Siapkan data untuk membuat data paket
         $dataToCreate = array_merge($request->all(), [
             'lokasi' => $location,
-            'user_id' => $userId // Store the ID of the authenticated user
+            'user_id' => $userId // Simpan ID pengguna yang terautentikasi
         ]);
 
-        // Save data package with user_id
+        // Simpan data paket dengan user_id
         $dataPaket = DataPaket::create($dataToCreate);
 
-        // Log the created data package
-        Log::info('Data Paket Created: ', $dataPaket->toArray());
+        // Log data paket yang telah dibuat
+        Log::info('Data Paket Dibuat: ', $dataPaket->toArray());
 
-        // Save to history with updated location
+        // Simpan ke histori dengan lokasi yang diperbarui
         Histori::create([
             'no_resi' => $dataPaket->no_resi,
             'nama_produk' => $dataPaket->nama_produk,
             'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
-            'no_hpPenerima' => $formattedPhoneNumber, // Using the formatted phone number
+            'no_hpPenerima' => $formattedPhoneNumber, // Menggunakan nomor telepon yang diformat
             'tgl_tiba' => $dataPaket->tgl_tiba,
-            'lokasi' => $location, // Using the updated location
+            'lokasi' => $location, // Menggunakan lokasi yang diperbarui
             'status' => $dataPaket->status,
         ]);
 
-        // Save to tracking with updated location
+        // Simpan ke pelacakan dengan lokasi yang diperbarui
         LacakPaket::create([
             'no_resi' => $dataPaket->no_resi,
             'nama_produk' => $dataPaket->nama_produk,
             'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
             'tgl_tiba' => $dataPaket->tgl_tiba,
-            'lokasi' => $location, // Using the updated location
+            'lokasi' => $location, // Menggunakan lokasi yang diperbarui
         ]);
 
-        // Redirect to a specific route with a success message
-        return redirect()->route('data-paket.index')->with('success', 'Data Paket created successfully.');
+        // Kirim pesan WhatsApp
+        $whatsappUrl = $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
+
+        // Redirect ke URL WhatsApp untuk mengirim pesan
+        return redirect()->away($whatsappUrl);
     }
 
     /**
@@ -238,8 +240,8 @@ class DataPaketController extends Controller
         // Log Click to Chat URL
         Log::info('WhatsApp Click to Chat URL: ' . $url);
 
-        // Redirect user to Click to Chat URL
-        return redirect()->away($url);
+        // Return the URL for redirect
+        return $url;
     }
 
     /**

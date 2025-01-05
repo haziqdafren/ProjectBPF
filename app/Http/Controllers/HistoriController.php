@@ -11,7 +11,6 @@ class HistoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // Menambahkan pencarian berdasarkan nomor resi
     public function index(Request $request)
     {
         // Ambil query pencarian dari request, jika ada
@@ -28,7 +27,7 @@ class HistoriController extends Controller
         }
 
         // Kirim data ke view
-        return view('laravel-examples.histori',compact('histories'));
+        return view('laravel-examples.histori', compact('histories'));
     }
 
     /**
@@ -83,57 +82,59 @@ class HistoriController extends Controller
      */
     public function show(string $no_resi)
     {
-        // Tampilkan detail histori
+        // Tampilkan detail histori berdasarkan no_resi
         $history = Histori::where('no_resi', $no_resi)->firstOrFail();
         return view('histori.show', compact('history'));
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $no_resi)
     {
         // Cari histori berdasarkan no_resi
         $history = Histori::where('no_resi', $no_resi)->firstOrFail();
-        return view('editHistoriFoto', compact('history')); // Mengarahkan ke file yang benar
+        return view('editHistoriFoto', compact('history'));
     }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $no_resi)
     {
-        // Validate the incoming request
+        // Validasi input
         $request->validate([
-            'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the photo upload
-            'status' => 'required|in:Sudah Diterima,Belum Diterima', // Validate the status as an enum
+            'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
+            'status' => 'required|in:Sudah Diterima,Belum Diterima', // Validasi status
         ]);
 
-        // Find the history entry by no_resi
+        // Temukan histori berdasarkan no_resi
         $history = Histori::where('no_resi', $no_resi)->firstOrFail();
 
-        // Check if a new photo is uploaded
+        // Cek jika ada foto baru yang diupload
         if ($request->hasFile('foto_serah_terima')) {
-            // Delete the old photo if it exists
+            // Hapus foto lama jika ada
             if ($history->foto_serah_terima) {
                 Storage::disk('public')->delete($history->foto_serah_terima);
             }
-            // Store the new photo
+            // Simpan foto baru
             $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public');
         }
 
-        // Update the history entry with the new photo and status
+        // Update entri histori dengan foto baru dan status
         $history->update([
             'foto_serah_terima' => $history->foto_serah_terima,
-            'status' => $request->input('status'), // Update the status from the request
+            'status' => $request->input('status'), // Update status dari request
         ]);
 
-        // Redirect back to the index after updating
+        // Redirect kembali ke index setelah memperbarui
         return redirect()->route('histori.index')->with('success', 'Foto dan status berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $no_resi)
     {
-        // Hapus histori berdasarkan ID
-        $history = Histori::findOrFail($id);
+        // Hapus histori berdasarkan no_resi
+        $history = Histori::where('no_resi', $no_resi)->firstOrFail();
 
         // Hapus foto jika ada
         if ($history->foto_serah_terima) {
@@ -145,8 +146,11 @@ class HistoriController extends Controller
         return redirect()->route('histori.index')->with('success', 'Histori berhasil dihapus.');
     }
 
+    /**
+     * Search for a specific resource.
+     */
     public function search(Request $request)
     {
+        // Implementasi pencarian jika diperlukan
     }
 }
-

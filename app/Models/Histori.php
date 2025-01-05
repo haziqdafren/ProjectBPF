@@ -12,7 +12,7 @@ class Histori extends Model
 
     protected $table = 'histori';
 
-    protected $primaryKey = 'id_histori';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'no_resi',

@@ -24,9 +24,9 @@ class SessionsController extends Controller
 
         if (Auth::attempt($attributes)) {
             session()->regenerate();
-            return redirect('beranda')->with(['success' => 'You are logged in.']);
+            return redirect('beranda')->with(['success' => 'Sudah Masuk.']);
         } else {
-            return back()->withErrors(['email' => 'Email or password invalid.']);
+            return back()->withErrors(['email' => 'Email dan password tidak sesuai.']);
         }
     }
 
@@ -36,7 +36,7 @@ class SessionsController extends Controller
         return redirect('/login')->with(['success' => 'You\'ve been logged out.']);
     }
 
-    // Redirect to Google for authentication
+    // Masuk menggunakan Google
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -49,27 +49,27 @@ class SessionsController extends Controller
             $googleUser = Socialite::driver('google')->user();
         } catch (\Exception $e) {
             Log::error('Google login error: ' . $e->getMessage());
-            return redirect('/login')->withErrors(['google' => 'Failed to login with Google.']);
+            return redirect('/login')->withErrors(['google' => 'Gagal login dengan Google.']);
         }
 
         // Check if $googleUser is null
         if (!$googleUser) {
-            return redirect('/login')->withErrors(['google' => 'Failed to retrieve user information from Google.']);
+            return redirect('/login')->withErrors(['google' => 'Gagal Mengambil data dari Google.']);
         }
 
-        // Check if the user already exists in your database
+        // Jika user sudah ada email google
         $user = User::where('email', $googleUser->getEmail())->first();
 
         if (!$user) {
-            // If the user does not exist, create a new user
+            // Jika user belum ada, buat user baru
             $user = User::create([
                 'name' => $googleUser->getName(),
                 'email' => $googleUser->getEmail(),
-                'password' => bcrypt(bin2hex(random_bytes(8))), // Generate a random password
+                'password' => bcrypt(bin2hex(random_bytes(8))), // Menghasilkan password acak
             ]);
         }
 
-        // Log the user in
+        // Masukkan user ke halaman login
         Auth::login($user, true);
 
         // Redirect to your desired location

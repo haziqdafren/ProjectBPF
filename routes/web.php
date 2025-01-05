@@ -47,14 +47,13 @@ Route::get('histori/search', [HistoriController::class, 'search'])->name('histor
 // Route for searching packages
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
 
-// Route for tracking packages
+// Route untuk melihat index lacakpaket
 Route::get('/lacakpaket', [LacakPaketController::class, 'index'])->name('lacak.paket');
-
-// Route for searching packages based on tracking number
+// Route untuk mencari pada lacakpaket
 Route::get('/lacak-paket/search', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
 
 
-// Route for help
+// Route untuk tampilan bantuan
 Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');
 
 // Group routes that require authentication

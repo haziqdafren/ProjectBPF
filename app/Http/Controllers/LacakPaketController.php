@@ -24,6 +24,6 @@ class LacakPaketController extends Controller
     }
 
     public function index(){
-        return view('session/lacakpaket'); // Ganti dengan nama view yang sesuai
+        return view('session/lacakpaket'); 
     }
 }
