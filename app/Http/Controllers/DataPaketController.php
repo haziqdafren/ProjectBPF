@@ -206,6 +206,22 @@ class DataPaketController extends Controller
         return view('beranda', compact('dataPaket', 'jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
 
+    public function destroy($no_resi)
+    {
+        // Find the package by no_resi
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->first();
+
+        if (!$dataPaket) {
+            return redirect()->route('data-paket.index')->with('error', 'Data paket tidak ditemukan.');
+        }
+
+        // Delete the package
+        $dataPaket->delete();
+
+        // Redirect back with a success message
+        return redirect()->route('data-paket.index')->with('success', 'Data paket berhasil dihapus.');
+    }
+
     /**
      * Send Click to Chat WhatsApp message.
      */
@@ -213,7 +229,7 @@ class DataPaketController extends Controller
     {
         // Prepare message
         $message = "Paket Anda sudah berada di lokasi: $location.\n\n" .
-        "Mohon segera mengambil paket Anda. Jika Anda ingin melihat lokasi paket Anda, silakan kunjungi link berikut: [surpa.com](https://surpa.com) dan masukkan No. Resi Anda: $noResi.\n\n" .
+        "Mohon segera mengambil paket Anda. Jika Anda ingin melihat lokasi paket Anda, silakan kunjungi link berikut: .... dan masukkan No. Resi Anda: $noResi.\n\n" .
         "Terima kasih.";
 
         // Create Click to Chat URL

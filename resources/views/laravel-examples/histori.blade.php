@@ -89,7 +89,7 @@
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <!-- Tombol Hapus -->
+                                                {{-- <!-- Tombol Hapus -->
                                                 <form action="{{ route('histori.destroy', $history->no_resi) }}"
                                                     method="POST" class="d-inline"
                                                     onsubmit="return confirm('Yakin ingin menghapus data?')">
@@ -98,7 +98,7 @@
                                                     <button class="btn btn-danger btn-sm" type="submit">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
