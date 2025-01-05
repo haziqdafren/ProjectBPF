@@ -22,4 +22,8 @@ class LacakPaketController extends Controller
         // Kembalikan view dengan data yang ditemukan
         return view('session/lacakpaket', compact('results'));
     }
+
+    public function index(){
+        return view('session/lacakpaket'); // Ganti dengan nama view yang sesuai
+    }
 }
