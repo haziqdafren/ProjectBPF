@@ -108,32 +108,6 @@ h4, .h4 {
   font-size: calc(1.275rem + 0.3vw);
 }
 
-/* Sidebar akan tersembunyi di layar kecil */
-@media (max-width: 768px) {
-    #sidenav-main {
-        width: 60px; /* Lebar sidebar kecil */
-        position: fixed; /* Tetap berada di posisi tetap */
-    }
-
-    #sidenav-main .navbar-collapse {
-        display: none; /* Menyembunyikan navbar collapse di layar kecil */
-    }
-
-    #sidenav-main.active .navbar-collapse {
-        display: block; /* Menampilkan navbar collapse jika sidebar aktif */
-    }
-
-    #sidenav-main .nav-item {
-        display: block;
-        text-align: center;
-    }
-
-    #iconSidenav {
-        display: block; /* Menampilkan tombol close */
-    }
-}
-
-
 @media (min-width: 1200px) {
   h4, .h4 {
     font-size: 1.5rem;

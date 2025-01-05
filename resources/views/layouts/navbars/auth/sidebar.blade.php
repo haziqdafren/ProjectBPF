@@ -1,7 +1,7 @@
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
     <div class="sidenav-header">
-        <i class="fas fa-bars p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0" id="iconSidenav"></i> <!-- Menambah icon menu -->
+        <i class="fas fa-bars p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0" id="iconSidenav"></i> <!-- Menambah icon menu pada sidenav -->
         <a class="align-items-center d-flex m-0 navbar-brand text-wrap justify-content-center" href="{{ route('beranda') }}">
             <img src="../assets/img/logos/logo.png" alt="Surpa Logo" class="ms-3" style="max-height: 50px;">
         </a>
