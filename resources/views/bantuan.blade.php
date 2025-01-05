@@ -9,7 +9,7 @@
                  background-size: cover;
                  background-position: center;
                  background-repeat: no-repeat;">
-    <div class="page-header min-vh-75">
+    <div class="page-header min-vh-100">
       <div class="container">
         <div class="row">
           <div class="col-xl-6 col-lg-7 col-md-8 d-flex flex-column mx-auto">
