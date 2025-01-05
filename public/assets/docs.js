@@ -32,8 +32,4 @@
     }
   }
 })();
-document.getElementById('iconSidenav').addEventListener('click', function () {
-  var sidenav = document.getElementById('sidenav-main');
-  sidenav.classList.toggle('active');
-});
 
