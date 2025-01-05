@@ -61,49 +61,50 @@
         </div>
     </div>
 
-    <!-- Tabel Hasil Pencarian -->
-    @if(isset($dataPaket) && $dataPaket->isNotEmpty())
-    <div class="container-fluid py-1 px-1">
-        <div class="card p-1">
-            <div class="card-body">
-                <table class="table align-items-center mb-0" id="resultTable">
-                    <thead>
+   <!-- Tabel Hasil Pencarian -->
+@if(isset($dataPaket) && $dataPaket->isNotEmpty())
+<div class="container-fluid py-1 px-1">
+    <div class="card p-1">
+        <div class="card-body">
+            <table class="table align-items-center mb-0" id="resultTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">No Resi</th>
+                        <th class="text-center">Nama Produk</th>
+                        <th class="text-center">Nama Ekspedisi</th>
+                        <th class="text-center">No HP Penerima</th>
+                        <th class="text-center">Tanggal Tiba</th>
+                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($dataPaket as $item)
                         <tr>
-                            <th class="text-center">No Resi</th>
-                            <th class="text-center">Nama Produk</th>
-                            <th class="text-center">Nama Ekspedisi</th>
-                            <th class="text-center">No HP Penerima</th>
-                            <th class="text-center">Tanggal Tiba</th>
-                            <th class="text-center">Lokasi</th>
-                            <th class="text-center">Status</th>
+                            <td class="text-center">{{ $item->no_resi }}</td>
+                            <td class="text-center">{{ $item->nama_produk }}</td>
+                            <td class="text-center">{{ $item->nama_ekspedisi }}</td>
+                            <td class="text-center">{{ $item->no_hpPenerima }}</td>
+                            <td class="text-center">{{ $item->tgl_tiba }}</td>
+                            <td class="text-center">{{ $item->lokasi }}</td>
+                            <td class="text-center">{{ $item->status }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($dataPaket as $item)
-                            <tr>
-                                <td class="text-center">{{ $item->no_resi }}</td>
-                                <td class="text-center">{{ $item->nama_produk }}</td>
-                                <td class="text-center">{{ $item->nama_ekspedisi }}</td>
-                                <td class="text-center">{{ $item->no_hpPenerima }}</td>
-                                <td class="text-center">{{ $item->tgl_tiba }}</td>
-                                <td class="text-center">{{ $item->lokasi }}</td>
-                                <td class="text-center">{{ $item->status }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <!-- Pagination links -->
-                {{ $dataPaket->links() }}
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
+            <!-- Pagination links -->
+            {{ $dataPaket->links() }}
         </div>
     </div>
-    @else
-        @if(isset($dataPaket))
-            <div class="alert alert-warning" role="alert">
-                No results found for your search.
-            </div>
-        @endif
+</div>
+@else
+    @if(isset($dataPaket))
+        <div class="alert alert-warning" role="alert">
+            No results found for your search.
+        </div>
     @endif
+@endif
+
 </div>
 
 @section('scripts')

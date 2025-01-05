@@ -3,37 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataPaket; // Pastikan model ini ada
+use App\Models\DataPaket; // Ensure this model exists
 
 class HomeController extends Controller
 {
     public function home()
     {
-        // Hitung jumlah data yang masuk
+        // Count the total number of data packages
         $jumlahDataMasuk = DataPaket::count();
         $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
         $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
 
-        // Kirim data ke view beranda
+        // Send data to the beranda view
         return view('beranda', compact('jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
+
     public function search(Request $request)
     {
-        // Validasi input
+        // Validate input
         $request->validate([
             'resi' => 'required|string|max:255',
         ]);
 
         $no_resi = $request->input('resi');
 
-        // Cari data berdasarkan no_resi
-        $dataPaket = DataPaket::where('no_resi', $no_resi)->get();
+        // Search for data based on no_resi
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->paginate(5); // Use paginate for better UX
 
-        // Hitung jumlah data yang masuk
+        // Count the total number of data packages
         $jumlahDataMasuk = DataPaket::count();
+        $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
+        $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
 
-        // Kembalikan view dengan data yang ditemukan
-        return view('beranda', compact('dataPaket', 'jumlahDataMasuk'));
+        // Return the view with the found data
+        return view('beranda', compact('dataPaket', 'jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
-
 }
