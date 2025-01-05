@@ -24,18 +24,18 @@ use App\Http\Controllers\HelpController;
 |
 */
 
-// Route for adding a package
+// Route untuk tambah data paket
 Route::get('/tambah-paket', [DataPaketController::class, 'create'])->name('data-paket.create');
 
-// Route for editing a package
+// Resource untuk data paket
+Route::resource('data-paket', DataPaketController::class);
 Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
 Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
 
 // Route for searching packages
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
 
-// Resource routes for data packages
-Route::resource('data-paket', DataPaketController::class);
+
 Route::resource('histori', HistoriController::class);
 
 // Route for the home page
@@ -44,7 +44,7 @@ Route::get('/home', [HomeController::class, 'home'])->name('home');
 // Route for searching packages in the history
 Route::get('histori/search', [HistoriController::class, 'search'])->name('histori.search');
 
-// Route for searching packages
+// Route untuk mencari data paket
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
 
 // Route untuk melihat index lacakpaket

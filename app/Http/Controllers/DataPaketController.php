@@ -17,7 +17,7 @@ class DataPaketController extends Controller
     public function index()
     {
         // Fetching data packages with pagination
-        $dataPakets = DataPaket::latest()->paginate(5); // Fetching 5 data per page
+        $dataPakets = DataPaket::latest()->paginate(5);
 
         // Sending data to the view
         return view('dataPaket', compact('dataPakets'));
@@ -28,16 +28,14 @@ class DataPaketController extends Controller
      */
     public function create()
     {
-        // Get the authenticated user
-        $user = auth()->user(); // This retrieves the currently authenticated user
 
-        // Check if the user is authenticated
+        $user = auth()->user();
+
         if (!$user) {
             return redirect()->route('login')->with('error', 'You must be logged in to create a data package.');
         }
 
-        // Pass the user to the view
-        return view('paket', compact('user')); // Ensure 'paket' is the correct view name
+        return view('paket', compact('user')); 
     }
 
     /**
@@ -186,14 +184,12 @@ class DataPaketController extends Controller
 
     public function search(Request $request)
     {
-        // Validate the search input
         $request->validate([
             'resi' => 'required|string|max:255',
         ]);
 
         $no_resi = $request->input('resi');
 
-        // Search for data based on no_resi
         $dataPaket = DataPaket::where('no_resi', 'LIKE', "%{$no_resi}%")
             ->orWhere('nama_produk', 'LIKE', "%{$no_resi}%")
             ->orWhere('no_hpPenerima', 'LIKE', "%{$no_resi}%")
