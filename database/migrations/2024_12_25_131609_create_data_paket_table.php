@@ -12,14 +12,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('data_paket', function (Blueprint $table) {
-            $table->id('no_resi');
+            $table->id();
+            $table->string('no_resi')->unique();
             $table->string('nama_produk');
-            $table->enum('nama_ekspedisi', ['JNE', 'Tiki', 'Pos Indonesia', 'Gojek', 'Grab']);
             $table->string('no_hpPenerima');
+            $table->string('nama_ekspedisi');
             $table->date('tgl_tiba');
-            $table->enum('lokasi', ['Pos Security', 'Rumah Tangga']);//security dan rumah tangga
-            $table->enum('status', ['Sudah Diterima', 'Belum Diterima']);// sudah diterima dan belum diterima
+            $table->string('lokasi');
+            $table->enum('status', ['Sudah Diterima', 'Belum Diterima']);
             $table->timestamps();
+
+
         });
     }
 

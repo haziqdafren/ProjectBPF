@@ -12,13 +12,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lacak_paket', function (Blueprint $table) {
-            $table->id('id_lacak');
-            $table->foreignId('no_resi')->constrained('data_paket', 'no_resi')->onDelete('cascade'); // Pastikan kolom yang dirujuk benar
+            $table->id('id_lacak'); // Primary key
+            $table->string('no_resi'); // Define no_resi as a string
             $table->string('nama_produk');
             $table->enum('nama_ekspedisi', ['JNE', 'Tiki', 'Pos Indonesia', 'Gojek', 'Grab']);
             $table->date('tgl_tiba');
             $table->enum('lokasi', ['Pos Security', 'Rumah Tangga']);
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('no_resi')->references('no_resi')->on('data_paket')->onDelete('cascade');
         });
     }
 

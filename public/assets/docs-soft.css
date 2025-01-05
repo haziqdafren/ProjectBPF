@@ -1015,7 +1015,7 @@ code[class*=language-], pre[class*=language-] {
 .ct-docs-content-col > ul > li > a,
 .ct-docs-description a {
   text-decoration: none;
-  color: #923dfa;
+  color: #000000;
   background-color: transparent;
 }
 

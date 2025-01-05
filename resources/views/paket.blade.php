@@ -23,6 +23,9 @@
                             </div>
                         @endif
 
+                        <!-- Display the logged-in user's name -->
+                        <p>Logged in as: <strong>{{ $user->name }}</strong></p>
+
                         <form action="{{ route('data-paket.store') }}" method="POST">
                             @csrf
                             <div class="form-group">

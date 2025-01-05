@@ -17,8 +17,6 @@ class User extends Authenticatable implements MustVerifyEmail // Implementing Mu
         'email',
         'password',
         'phone',
-        'location',
-        'about_me',
     ];
 
     protected $hidden = [
@@ -29,4 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail // Implementing Mu
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     // Define the relationship with DataPaket
+     public function dataPakets()
+     {
+         return $this->hasMany(DataPaket::class);
+     }
 }

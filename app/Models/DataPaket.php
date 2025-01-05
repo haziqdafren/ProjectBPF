@@ -29,5 +29,11 @@ class DataPaket extends Model
     {
         return $this->hasMany(Histori::class, 'no_resi', 'no_resi');
     }
+
+   // Define the relationship with the User model
+       public function user()
+       {
+           return $this->belongsTo(User::class);
+       }
 }
 

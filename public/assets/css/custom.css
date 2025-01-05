@@ -71,3 +71,63 @@ body {
 .text-danger {
     color: #dc3545; /* Warna merah untuk pesan error */
 }
+
+.card-custom {
+    border-radius: 15px;
+    background-color: rgb(255, 253, 253);
+}
+
+.text-primary {
+    color: #007bff; /* Bootstrap primary color */
+}
+
+.text-dark {
+    color: #343a40; /* Bootstrap dark color */
+}
+
+/* Sidebar styles */
+.sidenav {
+    background-color: #f8f9fa; /* Light background for the sidebar */
+}
+
+.nav-link {
+    color: #333; /* Default text color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover and active states */
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
+}
+
+/* Active link styles */
+.nav-link.active {
+    background-color: #343a40; /* Dark background for active link */
+    color: #ffffff; /* White text for active link */
+}
+
+/* Change icon color when the link is active */
+.nav-link.active .icon {
+    background-color: #495057; /* Dark background for icon when active */
+    fill: #ffffff; /* Change icon color to white when active */
+}
+
+/* Change the icon color directly */
+.nav-link.active .icon svg {
+    fill: #ffffff; /* Ensure the SVG icon color is white */
+}
+
+/* Optional: Change the icon background color */
+.icon {
+    background-color: #ffffff; /* White background for icons */
+    padding: 10px; /* Padding for icons */
+    transition: background-color 0.3s, fill 0.3s; /* Smooth transition for icon background and color */
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(180deg, #343a40 0%, #212529 100%) !important; /* Change to dark colors */
+}
+
+.text-primary {
+    color: #ffffff !important; /* Change text color to white */
+}
+

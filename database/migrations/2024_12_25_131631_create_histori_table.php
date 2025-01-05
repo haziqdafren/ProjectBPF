@@ -12,16 +12,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('histori', function (Blueprint $table) {
-            $table->id('id_histori');
-            $table->foreignId('no_resi')->constrained('data_paket', 'no_resi')->onDelete('cascade'); // Pastikan kolom yang dirujuk benar
+            $table->id();
+            $table->string('no_resi'); // Ensure this matches the type in data_paket
             $table->string('nama_produk');
-            $table->enum('nama_ekspedisi', ['JNE', 'Tiki', 'Pos Indonesia', 'Gojek', 'Grab']);//diubah
+            $table->string('nama_ekspedisi');
             $table->string('no_hpPenerima');
             $table->date('tgl_tiba');
-            $table->enum('lokasi', ['Pos Security', 'Rumah Tangga']);//diubah
-            $table->enum('status', ['Sudah Diterima', 'Belum Diterima']);//diubah
-            $table->string('foto_serah_terima')->nullable(); // Menambahkan kolom foto serah terima
+            $table->string('lokasi');
+            $table->enum('status', ['Sudah Diterima', 'Belum Diterima']);
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('no_resi')->references('no_resi')->on('data_paket')->onDelete('cascade');
         });
     }
 

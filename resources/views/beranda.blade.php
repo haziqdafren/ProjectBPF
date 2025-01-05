@@ -6,8 +6,8 @@
     <div class="row">
         @foreach ([
             ['title' => 'Jumlah Data yang Masuk', 'value' => $jumlahDataMasuk],
-            ['title' => 'Jumlah Paket pada Pos Security', 'value' => $jumlahDataMasukPosSecurity], // Ganti dengan logika yang sesuai
-            ['title' => 'Jumlah Paket pada Rumah Tangga', 'value' => $jumlahDataMasukRumahTangga] // Ganti dengan logika yang sesuai
+            ['title' => 'Jumlah Paket pada Pos Security', 'value' => $jumlahDataMasukPosSecurity],
+            ['title' => 'Jumlah Paket pada Rumah Tangga', 'value' => $jumlahDataMasukRumahTangga]
         ] as $card)
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
@@ -92,9 +92,17 @@
                         @endforeach
                     </tbody>
                 </table>
+                <!-- Pagination links -->
+                {{ $dataPaket->links() }}
             </div>
         </div>
     </div>
+    @else
+        @if(isset($dataPaket))
+            <div class="alert alert-warning" role="alert">
+                No results found for your search.
+            </div>
+        @endif
     @endif
 </div>
 

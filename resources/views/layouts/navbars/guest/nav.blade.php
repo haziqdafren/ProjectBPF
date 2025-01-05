@@ -48,8 +48,14 @@
         </li>
         <li class="nav-item">
             <a class="nav-link me-2" href="{{ url('lacakpaket') }}">
-                <i class="fas fa-search opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }} rotate-icon"></i>
+                <i class="fas fa-search opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
                 Lacak Paket
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link me-2" href="{{ url('bantuan') }}">
+                <i class="fas fa-info-circle opacity-5 me-1 {{ (Request::is('bantuan') ? 'text-dark' : '') }}"></i>
+                Bantuan
             </a>
         </li>
       </ul>

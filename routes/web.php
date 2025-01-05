@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\LacakPaketController;
+use App\Http\Controllers\HelpController;
 use App\Models\Histori;
 
 
@@ -32,6 +33,8 @@ Route::get('/tambah-paket', function () {
 
 Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
 Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
+Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
+
 
 // Rute untuk data paket
 Route::resource('data-paket', DataPaketController::class);
@@ -53,10 +56,11 @@ Route::put('histori/{no_resi}', [HistoriController::class, 'update'])->name('his
 // Route to show the resource (if needed)
 Route::get('histori/{no_resi}', [HistoriController::class, 'show'])->name('histori.show');
 
-// Route untuk pencarian paket di halaman lacak paket
-Route::get('search-lacak-paket', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
+// Route for searching data packages
+Route::get('search-paket', [HomeController::class, 'search'])->name('search.paket.data');
 
-// Route::get('/data-paket', [DataPaketController::class, 'index'])->name('data-paket.index');
+Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/beranda', [HomeController::class, 'home'])->name('beranda'); // Menggunakan controller untuk beranda
@@ -74,18 +78,17 @@ Route::group(['middleware' => 'auth'], function () {
         return view('rtl');
     })->name('rtl');
 
-
-	// Route::get('histori', function () {
-	// 	return view('laravel-examples/histori');
-	// })->name('histori');
-
-	// Route::get('dataPaket', function () {
-	// 	return view('dataPaket');
-	// })->name('dataPaket');
+   // Route for searching data packages
+    Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
+    // Route for storing new data paket
+    Route::post('data-paket', [DataPaketController::class, 'store'])->name('data-paket.store');
 
 	Route::get('tambahPaket', function () {
 		return view('paket');
 	})->name('tambah-paket');
+
+        // Route to show the form for creating a new data package
+        Route::get('/tambah-paket', [DataPaketController::class, 'create'])->name('data-paket.create');
 
 	Route::get('editPaket', function () {
 		return view('editPaket');
@@ -99,6 +102,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', function () {
 		return view('static-sign-up');
 	})->name('sign-up');
+
+
 
     Route::get('/lacakpaket', [InfoUserController::class, 'lacakpaket'])->withoutMiddleware('auth');
 
