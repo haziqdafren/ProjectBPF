@@ -1,13 +1,13 @@
 
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
     <div class="sidenav-header">
-        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <i class="fas fa-bars p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0" id="iconSidenav"></i> <!-- Menambah icon menu -->
         <a class="align-items-center d-flex m-0 navbar-brand text-wrap justify-content-center" href="{{ route('beranda') }}">
-            <img src="../assets/img/logos/logo.png" alt="Surpa Logo" class="ms-3" style="max-height: 50px;"> <!-- Adjust max-height as needed -->
+            <img src="../assets/img/logos/logo.png" alt="Surpa Logo" class="ms-3" style="max-height: 50px;">
         </a>
     </div>
-  <hr class="horizontal dark mt-0">
-  <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link {{ (Request::is('beranda') ? 'active' : '') }}" href="{{ url('beranda') }}">
@@ -26,7 +26,7 @@
                   </g>
                 </svg>
               </div>
-              <span class="nav-link-text ms-1">Beranda</span>
+              <span class="nav-link-text ms-1" style="color: #6A4C9C;">Beranda</span>
             </a>
           </li>
       <li class="nav-item">
