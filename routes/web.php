@@ -41,7 +41,7 @@ Route::resource('histori', HistoriController::class);
 // Route for the home page
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 
-// Route for searching packages in the history
+// Route untuk mencari pada data histori
 Route::get('histori/search', [HistoriController::class, 'search'])->name('histori.search');
 
 // Route untuk mencari data paket
@@ -49,6 +49,7 @@ Route::get('search-paket', [DataPaketController::class, 'search'])->name('search
 
 // Route untuk melihat index lacakpaket
 Route::get('/lacakpaket', [LacakPaketController::class, 'index'])->name('lacak.paket');
+
 // Route untuk mencari pada lacakpaket
 Route::get('/lacak-paket/search', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
 
@@ -59,7 +60,7 @@ Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');
 // Group routes that require authentication
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/beranda', [HomeController::class, 'home'])->name('beranda'); // Home page
-    Route::post('data-paket', [DataPaketController::class, 'store'])->name('data-paket.store'); // Store new data paket
+    Route::post('data-paket', [DataPaketController::class, 'store'])->name('data-paket.store');
     Route::get('billing', function () {
         return view('billing');
     })->name('billing');

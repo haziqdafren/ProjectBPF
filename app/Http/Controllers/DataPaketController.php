@@ -35,7 +35,7 @@ class DataPaketController extends Controller
             return redirect()->route('login')->with('error', 'You must be logged in to create a data package.');
         }
 
-        return view('paket', compact('user')); 
+        return view('paket', compact('user'));
     }
 
     /**
@@ -166,8 +166,12 @@ class DataPaketController extends Controller
             ]);
         }
 
-        // Generate Click to Chat URL
-        return $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
+         // Kirim pesan WhatsApp
+         $whatsappUrl = $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $location);
+
+         // Redirect ke URL WhatsApp untuk mengirim pesan
+         return redirect()->away($whatsappUrl);
+
     }
 
     /**
@@ -224,33 +228,35 @@ class DataPaketController extends Controller
      * Send Click to Chat WhatsApp message.
      */
     private function sendWhatsAppClickToChat($phoneNumber, $noResi, $location)
-    {
-        // Prepare message
-        $message = "Paket Anda sudah berada di lokasi: $location.\n\n" .
-        "Mohon segera mengambil paket Anda. Jika Anda ingin melihat lokasi paket Anda, silakan kunjungi link berikut: .... dan masukkan No. Resi Anda: $noResi.\n\n" .
-        "Terima kasih.";
+{
+    // Menyusun pesan yang akan dikirim melalui WhatsApp
+    $message = "Paket Anda sudah berada di lokasi: $location.\n\n" .
+    "Mohon segera mengambil paket Anda. Jika Anda ingin melihat lokasi paket Anda, silakan kunjungi link berikut: .... dan masukkan No. Resi Anda: $noResi.\n\n" .
+    "Terima kasih.";
 
-        // Create Click to Chat URL
-        $url = "https://wa.me/$phoneNumber?text=" . urlencode($message);
+    // Membuat URL untuk WhatsApp Click to Chat dengan nomor telepon dan pesan yang telah di-encode
+    $url = "https://wa.me/$phoneNumber?text=" . urlencode($message);
 
-        // Log Click to Chat URL
-        Log::info('WhatsApp Click to Chat URL: ' . $url);
+    // Mencatat URL Click to Chat ke dalam log untuk keperluan debugging
+    Log::info('WhatsApp Click to Chat URL: ' . $url);
 
-        // Return the URL for redirect
-        return $url;
+    // Mengembalikan URL yang telah dibuat
+    return $url;
+}
+
+/**
+ * Memformat nomor telepon ke format internasional.
+ */
+private function formatPhoneNumber($phoneNumber)
+{
+    // Memeriksa apakah nomor telepon diawali dengan '0'
+    if (substr($phoneNumber, 0, 1) === '0') {
+        // Mengganti '0' dengan '+62' untuk format internasional
+        return '+62' . substr($phoneNumber, 1);
     }
 
-    /**
-     * Format phone number to international format.
-     */
-    private function formatPhoneNumber($phoneNumber)
-    {
-        // Check if the phone number starts with '0'
-        if (substr($phoneNumber, 0, 1) === '0') {
-            // Replace '0' with '+62'
-            return '+62' . substr($phoneNumber, 1);
-        }
-        // If the number is already in international format, return as is
-        return $phoneNumber;
-    }
+    // Jika nomor sudah dalam format internasional, kembalikan seperti semula
+    return $phoneNumber;
+}
+
 }
