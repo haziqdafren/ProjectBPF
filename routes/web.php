@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\LacakPaketController;
+use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\HelpController;
 
 /*
@@ -53,6 +54,8 @@ Route::get('/lacakpaket', [LacakPaketController::class, 'index'])->name('lacak.p
 // Route untuk mencari pada lacakpaket
 Route::get('/lacak-paket/search', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
 
+// Route untuk menu ekpedisi
+Route::resource('ekspedisi', EkspedisiController::class);
 
 // Route untuk tampilan bantuan
 Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');
