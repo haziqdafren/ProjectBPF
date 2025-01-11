@@ -54,8 +54,11 @@ Route::get('/lacakpaket', [LacakPaketController::class, 'index'])->name('lacak.p
 // Route untuk mencari pada lacakpaket
 Route::get('/lacak-paket/search', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
 
-// Route untuk menu ekpedisi
+// Route untuk ekpedisi
 Route::resource('ekspedisi', EkspedisiController::class);
+Route::get('ekspedisi_index', [EkspedisiController::class, 'index'])->name('ekspedisi.index');
+Route::get('ekspedisi/{ekspedisi}/edit', [EkspedisiController::class, 'edit'])->name('ekspedisi.edit'); // Ensure 'edit' route is using GET
+Route::put('ekspedisi/{ekspedisi}', [EkspedisiController::class, 'update'])->name('ekspedisi.update');
 
 // Route untuk tampilan bantuan
 Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');
