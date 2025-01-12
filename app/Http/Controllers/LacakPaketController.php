@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\LacakPaket; // Pastikan model ini ada
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class LacakPaketController extends Controller
 {
@@ -12,22 +14,23 @@ class LacakPaketController extends Controller
     {
         // Validasi input
         $request->validate([
-            'no_resi' => 'required|string|max:255',
-            'nama_pemilik' => 'nullable|string|max:255', // Tambahkan validasi untuk nama pemilik
+            'query' => 'required|string|max:255', // Validasi untuk query
         ]);
 
-        $no_resi = $request->input('no_resi');
-        $nama_pemilik = $request->input('nama_pemilik');
+        $query = $request->input('query');
 
-        // Cari data berdasarkan no_resi dan nama_pemilik
-        $results = LacakPaket::with('ekspedisi') // Memuat relasi ekspedisi
-            ->where('no_resi', $no_resi)
-            ->orWhere('nama_pemilik', 'like', '%' . $nama_pemilik . '%') // Pencarian berdasarkan nama_pemilik
-            ->get();
+        // Membangun query
+        $results = LacakPaket::with('ekspedisi')
+            ->where('no_resi', 'LIKE', "%{$query}%") // Mencari berdasarkan no_resi
+            ->orWhere('nama_pemilik', 'LIKE', "%{$query}%") // Mencari berdasarkan nama_pemilik
+            ->paginate(5); // Gunakan paginate untuk membatasi hasil
 
         // Kembalikan view dengan data yang ditemukan
         return view('session.lacakpaket', compact('results'));
     }
+
+
+
 
 
 

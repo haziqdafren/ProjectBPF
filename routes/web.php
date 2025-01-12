@@ -33,8 +33,6 @@ Route::resource('data-paket', DataPaketController::class);
 Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
 Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
 
-// Route for searching packages
-Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
 
 Route::resource('ekspedisi', EkspedisiController::class);
 

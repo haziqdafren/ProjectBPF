@@ -22,14 +22,15 @@
               </div>
               <div class="card-body">
                 <form role="form" method="GET" action="{{ route('search.paket.lacak') }}">
-                  <label style="color: white;">Nomor Resi</label>
-                  <div class="mb-3">
-                    <input type="text" name="resi" class="form-control" placeholder="Masukkan nomor resi" aria-label="Nomor Resi" aria-describedby="resi-addon" required>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Cari Paket</button>
-                  </div>
+                    <label style="color: white;">Nomor Resi atau Nama Pemilik</label>
+                    <div class="mb-3">
+                        <input type="text" name="query" class="form-control" placeholder="Masukkan nomor resi atau nama pemilik" aria-label="Nomor Resi atau Nama Pemilik" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Cari Paket</button>
+                    </div>
                 </form>
+
               </div>
 
               @if(isset($results) && count($results) > 0)
@@ -43,6 +44,7 @@
                         <th>Tanggal Tiba</th>
                         <th>Lokasi</th>
                         <th>Status</th>
+                        <th>Nama Pemilik</th> <!-- Tambahkan kolom untuk nama pemilik -->
                       </tr>
                     </thead>
                     <tbody>
@@ -53,7 +55,8 @@
                           <td>{{ $result->ekspedisi ? $result->ekspedisi->nama_ekspedisi : 'Tidak Diketahui' }}</td> <!-- Ambil nama ekspedisi -->
                           <td>{{ \Carbon\Carbon::parse($result->tgl_tiba)->format('d/m/Y') }}</td> <!-- Format tanggal -->
                           <td>{{ $result->lokasi }}</td>
-                          <td>{{ $result->status ?? 'Tidak Diketahui' }}</td> <!-- Ambil status dari dataPaket -->
+                          <td>{{ $result->dataPaket ? $result->dataPaket->status : 'Tidak Diketahui' }}</td> <!-- Ambil status dari dataPaket -->
+                          <td>{{ $result->nama_pemilik }}</td> <!-- Tampilkan nama pemilik -->
                         </tr>
                       @endforeach
                     </tbody>
