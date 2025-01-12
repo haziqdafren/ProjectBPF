@@ -41,6 +41,7 @@
                                 <label for="status" class="form-control-label">Lokasi</label>
                                 <select class="form-control" id="lokasi" name="lokasi" required>
                                     <option value="" disabled>Pilih Lokasi</option>
+                                    <option value="Pos Security" {{ $history->lokasi== 'Pos Security' ? 'selected' : '' }}>Pos Security</option>
                                     <option value="Rumah Tangga" {{ $history->lokasi== 'Rumah Tangga' ? 'selected' : '' }}>Rumah Tangga</option>
                                 </select>
                                 @error('status')

@@ -85,7 +85,7 @@
                                <td class="text-center">{{ $item->nama_pemilik }}</td>
                                <td class="text-center">{{ $item->no_resi }}</td>
                                <td class="text-center">{{ $item->nama_produk }}</td>
-                               <td class="text-center">{{ $item->nama_ekspedisi }}</td>
+                               <td class="text-center">{{ $item->ekspedisi ? $item->ekspedisi->nama_ekspedisi : 'Tidak Diketahui' }}</td>
                                <td class="text-center">{{ $item->no_hpPenerima }}</td>
                                <td class="text-center">{{ \Carbon\Carbon::parse($item->tgl_tiba)->format('d/m/Y') }}</td>
                                <td class="text-center">{{ $item->lokasi }}</td>
