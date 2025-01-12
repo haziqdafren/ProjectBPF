@@ -37,7 +37,6 @@
                   <table class="table align-items-center mb-0 custom-table">
                     <thead>
                       <tr>
-                        <th>No</th>
                         <th>No Resi</th>
                         <th>Nama Produk</th>
                         <th>Nama Ekspedisi</th>
@@ -49,7 +48,6 @@
                     <tbody>
                       @foreach($results as $index => $result)
                         <tr>
-                          <td>{{ $index + 1 }}</td>
                           <td>{{ $result->no_resi }}</td>
                           <td>{{ $result->nama_produk }}</td>
                           <td>{{ $result->ekspedisi ? $result->ekspedisi->nama_ekspedisi : 'Tidak Diketahui' }}</td> <!-- Ambil nama ekspedisi -->
