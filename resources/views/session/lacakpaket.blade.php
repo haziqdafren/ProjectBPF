@@ -33,37 +33,36 @@
               </div>
 
               @if(isset($results) && count($results) > 0)
-            <div class="table-responsive mt-4">
-    <table class="table align-items-center mb-0 custom-table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>No Resi</th>
-                <th>Nama Produk</th>
-                <th>Nama Ekspedisi</th>
-                <th>Tanggal Tiba</th>
-                <th>Lokasi</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($results as $index => $result)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $result->no_resi }}</td>
-                <td>{{ $result->nama_produk }}</td>
-                <td>{{ $result->nama_ekspedisi }}</td>
-                <td>{{ $result->tgl_tiba }}</td>
-                <td>{{ $result->lokasi }}</td>
-                <td>{{ $result->dataPaket->status ?? 'Tidak Diketahui' }}</td> <!-- Ambil status dari dataPaket -->
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
-              </div>
+                <div class="table-responsive mt-4">
+                  <table class="table align-items-center mb-0 custom-table">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>No Resi</th>
+                        <th>Nama Produk</th>
+                        <th>Nama Ekspedisi</th>
+                        <th>Tanggal Tiba</th>
+                        <th>Lokasi</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($results as $index => $result)
+                        <tr>
+                          <td>{{ $index + 1 }}</td>
+                          <td>{{ $result->no_resi }}</td>
+                          <td>{{ $result->nama_produk }}</td>
+                          <td>{{ $result->ekspedisi ? $result->ekspedisi->nama_ekspedisi : 'Tidak Diketahui' }}</td> <!-- Ambil nama ekspedisi -->
+                          <td>{{ \Carbon\Carbon::parse($result->tgl_tiba)->format('d/m/Y') }}</td> <!-- Format tanggal -->
+                          <td>{{ $result->lokasi }}</td>
+                          <td>{{ $result->status ?? 'Tidak Diketahui' }}</td> <!-- Ambil status dari dataPaket -->
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
               @elseif(isset($results) && count($results) === 0)
-              <p class="text-center mt-4" style="color: white;">Nomor resi tidak ditemukan.</p>
+                <p class="text-center mt-4" style="color: white;">Nomor resi tidak ditemukan.</p>
               @endif
             </div>
           </div>
