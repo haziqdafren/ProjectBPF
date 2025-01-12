@@ -17,7 +17,7 @@ class Histori extends Model
     protected $fillable = [
         'no_resi',
         'nama_produk',
-        'nama_ekspedisi',
+        'ekspedisi_id',
         'no_hpPenerima',
         'tgl_tiba',
         'lokasi',
@@ -28,6 +28,11 @@ class Histori extends Model
     public function dataPaket()
     {
         return $this->belongsTo(DataPaket::class, 'no_resi', 'no_resi'); // Pastikan kolom yang digunakan untuk relasi benar
+    }
+
+    public function ekspedisi()
+    {
+        return $this->belongsTo(Ekspedisi::class, 'ekspedisi_id', 'Id_ekpedisi');
     }
 
 

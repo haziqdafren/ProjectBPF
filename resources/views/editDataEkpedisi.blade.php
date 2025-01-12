@@ -23,9 +23,11 @@
                             </div>
                         @endif
 
+                        <!-- Form untuk mengedit ekspedisi -->
                         <form action="{{ route('ekspedisi.update', $ekspedisi->Id_ekpedisi) }}" method="POST">
                             @csrf
                             @method('PUT')
+
                             <div class="form-group">
                                 <label for="nama_ekspedisi" class="form-control-label">Nama Ekspedisi</label>
                                 <input type="text" class="form-control" id="nama_ekspedisi" name="nama_ekspedisi" value="{{ $ekspedisi->nama_ekspedisi }}" required>

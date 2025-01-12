@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataPaketController;
 use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\LacakPaketController;
-use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\EkspedisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +30,13 @@ Route::get('/tambah-paket', [DataPaketController::class, 'create'])->name('data-
 
 // Resource untuk data paket
 Route::resource('data-paket', DataPaketController::class);
+Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
+Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
 
 // Route for searching packages
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');
+
+Route::resource('ekspedisi', EkspedisiController::class);
 
 
 Route::resource('histori', HistoriController::class);
@@ -52,11 +56,6 @@ Route::get('/lacakpaket', [LacakPaketController::class, 'index'])->name('lacak.p
 // Route untuk mencari pada lacakpaket
 Route::get('/lacak-paket/search', [LacakPaketController::class, 'search'])->name('search.paket.lacak');
 
-// Route untuk ekpedisi
-Route::resource('ekspedisi', EkspedisiController::class);
-Route::get('ekspedisi_index', [EkspedisiController::class, 'index'])->name('ekspedisi.index');
-Route::get('ekspedisi/{ekspedisi}/edit', [EkspedisiController::class, 'edit'])->name('ekspedisi.edit'); // Ensure 'edit' route is using GET
-Route::put('ekspedisi/{ekspedisi}', [EkspedisiController::class, 'update'])->name('ekspedisi.update');
 
 // Route untuk tampilan bantuan
 Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');

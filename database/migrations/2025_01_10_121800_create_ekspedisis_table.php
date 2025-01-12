@@ -9,21 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('ekspedisis', function (Blueprint $table) {
-            $table->id('Id_ekpedisi');
+        Schema::create('ekspedisi', function (Blueprint $table) {
+            $table->string('Id_ekpedisi')->primary(); // Pastikan ini adalah primary key
             $table->string('nama_ekspedisi');
             $table->string('kontak');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('ekspedisis');
+        Schema::dropIfExists('ekspedisi');
     }
 };

@@ -35,14 +35,13 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                                <!-- Lokasi dan Status dihapus dari form -->
-                                <div class="form-group">
-                                    <label for="nama_pemilik" class="form-control-label">Nama Pemilik</label>
-                                    <input type="text" class="form-control" id="nama_pemilik" name="nama_pemilik" required>
-                                    @error('nama_pemilik')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                            <div class="form-group">
+                                <label for="nama_pemilik" class="form-control-label">Nama Pemilik</label>
+                                <input type="text" class="form-control" id="nama_pemilik" name="nama_pemilik" required>
+                                @error('nama_pemilik')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="form-group">
                                 <label for="nama_produk" class="form-control-label">Deskripsi Paket</label>
                                 <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
@@ -58,16 +57,14 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="nama_ekspedisi" class="form-control-label">Nama Ekspedisi</label>
-                                <select class="form-control" id="nama_ekspedisi" name="nama_ekspedisi" required>
+                                <label for="ekspedisi_id" class="form-control-label">Nama Ekspedisi</label>
+                                <select class="form-control" id="ekspedisi_id" name="ekspedisi_id" required>
                                     <option value="" disabled selected>Pilih Ekspedisi</option>
-                                    <option value="JNE">JNE</option>
-                                    <option value="Tiki">Tiki</option>
-                                    <option value="Pos Indonesia">Pos Indonesia</option>
-                                    <option value="Gojek">Gojek</option>
-                                    <option value="Grab">Grab</option>
+                                    @foreach($ekspedisis as $ekspedisi)
+                                        <option value="{{ $ekspedisi->Id_ekpedisi }}">{{ $ekspedisi->nama_ekspedisi }}</option>
+                                    @endforeach
                                 </select>
-                                @error('nama_ekspedisi')
+                                @error('ekspedisi_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

@@ -18,7 +18,7 @@ class DataPaket extends Model
     protected $fillable = [
         'no_resi',
         'nama_produk',
-        'nama_ekspedisi',
+        'ekspedisi_id',
         'no_hpPenerima',
         'tgl_tiba',
         'lokasi',
@@ -38,5 +38,11 @@ class DataPaket extends Model
        {
            return $this->belongsTo(User::class);
        }
+
+        // Definisikan relasi dengan model Ekspedisi
+    public function ekspedisi()
+    {
+        return $this->belongsTo(Ekspedisi::class, 'ekspedisi_id', 'Id_ekpedisi');
+    }
 }
 

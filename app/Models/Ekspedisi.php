@@ -9,12 +9,12 @@ class Ekspedisi extends Model
 {
     use HasFactory;
 
-    protected $table = 'ekspedisis';
+    protected $table = 'ekspedisi';
 
     protected $primaryKey = 'Id_ekpedisi';
 
     public $incrementing = false;  // Jika primary key bukan auto increment
-    
+
     protected $keyType = 'string';  // Jika tipe primary key adalah string
 
     protected $fillable = [
@@ -22,5 +22,11 @@ class Ekspedisi extends Model
         'nama_ekspedisi',
         'kontak',
     ];
+
+    public function dataPaket()
+    {
+        return $this->belongsTo(DataPaket::class,  'ekspedisi_id', 'Id_ekpedisi'); // Pastikan kolom yang digunakan untuk relasi benar
+    }
+
 }
 

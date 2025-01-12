@@ -37,19 +37,6 @@
                                     @enderror
                                 </div>
 
-<<<<<<< HEAD
-                            <div class="form-group">
-                                <label for="status" class="form-control-label">Status</label>
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="" disabled>Pilih Status</option>
-                                    <option value="Sudah Diterima" {{ $history->status == 'Sudah Diterima' ? 'selected' : '' }}>Sudah Diterima</option>
-                                    <option value="Belum Diterima" {{ $history->status == 'Belum Diterima' ? 'selected' : '' }}>Belum Diterima</option>
-                                </select>
-                                @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
                             <div class="form-group">
                                 <label for="status" class="form-control-label">Lokasi</label>
                                 <select class="form-control" id="lokasi" name="lokasi" required>
@@ -73,22 +60,6 @@
                                 <button type="submit" class="btn btn-dark">Simpan</button>
                             </div>
                         </form>
-=======
-                                <div class="form-group">
-                                    <label for="foto_serah_terima" class="form-control-label">Foto Serah Terima</label>
-                                    <input type="file" class="form-control" id="foto_serah_terima"
-                                        name="foto_serah_terima">
-                                    @if ($history->foto_serah_terima)
-                                        <img src="{{ Storage::url($history->foto_serah_terima) }}" alt="Foto Serah Terima"
-                                            width="100" class="mt-2">
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-dark">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
->>>>>>> c5aaa38c9e69381c91542c86d69c8cc8e7dfcc04
                     </div>
                 </div>
             </div>

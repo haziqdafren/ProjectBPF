@@ -24,7 +24,7 @@ class HistoriController extends Controller
                 ->paginate(2); // Paginate dengan 2 data per halaman
         } else {
             // Ambil semua data histori dengan pagination jika tidak ada pencarian
-            $histories = Histori::latest()->paginate(5);
+            $histories = Histori::with('ekspedisi')->paginate(5);
         }
 
         // Kirim data ke view

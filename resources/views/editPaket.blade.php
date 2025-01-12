@@ -17,7 +17,7 @@
 
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
-                                <input type="text" class="form-control" id="no_resi" name="no_resi" value="{{ $dataPaket->no_resi }}"required>
+                                <input type="text" class="form-control" id="no_resi" name="no_resi" value="{{ $dataPaket->no_resi }}" required>
                             </div>
 
                             <div class="form-group">
@@ -45,16 +45,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="nama_ekspedisi" class="form-control-label">Nama Ekspedisi</label>
-                                <select class="form-control" id="nama_ekspedisi" name="nama_ekspedisi" required>
+                                <label for="ekspedisi_id" class="form-control-label">Nama Ekspedisi</label>
+                                <select class="form-control" id="ekspedisi_id" name="ekspedisi_id" required>
                                     <option value="" disabled>Pilih Ekspedisi</option>
-                                    <option value="JNE" {{ $dataPaket->nama_ekspedisi == 'JNE' ? 'selected' : '' }}>JNE</option>
-                                    <option value="Tiki" {{ $dataPaket->nama_ekspedisi == 'Tiki' ? 'selected' : '' }}>Tiki</option>
-                                    <option value="Pos Indonesia" {{ $dataPaket->nama_ekspedisi == 'Pos Indonesia' ? 'selected' : '' }}>Pos Indonesia</option>
-                                    <option value="Gojek" {{ $dataPaket->nama_ekspedisi == 'Gojek' ? 'selected' : '' }}>Gojek</option>
-                                    <option value="Grab" {{ $dataPaket->nama_ekspedisi == 'Grab' ? 'selected' : '' }}>Grab</option>
+                                    @foreach($ekspedisis as $ekspedisi)
+                                        <option value="{{ $ekspedisi->Id_ekpedisi }}" {{ $dataPaket->ekspedisi_id == $ekspedisi->Id_ekpedisi ? 'selected' : '' }}>
+                                            {{ $ekspedisi->nama_ekspedisi }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                @error('nama_ekspedisi')
+                                @error('ekspedisi_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -66,7 +66,6 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary bg-gradient-dark btn-sm mt-3">Simpan</button>

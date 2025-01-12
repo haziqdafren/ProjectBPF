@@ -16,7 +16,7 @@ class LacakPaket extends Model
     protected $fillable = [
         'no_resi',
         'nama_produk',
-        'nama_ekspedisi',
+        'ekspedisi_id',
         'tgl_tiba',
         'lokasi',
         'status',
@@ -26,5 +26,10 @@ class LacakPaket extends Model
     public function dataPaket()
     {
         return $this->belongsTo(DataPaket::class, 'no_resi', 'no_resi');
+    }
+
+    public function ekspedisi()
+    {
+        return $this->belongsTo(Ekspedisi::class, 'ekspedisi_id', 'Id_ekpedisi');
     }
 }

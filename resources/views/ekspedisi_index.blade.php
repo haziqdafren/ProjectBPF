@@ -47,8 +47,9 @@
                                                 <p class="text-xs font-weight-bold mb-0">{{ $ekspedisi->kontak }}</p>
                                             </td>
                                             <td>
-                                                <a href="{{ route('ekspedisi.edit', $ekspedisi->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                <form action="{{ route('ekspedisi.destroy', $ekspedisi->id) }}" method="POST" style="display: inline-block;">
+                                                <a href="{{ route('ekspedisi.edit', $ekspedisi->Id_ekpedisi) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                                                <form action="{{ route('ekspedisi.destroy', $ekspedisi->Id_ekpedisi) }}" method="POST" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus ekspedisi ini?')">Hapus</button>

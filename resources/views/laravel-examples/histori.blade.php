@@ -49,7 +49,7 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $history->nama_produk }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $history->nama_ekspedisi }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $history->ekspedisi ? $history->ekspedisi->nama_ekspedisi : 'Tidak Diketahui'}}</p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">{{ $history->no_hpPenerima }}</p>

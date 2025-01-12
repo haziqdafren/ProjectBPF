@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ekspedisi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EkspedisiController extends Controller
 {
@@ -23,21 +24,18 @@ class EkspedisiController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data input
         $request->validate([
-            'Id_ekspedisi' => 'required|string|max:255', // Pastikan 'ekspedisis' adalah nama tabel yang benar
+            'Id_ekpedisi' => 'required|string|max:255',
             'nama_ekspedisi' => 'required|string|max:255',
             'kontak' => 'required|string|max:255',
         ]);
 
-        // Menyimpan data ekspedisi baru
         Ekspedisi::create([
-            'Id_ekspedisi' => $request->Id_ekspedisi,
+            'Id_ekpedisi' => $request->Id_ekpedisi,
             'nama_ekspedisi' => $request->nama_ekspedisi,
             'kontak' => $request->kontak,
         ]);
 
-        // Redirect ke halaman daftar ekspedisi dengan pesan sukses
         return redirect()->route('ekspedisi.index')->with('success', 'Data ekspedisi berhasil disimpan.');
     }
 
@@ -62,7 +60,6 @@ class EkspedisiController extends Controller
 
         return redirect()->route('ekspedisi.index')->with('success', 'Data ekspedisi berhasil diperbarui.');
     }
-
     public function destroy(Ekspedisi $ekspedisi)
     {
         // Menghapus ekspedisi yang dipilih

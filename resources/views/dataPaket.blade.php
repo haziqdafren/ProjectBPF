@@ -44,7 +44,7 @@
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->nama_produk }}</p>
                                             </td>
                                             <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->nama_ekspedisi }}</p>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->ekspedisi ? $item->ekspedisi->nama_ekspedisi : 'Tidak Diketahui' }}</p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->no_hpPenerima }}</p>

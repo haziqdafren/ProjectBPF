@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataPaket; // Importing the DataPaket model
 use App\Models\Histori; // Importing the Histori model
 use App\Models\LacakPaket; // Importing the LacakPaket model
+use App\Models\Ekspedisi; // Importing the Ekspedisi model
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon; // Importing Carbon for date handling
@@ -16,8 +17,7 @@ class DataPaketController extends Controller
      */
     public function index()
     {
-        // Fetching data packages with pagination
-        $dataPakets = DataPaket::latest()->paginate(5);
+        $dataPakets = DataPaket::with('ekspedisi')->paginate(10); // Memuat relasi ekspedisi
 
         // Sending data to the view
         return view('dataPaket', compact('dataPakets'));
@@ -28,15 +28,18 @@ class DataPaketController extends Controller
      */
     public function create()
     {
-
         $user = auth()->user();
 
         if (!$user) {
             return redirect()->route('login')->with('error', 'You must be logged in to create a data package.');
         }
 
-        return view('paket', compact('user'));
+        // Ambil semua data ekspedisi dari database
+        $ekspedisis = Ekspedisi::all();
+
+        return view('paket', compact('user', 'ekspedisis')); // Pastikan 'ekspedisis' ada di compact
     }
+
 
 
     public function store(Request $request)
@@ -46,7 +49,7 @@ class DataPaketController extends Controller
             'no_resi' => 'required|string|unique:data_paket,no_resi',
             'nama_produk' => 'required|string',
             'no_hpPenerima' => 'required|string',
-            'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
+            'ekspedisi_id' => 'required|exists:ekspedisi,Id_ekpedisi', // Validasi ID ekspedisi
             'tgl_tiba' => 'required|date',
             'nama_pemilik' => 'required|string|max:255', // Validasi untuk nama pemilik
             'bukti_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk foto
@@ -91,7 +94,7 @@ class DataPaketController extends Controller
         Histori::create([
             'no_resi' => $dataPaket->no_resi,
             'nama_produk' => $dataPaket->nama_produk,
-            'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
+            'ekspedisi_id' => $dataPaket->ekspedisi_id, // Simpan ID ekspedisi
             'no_hpPenerima' => $formattedPhoneNumber, // Menggunakan nomor telepon yang diformat
             'tgl_tiba' => $dataPaket->tgl_tiba,
             'lokasi' => $dataPaket->lokasi, // Menggunakan lokasi dari input
@@ -103,7 +106,7 @@ class DataPaketController extends Controller
         LacakPaket::create([
             'no_resi' => $dataPaket->no_resi,
             'nama_produk' => $dataPaket->nama_produk,
-            'nama_ekspedisi' => $dataPaket->nama_ekspedisi,
+            'ekspedisi_id' => $dataPaket->ekspedisi_id, // Simpan ID ekspedisi
             'tgl_tiba' => $dataPaket->tgl_tiba,
             'lokasi' => $dataPaket->lokasi, // Menggunakan lokasi dari input
             'nama_pemilik' => $request->nama_pemilik, // Simpan nama pemilik
@@ -116,68 +119,67 @@ class DataPaketController extends Controller
         return redirect()->away($whatsappUrl);
     }
 
-
-
-/**
- * Update the specified resource in storage.
- */public function update(Request $request, $no_resi)
-{
-    // Validasi input
-    $request->validate([
-        'nama_produk' => 'required|string|max:255',
-        'no_hpPenerima' => 'required|string|max:15',
-        'nama_ekspedisi' => 'required|in:JNE,Tiki,Pos Indonesia,Gojek,Grab',
-        'tgl_tiba' => 'required|date',
-        'nama_pemilik' => 'required|string|max:255', // Tambahkan validasi untuk nama pemilik
-    ]);
-
-    // Ambil data paket yang akan diperbarui
-    $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
-
-    // Siapkan data untuk diperbarui
-    $dataToUpdate = [
-        'nama_produk' => $request->nama_produk,
-        'no_hpPenerima' => $this->formatPhoneNumber($request->no_hpPenerima),
-        'nama_ekspedisi' => $request->nama_ekspedisi,
-        'tgl_tiba' => $request->tgl_tiba,
-        'nama_pemilik' => $request->nama_pemilik, // Tambahkan nama pemilik
-    ];
-
-    // Perbarui data paket
-    $dataPaket->update($dataToUpdate);
-
-    // Perbarui histori terkait lokasi baru
-    $history = Histori::where('no_resi', $no_resi)->first();
-    if ($history) {
-        $history->update([
-            'nama_produk' => $request->nama_produk,
-            'nama_ekspedisi' => $request->nama_ekspedisi,
-            'no_hpPenerima' => $dataToUpdate['no_hpPenerima'], // Menggunakan nomor telepon yang diformat
-            'tgl_tiba' => $request->tgl_tiba,
-            'lokasi' => $history->lokasi, // Pertahankan lokasi yang ada
+    public function update(Request $request, $no_resi)
+    {
+        // Validasi input
+        $request->validate([
+            'nama_produk' => 'required|string|max:255',
+            'no_hpPenerima' => 'required|string|max:15',
+            'ekspedisi_id' => 'required|exists:ekspedisi,Id_ekpedisi', // Validasi ID ekspedisi
+            'tgl_tiba' => 'required|date',
+            'nama_pemilik' => 'required|string|max:255', // Tambahkan validasi untuk nama pemilik
         ]);
-    }
 
-    // Perbarui pelacakan terkait lokasi baru
-    $tracking = LacakPaket::where('no_resi', $no_resi)->first();
-    if ($tracking) {
-        $tracking->update([
+        // Ambil data paket yang akan diperbarui
+        $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
+
+        // Siapkan data untuk diperbarui
+        $dataToUpdate = [
             'nama_produk' => $request->nama_produk,
-            'nama_ekspedisi' => $request->nama_ekspedisi,
+            'no_hpPenerima' => $this->formatPhoneNumber($request->no_hpPenerima),
+            'ekspedisi_id' => $request->ekspedisi_id, // Simpan ID ekspedisi
             'tgl_tiba' => $request->tgl_tiba,
-            // Lokasi tidak diubah
-        ]);
+            'nama_pemilik' => $request->nama_pemilik, // Tambahkan nama pemilik
+        ];
+
+        // Perbarui data paket
+        $dataPaket->update($dataToUpdate);
+
+        // Perbarui histori terkait lokasi baru
+        $history = Histori::where('no_resi', $no_resi)->first();
+        if ($history) {
+            $history->update([
+                'nama_produk' => $request->nama_produk,
+                'ekspedisi_id' => $dataToUpdate['ekspedisi_id'], // Simpan ID ekspedisi
+                'no_hpPenerima' => $dataToUpdate['no_hpPenerima'], // Menggunakan nomor telepon yang diformat
+                'tgl_tiba' => $request->tgl_tiba,
+                'lokasi' => $history->lokasi, // Pertahankan lokasi yang ada
+            ]);
+        } else {
+            // Jika tidak ada histori, Anda bisa memutuskan untuk membuat entri baru atau mengabaikan
+            Log::warning("Tidak ada histori untuk no_resi: $no_resi");
+        }
+
+        // Perbarui pelacakan terkait lokasi baru
+        $tracking = LacakPaket::where('no_resi', $no_resi)->first();
+        if ($tracking) {
+            $tracking->update([
+                'nama_produk' => $request->nama_produk,
+                'ekspedisi_id' => $dataToUpdate['ekspedisi_id'], // Simpan ID ekspedisi
+                'tgl_tiba' => $request->tgl_tiba,
+                // Lokasi tidak diubah
+            ]);
+        } else {
+            // Jika tidak ada pelacakan, Anda bisa memutuskan untuk membuat entri baru atau mengabaikan
+            Log::warning("Tidak ada pelacakan untuk no_resi: $no_resi");
+        }
+
+        // Kirim pesan WhatsApp
+        $whatsappUrl = $this->sendWhatsAppClickToChat($dataToUpdate['no_hpPenerima'], $dataPaket->no_resi, $history ? $history->lokasi : 'Lokasi tidak tersedia');
+
+        // Redirect ke URL WhatsApp untuk mengirim pesan
+        return redirect()->away($whatsappUrl);
     }
-
-    // Kirim pesan WhatsApp
-    $whatsappUrl = $this->sendWhatsAppClickToChat($dataToUpdate['no_hpPenerima'], $dataPaket->no_resi, $history->lokasi);
-
-    // Redirect ke URL WhatsApp untuk mengirim pesan
-    return redirect()->away($whatsappUrl);
-}
-
-
-
 
 
     /**
@@ -188,8 +190,11 @@ class DataPaketController extends Controller
         // Fetch data package based on no_resi
         $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
 
+         // Ambil semua data ekspedisi dari database
+         $ekspedisis = Ekspedisi::all();
+
         // Return the view to edit the package
-        return view('editPaket', compact('dataPaket'));
+        return view('editPaket', compact('dataPaket','ekspedisis'));
     }
 
     public function search(Request $request)
