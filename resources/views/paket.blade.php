@@ -23,7 +23,7 @@
                             </div>
                         @endif
 
-                        <!-- Display the logged-in user's name -->
+                        <!-- Menampilkan nama pengguna yang sedang login -->
                         <p>User: <strong>{{ $user->name }}</strong></p>
 
                         <form action="{{ route('data-paket.store') }}" method="POST" enctype="multipart/form-data">
@@ -77,13 +77,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="bukti_serah_terima" class="form-control-label">Bukti Serah Terima (Foto)</label>
+                                <!-- Input untuk memilih file gambar -->
                                 <input type="file" class="form-control" id="bukti_serah_terima" name="bukti_serah_terima" accept="image/*" onchange="previewImage(event)">
                                 @error('bukti_serah_terima')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <img id="imagePreview" src="#" alt="Preview" style="display: none; width: 100%; max-width: 300px; margin-top: 10px;" class="img-thumbnail"> <!-- Preview image -->
+                                <!-- Elemen untuk menampilkan pratinjau gambar -->
+                                <img id="imagePreview" src="#" alt="Preview" style="display: none; width: 100%; max-width: 300px; margin-top: 10px;" class="img-thumbnail">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary bg-gradient-dark btn-sm mt-3">Simpan</button>
@@ -97,21 +99,24 @@
 </main>
 
 <script>
+    // Fungsi untuk menampilkan pratinjau gambar
     function previewImage(event) {
-        const imagePreview = document.getElementById('imagePreview');
-        const file = event.target.files[0];
-        const reader = new FileReader();
+        const imagePreview = document.getElementById('imagePreview'); // Mendapatkan elemen gambar untuk pratinjau
+        const file = event.target.files[0]; // Mengambil file gambar yang dipilih
+        const reader = new FileReader(); // Membuat objek FileReader untuk membaca file
 
+        // Ketika file berhasil dibaca
         reader.onload = function(e) {
-            imagePreview.src = e.target.result; // Set the image source to the file's data URL
-            imagePreview.style.display = 'block'; // Show the image preview
+            imagePreview.src = e.target.result; // Mengatur sumber gambar pratinjau ke data URL file
+            imagePreview.style.display = 'block'; // Menampilkan gambar pratinjau
         }
 
+        // Jika ada file yang dipilih
         if (file) {
-            reader.readAsDataURL(file); // Read the file as a data URL
+            reader.readAsDataURL(file); // Membaca file sebagai data URL
         } else {
-            imagePreview.src = '#'; // Reset the image source if no file is selected
-            imagePreview.style.display = 'none'; // Hide the image preview
+            imagePreview.src = '#'; // Mengatur ulang sumber gambar jika tidak ada file yang dipilih
+            imagePreview.style.display = 'none'; // Menyembunyikan gambar pratinjau
         }
     }
 </script>
