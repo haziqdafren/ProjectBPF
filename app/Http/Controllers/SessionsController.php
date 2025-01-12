@@ -73,6 +73,6 @@ class SessionsController extends Controller
         Auth::login($user, true);
 
         // Redirect to your desired location
-        return redirect('beranda')->with(['success' => 'You are logged in with Google.']);
+        return redirect('beranda')->with(['success' => 'Sudah Berhasil Login Dengan Google.']);
     }
 }

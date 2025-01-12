@@ -9,12 +9,12 @@ class HomeController extends Controller
 {
     public function home()
     {
-        // Count the total number of data packages
+        // Menghitung jumlah data paket
         $jumlahDataMasuk = DataPaket::count();
         $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
         $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
 
-        // Send data to the beranda view
+        // Mengirim data di view
         return view('beranda', compact('jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
 
