@@ -20,6 +20,7 @@ class LacakPaket extends Model
         'tgl_tiba',
         'lokasi',
         'status',
+        'nama_pemilik', // Tambahkan kolom nama pemilik
     ];
 
     public function dataPaket()

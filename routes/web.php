@@ -29,8 +29,6 @@ Route::get('/tambah-paket', [DataPaketController::class, 'create'])->name('data-
 
 // Resource untuk data paket
 Route::resource('data-paket', DataPaketController::class);
-Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
-Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
 
 // Route for searching packages
 Route::get('search-paket', [DataPaketController::class, 'search'])->name('search.paket.data');

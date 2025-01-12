@@ -23,6 +23,9 @@ class DataPaket extends Model
         'tgl_tiba',
         'lokasi',
         'status',
+        'nama_pemilik', // Tambahkan kolom nama pemilik
+        'bukti_serah_terima', // Tambahkan kolom bukti serah terima
+        'security_name', // Tambahkan kolom security_name
     ];
 
     public function histories()

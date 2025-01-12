@@ -26,7 +26,7 @@
                         <!-- Display the logged-in user's name -->
                         <p>User: <strong>{{ $user->name }}</strong></p>
 
-                        <form action="{{ route('data-paket.store') }}" method="POST">
+                        <form action="{{ route('data-paket.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
@@ -35,6 +35,14 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                                <!-- Lokasi dan Status dihapus dari form -->
+                                <div class="form-group">
+                                    <label for="nama_pemilik" class="form-control-label">Nama Pemilik</label>
+                                    <input type="text" class="form-control" id="nama_pemilik" name="nama_pemilik" required>
+                                    @error('nama_pemilik')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             <div class="form-group">
                                 <label for="nama_produk" class="form-control-label">Deskripsi Paket</label>
                                 <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
@@ -71,26 +79,14 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="lokasi" class="form-control-label">Lokasi</label>
-                                <select class="form-control" id="lokasi" name="lokasi" required>
-                                    <option value="" disabled selected>Pilih Lokasi</option>
-                                    <option value="Pos Security">Pos Security</option>
-                                    <option value="Rumah Tangga">Rumah Tangga</option>
-                                </select>
-                                @error('lokasi')
+                                <label for="bukti_serah_terima" class="form-control-label">Bukti Serah Terima (Foto)</label>
+                                <input type="file" class="form-control" id="bukti_serah_terima" name="bukti_serah_terima" accept="image/*" onchange="previewImage(event)">
+                                @error('bukti_serah_terima')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="status" class="form-control-label">Status</label>
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="" disabled selected>Pilih Status</option>
-                                    <option value="Sudah Diterima">Sudah Diterima</option>
-                                    <option value="Belum Diterima">Belum Diterima</option>
-                                </select>
-                                @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                <img id="imagePreview" src="#" alt="Preview" style="display: none; width: 100%; max-width: 300px; margin-top: 10px;" class="img-thumbnail"> <!-- Preview image -->
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary bg-gradient-dark btn-sm mt-3">Simpan</button>
@@ -102,5 +98,25 @@
         </div>
     </div>
 </main>
+
+<script>
+    function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result; // Set the image source to the file's data URL
+            imagePreview.style.display = 'block'; // Show the image preview
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); // Read the file as a data URL
+        } else {
+            imagePreview.src = '#'; // Reset the image source if no file is selected
+            imagePreview.style.display = 'none'; // Hide the image preview
+        }
+    }
+</script>
 
 @endsection

@@ -16,9 +16,10 @@ class HistoriController extends Controller
         // Ambil query pencarian dari request, jika ada
         $search = $request->get('search');
 
-        // Jika ada query pencarian, filter data berdasarkan nomor resi
+        // Jika ada query pencarian, filter data berdasarkan nomor resi atau nama pemilik
         if ($search) {
             $histories = Histori::where('no_resi', 'like', '%' . $search . '%')
+                ->orWhere('nama_pemilik', 'like', '%' . $search . '%') // Menambahkan pencarian berdasarkan nama pemilik
                 ->latest() // Sortir berdasarkan tanggal terbaru
                 ->paginate(2); // Paginate dengan 2 data per halaman
         } else {
@@ -29,6 +30,7 @@ class HistoriController extends Controller
         // Kirim data ke view
         return view('laravel-examples.histori', compact('histories'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -96,37 +98,39 @@ class HistoriController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $no_resi)
-    {
-        // Validasi input
-        $request->validate([
-            'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
-            'status' => 'required|in:Sudah Diterima,Belum Diterima', // Validasi status
-        ]);
+     */public function update(Request $request, string $no_resi)
+{
+    // Validasi input
+    $request->validate([
+        'foto_serah_terima' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
+        'status' => 'required|in:Sudah Diterima,Belum Diterima', // Validasi status
+        'lokasi' => 'required|in:Pos Security,Rumah Tangga', // Perbaiki validasi lokasi
+    ]);
 
-        // Temukan histori berdasarkan no_resi
-        $history = Histori::where('no_resi', $no_resi)->firstOrFail();
+    // Temukan histori berdasarkan no_resi
+    $history = Histori::where('no_resi', $no_resi)->firstOrFail();
 
-        // Cek jika ada foto baru yang diupload
-        if ($request->hasFile('foto_serah_terima')) {
-            // Hapus foto lama jika ada
-            if ($history->foto_serah_terima) {
-                Storage::disk('public')->delete($history->foto_serah_terima);
-            }
-            // Simpan foto baru
-            $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public');
+    // Cek jika ada foto baru yang diupload
+    if ($request->hasFile('foto_serah_terima')) {
+        // Hapus foto lama jika ada
+        if ($history->foto_serah_terima) {
+            Storage::disk('public')->delete($history->foto_serah_terima);
         }
-
-        // Update entri histori dengan foto baru dan status
-        $history->update([
-            'foto_serah_terima' => $history->foto_serah_terima,
-            'status' => $request->input('status'), // Update status dari request
-        ]);
-
-        // Redirect kembali ke index setelah memperbarui
-        return redirect()->route('histori.index')->with('success', 'Foto dan status berhasil diperbarui.');
+        // Simpan foto baru
+        $history->foto_serah_terima = $request->file('foto_serah_terima')->store('uploads', 'public');
     }
+
+    // Update entri histori dengan foto baru, status, dan lokasi
+    $history->update([
+        'foto_serah_terima' => $history->foto_serah_terima,
+        'status' => $request->input('status'), // Update status dari request
+        'lokasi' => $request->input('lokasi'), // Tambahkan ini untuk memperbarui lokasi
+    ]);
+
+    // Redirect kembali ke index setelah memperbarui
+    return redirect()->route('histori.index')->with('success', 'Foto dan status berhasil diperbarui.');
+}
+
 
     /**
      * Remove the specified resource from storage.

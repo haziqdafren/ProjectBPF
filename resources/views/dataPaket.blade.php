@@ -14,26 +14,28 @@
                         </div>
                     </div>
 
-                    <div class="card-body px-0 pt-0 pb-2">
+                    <div class="card-body px-2 pt-2 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pemilik</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Resi</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Produk</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Ekspedisi</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No HP Penerima</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Tiba</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lokasi</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bukti Terima Paket</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Security</th> <!-- Kolom untuk Nama Security -->
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th> <!-- Kolom untuk tombol aksi -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($dataPakets as $item)
                                         <tr>
                                             <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->nama_pemilik }}</p> <!-- Menampilkan nama pemilik -->
                                             </td>
                                             <td class="ps-4">
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->no_resi }}</p>
@@ -54,6 +56,16 @@
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->lokasi }}</p>
                                             </td>
                                             <td class="text-center">
+                                                @if($item->bukti_serah_terima)
+                                                    <img src="{{ asset('storage/' . $item->bukti_serah_terima) }}" alt="Bukti Serah Terima" style="width: 50px; height: auto;" class="img-thumbnail">
+                                                @else
+                                                    <p class="text-xs font-weight-bold mb-0">Tidak ada</p>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->security_name }}</p> <!-- Menampilkan nama security -->
+                                            </td>
+                                            <td class="text-center">
                                                 <a href="{{ route('data-paket.edit', $item->no_resi) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
@@ -68,7 +80,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="9" class="text-center text-muted">Data tidak tersedia</td>
+                                            <td colspan="10" class="text-center text-muted">Data tidak tersedia</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

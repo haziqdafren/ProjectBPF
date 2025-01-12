@@ -20,22 +20,25 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        // Validate input
+        // Validasi input
         $request->validate([
-            'resi' => 'required|string|max:255',
+            'query' => 'required|string|max:255', // Mengubah nama parameter menjadi 'query'
         ]);
 
-        $no_resi = $request->input('resi');
+        $query = $request->input('query');
 
-        // Search for data based on no_resi
-        $dataPaket = DataPaket::where('no_resi', $no_resi)->paginate(5); // Use paginate for better UX
+        // Mencari data berdasarkan no_resi atau nama_pemilik
+        $dataPaket = DataPaket::where('no_resi', 'LIKE', "%{$query}%")
+            ->orWhere('nama_pemilik', 'LIKE', "%{$query}%") // Menambahkan pencarian berdasarkan nama pemilik
+            ->paginate(5); // Gunakan paginate untuk pengalaman pengguna yang lebih baik
 
-        // Count the total number of data packages
+        // Hitung total jumlah paket data
         $jumlahDataMasuk = DataPaket::count();
         $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
         $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
 
-        // Return the view with the found data
+        // Kembalikan tampilan dengan data yang ditemukan
         return view('beranda', compact('dataPaket', 'jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
+
 }

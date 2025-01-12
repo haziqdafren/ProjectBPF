@@ -51,7 +51,7 @@
                 <form action="{{ route('search.paket.data') }}" method="GET">
                     <label style="color: white;">Nomor Resi</label>
                     <div class="mb-3">
-                        <input type="text" name="resi" id="resi" class="form-control" placeholder="Masukkan nomor resi" aria-label="Nomor Resi" aria-describedby="resi-addon" required>
+                        <input type="text" name="resi" id="resi" class="form-control" placeholder="Masukkan nomor resi atau nama pemilik" aria-label="Nomor Resi" aria-describedby="resi-addon" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn bg-gradient-dark w-100 mt-4 mb-0">Cari Paket</button>
@@ -70,6 +70,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">No Resi</th>
+                        <th class="text-center">Nama Pemilik</th>
                         <th class="text-center">Nama Produk</th>
                         <th class="text-center">Nama Ekspedisi</th>
                         <th class="text-center">No HP Penerima</th>
@@ -82,6 +83,7 @@
                     @foreach($dataPaket as $item)
                         <tr>
                             <td class="text-center">{{ $item->no_resi }}</td>
+                            <td class="text-center">{{ $item->nama_pemilik }}</td>
                             <td class="text-center">{{ $item->nama_produk }}</td>
                             <td class="text-center">{{ $item->nama_ekspedisi }}</td>
                             <td class="text-center">{{ $item->no_hpPenerima }}</td>

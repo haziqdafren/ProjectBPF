@@ -11,13 +11,21 @@
                         <h6>Edit Data Paket</h6>
                     </div>
                     <div class="card-body px-4 pt-4 pb-2">
-                        <form action="{{ route('data-paket.update', $dataPaket->no_resi) }}" method="POST">
+                        <form action="{{ route('data-paket.update', $dataPaket->no_resi) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT') <!-- Menggunakan metode PUT untuk update -->
 
                             <div class="form-group">
                                 <label for="no_resi" class="form-control-label">No Resi</label>
-                                <input type="text" class="form-control" id="no_resi" name="no_resi" value="{{ $dataPaket->no_resi }}" readonly required>
+                                <input type="text" class="form-control" id="no_resi" name="no_resi" value="{{ $dataPaket->no_resi }}"required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nama_pemilik" class="form-control-label">Nama Pemilik</label>
+                                <input type="text" class="form-control" id="nama_pemilik" name="nama_pemilik" value="{{ $dataPaket->nama_pemilik }}" required>
+                                @error('nama_pemilik')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -59,29 +67,6 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="lokasi" class="form-control-label">Lokasi</label>
-                                <select class="form-control" id="lokasi" name="lokasi" required>
-                                    <option value="" disabled>Pilih Lokasi</option>
-                                    <option value="Pos Security" {{ $dataPaket->lokasi == 'Pos Security' ? 'selected' : '' }}>Pos Security</option>
-                                    <option value="Rumah Tangga" {{ $dataPaket->lokasi == 'Rumah Tangga' ? 'selected' : '' }}>Rumah Tangga</option>
-                                </select>
-                                @error('lokasi')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="status" class="form-control-label">Status</label>
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="" disabled>Pilih Status</option>
-                                    <option value="Sudah Diterima" {{ $dataPaket->status == 'Sudah Diterima' ? 'selected' : '' }}>Sudah Diterima</option>
-                                    <option value="Belum Diterima" {{ $dataPaket->status == 'Belum Diterima' ? 'selected' : '' }}>Belum Diterima</option>
-                                </select>
-                                @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary bg-gradient-dark btn-sm mt-3">Simpan</button>

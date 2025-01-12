@@ -33,6 +33,17 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="status" class="form-control-label">Lokasi</label>
+                                <select class="form-control" id="lokasi" name="lokasi" required>
+                                    <option value="" disabled>Pilih Lokasi</option>
+                                    <option value="Rumah Tangga" {{ $history->lokasi== 'Rumah Tangga' ? 'selected' : '' }}>Rumah Tangga</option>
+                                </select>
+                                @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="foto_serah_terima" class="form-control-label">Foto Serah Terima</label>
                                 <input type="file" class="form-control" id="foto_serah_terima" name="foto_serah_terima">
                                 @if($history->foto_serah_terima)

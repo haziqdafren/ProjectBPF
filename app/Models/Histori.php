@@ -22,7 +22,13 @@ class Histori extends Model
         'tgl_tiba',
         'lokasi',
         'status',
+        'nama_pemilik', // Tambahkan kolom nama pemilik
     ];
+
+    public function dataPaket()
+    {
+        return $this->belongsTo(DataPaket::class, 'no_resi', 'no_resi'); // Pastikan kolom yang digunakan untuk relasi benar
+    }
 
 
 }
