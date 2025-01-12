@@ -41,7 +41,10 @@ class EkspedisiController extends Controller
 
     public function edit(Ekspedisi $ekspedisi)
     {
-        return view('editDataEkpedisi', compact('ekspedisis'));
+        // Ambil semua data ekspedisi dari database
+         $ekspedisis = Ekspedisi::all();
+
+        return view('editDataEkpedisi',compact('ekspedisis', 'ekspedisi'));
     }
 
     public function update(Request $request, Ekspedisi $ekspedisi)
