@@ -6,12 +6,20 @@ use App\Models\DataPaket; // Importing the DataPaket model
 use App\Models\Histori; // Importing the Histori model
 use App\Models\LacakPaket; // Importing the LacakPaket model
 use App\Models\Ekspedisi; // Importing the Ekspedisi model
+use App\Services\PackageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon; // Importing Carbon for date handling
 
 class DataPaketController extends Controller
 {
+    protected $packageService;
+
+    public function __construct(PackageService $packageService)
+    {
+        $this->packageService = $packageService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -67,7 +75,7 @@ class DataPaketController extends Controller
         Log::info('ID Pengguna Terautentikasi: ' . $userId);
 
         // Format nomor telepon sebelum disimpan
-        $formattedPhoneNumber = $this->formatPhoneNumber($request->no_hpPenerima);
+        $formattedPhoneNumber = $this->packageService->formatPhoneNumber($request->no_hpPenerima);
 
         // Menyimpan bukti serah terima jika ada
         $buktiPath = null;
@@ -75,48 +83,72 @@ class DataPaketController extends Controller
             $buktiPath = $request->file('bukti_serah_terima')->store('uploads', 'public'); // Simpan di folder public/uploads
         }
 
-        // Siapkan data untuk membuat data paket
-        $dataToCreate = array_merge($request->all(), [
-            'user_id' => $userId, // Simpan ID pengguna yang terautentikasi
-            'security_name' => $userName, // Simpan nama security
-            'lokasi' => 'Pos Security', // Set lokasi default
-            'status' => 'Belum Diterima', // Set status default
-            'bukti_serah_terima' => $buktiPath, // Simpan path bukti serah terima
-        ]);
+        // Use database transaction to ensure data consistency
+        try {
+            DB::beginTransaction();
 
-        // Simpan data paket dengan user_id
-        $dataPaket = DataPaket::create($dataToCreate);
+            // Siapkan data untuk membuat data paket
+            $dataToCreate = array_merge($request->all(), [
+                'user_id' => $userId, // Simpan ID pengguna yang terautentikasi
+                'security_name' => $userName, // Simpan nama security
+                'lokasi' => 'Pos Security', // Set lokasi default
+                'status' => 'Belum Diterima', // Set status default
+                'bukti_serah_terima' => $buktiPath, // Simpan path bukti serah terima
+            ]);
 
-        // Log data paket yang telah dibuat
-        Log::info('Data Paket Dibuat: ', $dataPaket->toArray());
+            // Simpan data paket dengan user_id
+            $dataPaket = DataPaket::create($dataToCreate);
 
-        // Simpan ke histori
-        Histori::create([
-            'no_resi' => $dataPaket->no_resi,
-            'nama_produk' => $dataPaket->nama_produk,
-            'ekspedisi_id' => $dataPaket->ekspedisi_id, // Simpan ID ekspedisi
-            'no_hpPenerima' => $formattedPhoneNumber, // Menggunakan nomor telepon yang diformat
-            'tgl_tiba' => $dataPaket->tgl_tiba,
-            'lokasi' => $dataPaket->lokasi, // Menggunakan lokasi dari input
-            'status' => $dataPaket->status,
-            'nama_pemilik' => $request->nama_pemilik, // Simpan nama pemilik
-        ]);
+            // Log data paket yang telah dibuat
+            Log::info('Data Paket Dibuat: ', $dataPaket->toArray());
 
-        // Simpan ke pelacakan
-        LacakPaket::create([
-            'no_resi' => $dataPaket->no_resi,
-            'nama_produk' => $dataPaket->nama_produk,
-            'ekspedisi_id' => $dataPaket->ekspedisi_id, // Simpan ID ekspedisi
-            'tgl_tiba' => $dataPaket->tgl_tiba,
-            'lokasi' => $dataPaket->lokasi, // Menggunakan lokasi dari input
-            'nama_pemilik' => $request->nama_pemilik, // Simpan nama pemilik
-        ]);
+            // Simpan ke histori
+            Histori::create([
+                'no_resi' => $dataPaket->no_resi,
+                'nama_produk' => $dataPaket->nama_produk,
+                'ekspedisi_id' => $dataPaket->ekspedisi_id, // Simpan ID ekspedisi
+                'no_hpPenerima' => $formattedPhoneNumber, // Menggunakan nomor telepon yang diformat
+                'tgl_tiba' => $dataPaket->tgl_tiba,
+                'lokasi' => $dataPaket->lokasi, // Menggunakan lokasi dari input
+                'status' => $dataPaket->status,
+                'nama_pemilik' => $request->nama_pemilik, // Simpan nama pemilik
+            ]);
 
-        // Kirim pesan WhatsApp
-        $whatsappUrl = $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $dataPaket->lokasi);
+            // Simpan ke pelacakan
+            LacakPaket::create([
+                'no_resi' => $dataPaket->no_resi,
+                'nama_produk' => $dataPaket->nama_produk,
+                'ekspedisi_id' => $dataPaket->ekspedisi_id, // Simpan ID ekspedisi
+                'tgl_tiba' => $dataPaket->tgl_tiba,
+                'lokasi' => $dataPaket->lokasi, // Menggunakan lokasi dari input
+                'nama_pemilik' => $request->nama_pemilik, // Simpan nama pemilik
+            ]);
 
-        // Redirect ke URL WhatsApp untuk mengirim pesan
-        return redirect()->away($whatsappUrl);
+            // Commit transaction - all data saved successfully
+            DB::commit();
+
+            // Generate WhatsApp notification URL
+            $whatsappUrl = $this->sendWhatsAppClickToChat($formattedPhoneNumber, $dataPaket->no_resi, $dataPaket->lokasi);
+
+            // Redirect to package list with success message and optional WhatsApp notification
+            return redirect()->route('data-paket.index')
+                ->with('success', 'Data paket berhasil disimpan!')
+                ->with('whatsapp_url', $whatsappUrl)
+                ->with('recipient_name', $request->nama_pemilik)
+                ->with('receipt_number', $dataPaket->no_resi);
+
+        } catch (\Exception $e) {
+            // Rollback transaction on any error
+            DB::rollBack();
+
+            // Log the error
+            Log::error('Error creating package data: ' . $e->getMessage());
+
+            // Redirect back with error message
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Gagal menyimpan data paket. Silakan coba lagi.');
+        }
     }
 
     public function update(Request $request, $no_resi)
@@ -136,7 +168,7 @@ class DataPaketController extends Controller
         // Siapkan data untuk diperbarui
         $dataToUpdate = [
             'nama_produk' => $request->nama_produk,
-            'no_hpPenerima' => $this->formatPhoneNumber($request->no_hpPenerima),
+            'no_hpPenerima' => $this->packageService->formatPhoneNumber($request->no_hpPenerima),
             'ekspedisi_id' => $request->ekspedisi_id, // Simpan ID ekspedisi
             'tgl_tiba' => $request->tgl_tiba,
             'nama_pemilik' => $request->nama_pemilik, // Tambahkan nama pemilik
@@ -174,11 +206,15 @@ class DataPaketController extends Controller
             Log::warning("Tidak ada pelacakan untuk no_resi: $no_resi");
         }
 
-        // Kirim pesan WhatsApp
+        // Generate WhatsApp notification URL
         $whatsappUrl = $this->sendWhatsAppClickToChat($dataToUpdate['no_hpPenerima'], $dataPaket->no_resi, $history ? $history->lokasi : 'Lokasi tidak tersedia');
 
-        // Redirect ke URL WhatsApp untuk mengirim pesan
-        return redirect()->away($whatsappUrl);
+        // Redirect to package list with success message and optional WhatsApp notification
+        return redirect()->route('data-paket.index')
+            ->with('success', 'Data paket berhasil diperbarui!')
+            ->with('whatsapp_url', $whatsappUrl)
+            ->with('recipient_name', $request->nama_pemilik)
+            ->with('receipt_number', $dataPaket->no_resi);
     }
 
 
@@ -203,17 +239,16 @@ class DataPaketController extends Controller
             'resi' => 'required|string|max:255',
         ]);
 
-        $no_resi = $request->input('resi');
+        $query = $request->input('resi');
 
-        $dataPaket = DataPaket::where('no_resi', 'LIKE', "%{$no_resi}%")
-            ->orWhere('nama_pemilik', 'LIKE', "%{$no_resi}%")
-            ->orWhere('no_hpPenerima', 'LIKE', "%{$no_resi}%")
-            ->paginate(5); // Use paginate for better UX
+        // Use service for search
+        $dataPaket = $this->packageService->searchPackages($query, 5);
 
-        // Count the total number of data packages
-        $jumlahDataMasuk = DataPaket::count();
-        $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
-        $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
+        // Get statistics
+        $statistics = $this->packageService->getStatistics();
+        $jumlahDataMasuk = $statistics['total'];
+        $jumlahDataMasukPosSecurity = $statistics['pos_security'];
+        $jumlahDataMasukRumahTangga = $statistics['rumah_tangga'];
 
         // Return the view with the found data
         return view('beranda', compact('dataPaket', 'jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
@@ -228,6 +263,9 @@ class DataPaketController extends Controller
             return redirect()->route('data-paket.index')->with('error', 'Data paket tidak ditemukan.');
         }
 
+        // Check authorization - only creator can delete
+        $this->authorize('delete', $dataPaket);
+
         // Delete the package
         $dataPaket->delete();
 
@@ -240,10 +278,18 @@ class DataPaketController extends Controller
      */
     private function sendWhatsAppClickToChat($phoneNumber, $noResi, $location)
     {
-        // Prepare message
-        $message = "Paket Anda sudah berada di lokasi: $location.\n\n" .
-        "Mohon segera mengambil paket Anda. Jika Anda ingin melihat lokasi paket Anda, silakan kunjungi link berikut: .... dan masukkan No. Resi Anda: $noResi.\n\n" .
-        "Terima kasih.";
+        // Get tracking URL from application config
+        $trackingUrl = config('app.url') . '/lacakpaket';
+
+        // Prepare professional message without emojis
+        $message = "Pemberitahuan Paket - SURPA\n\n" .
+        "Paket Anda telah tiba di lokasi: {$location}\n\n" .
+        "Nomor Resi: {$noResi}\n\n" .
+        "Mohon segera mengambil paket Anda di lokasi yang tertera.\n\n" .
+        "Untuk melacak status paket Anda, silakan kunjungi:\n{$trackingUrl}\n\n" .
+        "Masukkan nomor resi di atas untuk melihat detail paket.\n\n" .
+        "Terima kasih.\n" .
+        "- Tim Keamanan Politeknik Caltex Riau";
 
         // Create Click to Chat URL
         $url = "https://wa.me/$phoneNumber?text=" . urlencode($message);
@@ -255,17 +301,4 @@ class DataPaketController extends Controller
         return $url;
     }
 
-    /**
-     * Format phone number to international format.
-     */
-    private function formatPhoneNumber($phoneNumber)
-    {
-        // Check if the phone number starts with '0'
-        if (substr($phoneNumber, 0, 1) === '0') {
-            // Replace '0' with '+62'
-            return '+62' . substr($phoneNumber, 1);
-        }
-        // If the number is already in international format, return as is
-        return $phoneNumber;
-    }
 }

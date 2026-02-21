@@ -3,42 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DataPaket; // Ensure this model exists
+use App\Services\PackageService;
 
 class HomeController extends Controller
 {
+    protected $packageService;
+
+    public function __construct(PackageService $packageService)
+    {
+        $this->packageService = $packageService;
+    }
+
     public function home()
     {
-        // Menghitung jumlah data paket
-        $jumlahDataMasuk = DataPaket::count();
-        $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
-        $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
+        // Get statistics using service
+        $statistics = $this->packageService->getStatistics();
 
-        // Mengirim data di view
+        // Extract for backward compatibility with views
+        $jumlahDataMasuk = $statistics['total'];
+        $jumlahDataMasukPosSecurity = $statistics['pos_security'];
+        $jumlahDataMasukRumahTangga = $statistics['rumah_tangga'];
+
+        // Send data to view
         return view('beranda', compact('jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
 
     public function search(Request $request)
     {
-        // Validasi input
+        // Validate input
         $request->validate([
-            'query' => 'required|string|max:255', // Mengubah nama parameter menjadi 'query'
+            'query' => 'required|string|max:255',
         ]);
 
         $query = $request->input('query');
 
-        // Mencari data berdasarkan no_resi atau nama_pemilik
-        $dataPaket = DataPaket::where('no_resi', 'LIKE', "%{$query}%")
-            ->orWhere('nama_pemilik', 'LIKE', "%{$query}%") // Menambahkan pencarian berdasarkan nama pemilik
-            ->paginate(5); // Gunakan paginate untuk pengalaman pengguna yang lebih baik
+        // Use service for search
+        $dataPaket = $this->packageService->searchPackages($query, 5);
 
-        // Hitung total jumlah paket data
-        $jumlahDataMasuk = DataPaket::count();
-        $jumlahDataMasukPosSecurity = DataPaket::where('lokasi', 'Pos Security')->count();
-        $jumlahDataMasukRumahTangga = DataPaket::where('lokasi', 'Rumah Tangga')->count();
+        // Get statistics
+        $statistics = $this->packageService->getStatistics();
+        $jumlahDataMasuk = $statistics['total'];
+        $jumlahDataMasukPosSecurity = $statistics['pos_security'];
+        $jumlahDataMasukRumahTangga = $statistics['rumah_tangga'];
 
-        // Kembalikan tampilan dengan data yang ditemukan
+        // Return view with found data
         return view('beranda', compact('dataPaket', 'jumlahDataMasuk', 'jumlahDataMasukPosSecurity', 'jumlahDataMasukRumahTangga'));
     }
-
 }

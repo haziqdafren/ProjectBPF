@@ -92,6 +92,11 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('auth/google', [SessionsController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [SessionsController::class, 'handleGoogleCallback']);
 
+// Root route - redirect to package tracking page
+Route::get('/', function () {
+    return redirect()->route('lacak.paket');
+});
+
 // Static pages
 Route::get('static-sign-in', function () {
     return view('static-sign-in');

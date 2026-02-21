@@ -25,9 +25,9 @@ class EkspedisiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Id_ekpedisi' => 'required|string|max:255',
+            'Id_ekpedisi' => 'required|string|max:255|unique:ekspedisi,Id_ekpedisi', // Add unique validation
             'nama_ekspedisi' => 'required|string|max:255',
-            'kontak' => 'required|string|max:255',
+            'kontak' => 'required|string|max:20',
         ]);
 
         Ekspedisi::create([

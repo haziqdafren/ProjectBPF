@@ -3,6 +3,48 @@
 @section('content')
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
     <div class="container-fluid py-4">
+
+        {{-- Success notification with optional WhatsApp button --}}
+        @if(session('success'))
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <strong>Berhasil!</strong> {{ session('success') }}
+                            @if(session('receipt_number'))
+                                <br><small>Nomor Resi: <strong>{{ session('receipt_number') }}</strong></small>
+                            @endif
+                        </div>
+                        @if(session('whatsapp_url'))
+                        <div class="ms-3">
+                            <a href="{{ session('whatsapp_url') }}"
+                               target="_blank"
+                               class="btn btn-sm btn-success"
+                               title="Kirim notifikasi ke {{ session('recipient_name', 'penerima') }}">
+                                <i class="fab fa-whatsapp me-1"></i> Kirim Notifikasi WhatsApp
+                            </a>
+                        </div>
+                        @endif
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        {{-- Error notification --}}
+        @if(session('error'))
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4 mx-4">

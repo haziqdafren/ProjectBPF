@@ -23,9 +23,22 @@ class Ekspedisi extends Model
         'kontak',
     ];
 
-    public function dataPaket()
+    // One Ekspedisi has many DataPaket
+    public function dataPakets()
     {
-        return $this->belongsTo(DataPaket::class,  'ekspedisi_id', 'Id_ekpedisi'); // Pastikan kolom yang digunakan untuk relasi benar
+        return $this->hasMany(DataPaket::class, 'ekspedisi_id', 'Id_ekpedisi');
+    }
+
+    // One Ekspedisi has many Histori
+    public function historis()
+    {
+        return $this->hasMany(Histori::class, 'ekspedisi_id', 'Id_ekpedisi');
+    }
+
+    // One Ekspedisi has many LacakPaket
+    public function lacakPakets()
+    {
+        return $this->hasMany(LacakPaket::class, 'ekspedisi_id', 'Id_ekpedisi');
     }
 
 }
