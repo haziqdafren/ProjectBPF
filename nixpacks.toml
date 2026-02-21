@@ -5,12 +5,12 @@ aptPkgs = ["libonig5"]
 [variables]
 PHP_VERSION = "8.3"
 
-[phases.build]
+[phases.install]
 cmds = [
-    "composer install --no-dev --optimize-autoloader"
+    "composer install --no-dev --optimize-autoloader --no-interaction"
 ]
 
-[phases.deploy]
+[phases.build]
 cmds = [
     "php artisan config:cache",
     "php artisan route:cache",
