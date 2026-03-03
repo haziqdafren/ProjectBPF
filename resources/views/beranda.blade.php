@@ -119,10 +119,23 @@
         const currentDate = now.toLocaleDateString('id-ID', optionsDate);
         const currentTime = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-        document.getElementById('currentDate').innerText = currentDate;
-        document.getElementById('currentTime').innerText = currentTime;
+        const dateElement = document.getElementById('currentDate');
+        const timeElement = document.getElementById('currentTime');
+
+        if (dateElement) dateElement.innerText = currentDate;
+        if (timeElement) timeElement.innerText = currentTime;
     }
-    setInterval(updateDateTime, 1000);
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        });
+    } else {
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    }
 </script>
 @endsection
 

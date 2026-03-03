@@ -58,6 +58,17 @@ body {
 
 .form-check-input {
     margin-top: 0.3rem; /* Menyesuaikan posisi checkbox */
+    cursor: pointer; /* Make checkbox clickable */
+}
+
+/* Fix checkbox clickability */
+.form-check {
+    cursor: pointer;
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
 }
 
 .btn {

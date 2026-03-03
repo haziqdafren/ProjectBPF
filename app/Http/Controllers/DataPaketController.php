@@ -25,7 +25,7 @@ class DataPaketController extends Controller
      */
     public function index()
     {
-        $dataPakets = DataPaket::with('ekspedisi')->paginate(10); // Memuat relasi ekspedisi
+        $dataPakets = DataPaket::with('ekspedisi')->paginate(10); // Load ekspedisi relationship
 
         // Sending data to the view
         return view('dataPaket', compact('dataPakets'));

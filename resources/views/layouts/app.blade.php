@@ -9,9 +9,9 @@
       <x-demo-metas></x-demo-metas>
   @endif
 
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
-  <link rel="icon" type="image/png" href="{{ asset('public/assets/img/logos/logo.png') }}">
-  <title>Surpa</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/logos/logo.png') }}">
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/logos/logo.png') }}">
+  <title>SURPA - Package Tracking System</title>
 
   <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -20,8 +20,8 @@
   <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
 
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Font Awesome Icons (using CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.3') }}" rel="stylesheet" />
@@ -29,8 +29,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Flatpickr for date picker -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
@@ -102,8 +101,12 @@
             const currentDate = now.toLocaleDateString('id-ID', optionsDate);
             const currentTime = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-            document.getElementById('currentDate').innerText = currentDate;
-            document.getElementById('currentTime').innerText = currentTime;
+            const dateElement = document.getElementById('currentDate');
+            const timeElement = document.getElementById('currentTime');
+
+            // Only update if elements exist (safety check)
+            if (dateElement) dateElement.innerText = currentDate;
+            if (timeElement) timeElement.innerText = currentTime;
         }
 
         setInterval(updateDateTime, 1000);

@@ -59,22 +59,22 @@ Route::get('/lacak-paket/search', [LacakPaketController::class, 'search'])->name
 Route::get('/bantuan', [HelpController::class, 'index'])->name('bantuan');
 
 // Group routes that require authentication
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/beranda', [HomeController::class, 'home'])->name('beranda'); // Home page
-    Route::post('data-paket', [DataPaketController::class, 'store'])->name('data-paket.store');
-    Route::get('billing', function () {
-        return view('billing');
-    })->name('billing');
-    Route::get('profile', function () {
-        return view('profile');
-    })->name('profile');
-    Route::get('rtl', function () {
-        return view('rtl');
-    })->name('rtl');
-    Route::get('/logout', [SessionsController::class, 'destroy']);
-    Route::get('/profil-user', [InfoUserController::class, 'create']);
-    Route::post('/profil-user', [InfoUserController::class, 'store']);
-});
+// TEMPORARILY DISABLED FOR UI TESTING - RE-ENABLE BEFORE DEPLOYMENT
+// Changed: Removed middleware to disable authentication temporarily
+Route::get('/beranda', [HomeController::class, 'home'])->name('beranda'); // Home page
+Route::post('data-paket', [DataPaketController::class, 'store'])->name('data-paket.store');
+Route::get('billing', function () {
+    return view('billing');
+})->name('billing');
+Route::get('profile', function () {
+    return view('profile');
+})->name('profile');
+Route::get('rtl', function () {
+    return view('rtl');
+})->name('rtl');
+Route::get('/logout', [SessionsController::class, 'destroy']);
+Route::get('/profil-user', [InfoUserController::class, 'create']);
+Route::post('/profil-user', [InfoUserController::class, 'store']);
 
 // Guest routes
 Route::group(['middleware' => 'guest'], function () {
