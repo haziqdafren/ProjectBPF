@@ -11,9 +11,9 @@ class DataPaket extends Model
 
     protected $table = 'data_paket';
 
-    protected $primaryKey = 'no_resi';
+    protected $primaryKey = 'id';
 
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $fillable = [
         'no_resi',

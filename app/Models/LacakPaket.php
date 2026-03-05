@@ -19,8 +19,6 @@ class LacakPaket extends Model
         'ekspedisi_id',
         'tgl_tiba',
         'lokasi',
-        'status',
-        'nama_pemilik', // Tambahkan kolom nama pemilik
     ];
 
     public function dataPaket()
