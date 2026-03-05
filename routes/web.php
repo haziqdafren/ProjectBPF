@@ -28,8 +28,8 @@ use App\Http\Controllers\EkspedisiController;
 // Route untuk tambah data paket
 Route::get('/tambah-paket', [DataPaketController::class, 'create'])->name('data-paket.create');
 
-// Resource untuk data paket
-Route::resource('data-paket', DataPaketController::class);
+// Resource untuk data paket (exclude create, edit, update since they're defined separately)
+Route::resource('data-paket', DataPaketController::class)->except(['create', 'edit', 'update']);
 Route::get('data-paket/{no_resi}/edit', [DataPaketController::class, 'edit'])->name('data-paket.edit');
 Route::put('data-paket/{no_resi}', [DataPaketController::class, 'update'])->name('data-paket.update');
 
