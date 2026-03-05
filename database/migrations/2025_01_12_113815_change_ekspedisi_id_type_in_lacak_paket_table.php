@@ -12,13 +12,14 @@ return new class extends Migration
      */
     public function up()
     {
-        // Use raw SQL for PostgreSQL compatibility
-        DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE BIGINT USING ekspedisi_id::bigint');
+        // Change from ENUM to VARCHAR to match ekspedisi.Id_ekpedisi type
+        DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
     }
 
     public function down()
     {
-        // Use raw SQL for PostgreSQL compatibility
-        DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE INTEGER USING ekspedisi_id::integer');
+        // Revert back to original type if needed
+        // Note: Cannot easily revert to ENUM, so keeping as VARCHAR is acceptable
+        DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
     }
 };
