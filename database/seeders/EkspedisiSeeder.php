@@ -14,6 +14,11 @@ class EkspedisiSeeder extends Seeder
      */
     public function run()
     {
+        // Skip if data already exists
+        if (DB::table('ekspedisi')->count() > 0) {
+            return;
+        }
+
         $ekspedisis = [
             [
                 'Id_ekpedisi' => 'JNE001',

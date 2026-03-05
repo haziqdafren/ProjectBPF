@@ -15,13 +15,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'id' => 1,
-            'name' => 'admin',
-            'email' => 'admin@softui.com',
-            'password' => Hash::make('secret'),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        // Only insert if user doesn't exist
+        $exists = DB::table('users')->where('email', 'admin@softui.com')->exists();
+
+        if (!$exists) {
+            DB::table('users')->insert([
+                'name' => 'admin',
+                'email' => 'admin@softui.com',
+                'password' => Hash::make('secret'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
     }
 }

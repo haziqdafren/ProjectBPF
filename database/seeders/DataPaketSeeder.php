@@ -15,6 +15,11 @@ class DataPaketSeeder extends Seeder
      */
     public function run()
     {
+        // Skip if data already exists
+        if (DB::table('data_paket')->count() > 0) {
+            return;
+        }
+
         $dataPakets = [
             [
                 'no_resi' => 'JNE123456789001',
