@@ -13,11 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Check if demo user already exists
-        $demoExists = DB::table('users')->where('email', 'demo@surpa.com')->exists();
+        // Check if demo user already exists by email
+        $demoUser = DB::table('users')->where('email', 'demo@surpa.com')->first();
 
-        if (!$demoExists) {
+        if (!$demoUser) {
+            // Get the next available ID for PostgreSQL
+            $maxId = DB::table('users')->max('id') ?? 0;
+            $nextId = $maxId + 1;
+
             DB::table('users')->insert([
+                'id' => $nextId,
                 'name' => 'Demo User',
                 'email' => 'demo@surpa.com',
                 'password' => Hash::make('demo123'),
@@ -27,7 +32,10 @@ return new class extends Migration
                 'updated_at' => now(),
             ]);
 
-            echo "Demo user created successfully!\n";
+            // Update sequence for PostgreSQL
+            DB::statement("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))");
+
+            echo "Demo user created successfully with ID: {$nextId}\n";
         } else {
             // Update existing demo user to ensure correct password
             DB::table('users')
