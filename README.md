@@ -3,7 +3,7 @@
 
 A comprehensive package and mail tracking system built for university coursework at Politeknik Caltex Riau (TA 2024/2025). This web application enables security personnel to efficiently manage, track, and notify recipients about incoming packages and mail deliveries on campus.
 
-## 🎯 Live Demo
+## Live Demo
 
 Try the live demo with read-only access:
 
@@ -265,11 +265,11 @@ The application includes a comprehensive demo mode for portfolio showcase:
 - Responsive design for all screen sizes
 
 **Demo User Capabilities:**
-- ✅ View all pages and data
-- ✅ Navigate through the entire system
-- ✅ Click edit/create buttons (access forms)
-- ✅ Fill out forms and interact with UI
-- ❌ Cannot save, edit, or delete data
+- View all pages and data
+- Navigate through the entire system
+- Click edit/create buttons (access forms)
+- Fill out forms and interact with UI
+- Cannot save, edit, or delete data
 - Professional SweetAlert popups explain restrictions
 
 **Registration:**
@@ -406,5 +406,5 @@ This project was developed as academic coursework at Politeknik Caltex Riau. All
 
 ---
 
-**📦 Built with Laravel 11 | PostgreSQL | Bootstrap 5**
-**🎓 TA 2024/2025 — Politeknik Caltex Riau**
+**Built with Laravel 11 | PostgreSQL | Bootstrap 5**
+**TA 2024/2025 — Politeknik Caltex Riau**
