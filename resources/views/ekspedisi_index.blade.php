@@ -24,45 +24,57 @@
                             </div>
                         @endif
 
-                        <div class="table-responsive">
+                        <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Ekspedisi</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kontak</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($ekspedisis as $ekspedisi)
+                                    @forelse ($ekspedisis as $ekspedisi)
                                         <tr>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $ekspedisi->Id_ekpedisi }}</p> <!-- Ganti dari $ekspedisi->id ke $ekspedisi->Id_ekpedisi -->
+                                                <p class="text-xs font-weight-bold mb-0">{{ $ekspedisi->Id_ekpedisi }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $ekspedisi->nama_ekspedisi }}</p>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge badge-sm bg-gradient-info me-2">
+                                                        <i class="fas fa-shipping-fast"></i>
+                                                    </span>
+                                                    <p class="text-xs font-weight-bold mb-0">{{ $ekspedisi->nama_ekspedisi }}</p>
+                                                </div>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $ekspedisi->kontak }}</p>
+                                                <p class="text-xs font-weight-bold mb-0">
+                                                    <i class="fas fa-phone text-primary me-1"></i>
+                                                    {{ $ekspedisi->kontak }}
+                                                </p>
                                             </td>
-                                            <td>
-                                                <a href="{{ route('ekspedisi.edit', $ekspedisi->Id_ekpedisi) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                                                <form action="{{ route('ekspedisi.destroy', $ekspedisi->Id_ekpedisi) }}" method="POST" style="display: inline-block;">
+                                            <td class="text-center">
+                                                <a href="{{ route('ekspedisi.edit', $ekspedisi->Id_ekpedisi) }}" class="btn btn-warning btn-sm mb-0" data-bs-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('ekspedisi.destroy', $ekspedisi->Id_ekpedisi) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus ekspedisi ini?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus ekspedisi ini?')">Hapus</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm mb-0" data-bs-toggle="tooltip" title="Hapus">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-4">Belum ada data ekspedisi</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        @if ($ekspedisis->isEmpty())
-                            <p class="text-center mt-4">Belum ada data ekspedisi.</p>
-                        @endif
                     </div>
                 </div>
             </div>

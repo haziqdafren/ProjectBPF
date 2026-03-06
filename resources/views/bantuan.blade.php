@@ -11,9 +11,9 @@
                  background-repeat: no-repeat;">
     <div class="page-header min-vh-100">
       <div class="container">
-        <div class="row">
-          <div class="col-xl-6 col-lg-7 col-md-8 d-flex flex-column mx-auto">
-            <div class="card card-plain mt-4" style="border-radius: 15px; background-color: rgb(255, 255, 255);"> <!-- Card styling -->
+        <div class="row justify-content-center">
+          <div class="col-12 col-xl-10 col-lg-10 col-md-11 d-flex flex-column">
+            <div class="card card-plain mt-4" style="border-radius: 15px; background-color: rgb(255, 255, 255); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);"> <!-- Card styling -->
               <div class="card-header pb-0 text-left bg-transparent">
                 <div class="mb-4">
                   <h3 class="text-info">Bantuan</h3> <!-- Changed color to primary -->

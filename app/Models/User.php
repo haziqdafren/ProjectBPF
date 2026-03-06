@@ -17,6 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail // Implementing Mu
         'email',
         'password',
         'phone',
+        'is_demo', // Demo user flag
     ];
 
     protected $hidden = [
@@ -26,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail // Implementing Mu
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_demo' => 'boolean', // Cast to boolean
     ];
 
      // Define the relationship with DataPaket

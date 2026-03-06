@@ -12,15 +12,18 @@ return new class extends Migration
     {
         // Ensure all ekspedisi_id columns are VARCHAR to match ekspedisi.Id_ekpedisi
         // This fixes any previous migration issues
+        // Skip for SQLite as it doesn't support ALTER COLUMN TYPE
 
-        // Fix data_paket.ekspedisi_id if it's not already VARCHAR
-        DB::statement('ALTER TABLE data_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
+        if (DB::connection()->getDriverName() !== 'sqlite') {
+            // Fix data_paket.ekspedisi_id if it's not already VARCHAR
+            DB::statement('ALTER TABLE data_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
 
-        // Fix histori.ekspedisi_id if it's not already VARCHAR
-        DB::statement('ALTER TABLE histori ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
+            // Fix histori.ekspedisi_id if it's not already VARCHAR
+            DB::statement('ALTER TABLE histori ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
 
-        // Fix lacak_paket.ekspedisi_id if it's not already VARCHAR
-        DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
+            // Fix lacak_paket.ekspedisi_id if it's not already VARCHAR
+            DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
+        }
     }
 
     /**

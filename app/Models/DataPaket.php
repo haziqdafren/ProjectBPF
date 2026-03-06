@@ -26,6 +26,7 @@ class DataPaket extends Model
         'nama_pemilik', // Tambahkan kolom nama pemilik
         'bukti_serah_terima', // Tambahkan kolom bukti serah terima
         'security_name', // Tambahkan kolom security_name
+        'user_id', // CRITICAL FIX: Allow mass assignment of user_id
     ];
 
     public function histories()

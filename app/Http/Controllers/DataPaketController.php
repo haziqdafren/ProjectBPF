@@ -226,6 +226,13 @@ class DataPaketController extends Controller
         // Fetch data package based on no_resi
         $dataPaket = DataPaket::where('no_resi', $no_resi)->firstOrFail();
 
+        // DEMO MODE FIX: Allow demo users to VIEW edit form
+        // JavaScript (demo-mode.js) will prevent form submission
+        // Only check authorization for non-demo users
+        if (!auth()->user()->is_demo) {
+            $this->authorize('update', $dataPaket);
+        }
+
          // Ambil semua data ekspedisi dari database
          $ekspedisis = Ekspedisi::all();
 

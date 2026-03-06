@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             EkspedisiSeeder::class,
             DataPaketSeeder::class,
+            HistoriSeeder::class,
         ]);
     }
 }

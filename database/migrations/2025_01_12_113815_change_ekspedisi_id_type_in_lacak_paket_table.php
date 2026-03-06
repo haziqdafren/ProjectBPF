@@ -13,7 +13,10 @@ return new class extends Migration
     public function up()
     {
         // Change from ENUM to VARCHAR to match ekspedisi.Id_ekpedisi type
-        DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
+        // Skip for SQLite as it doesn't need this migration
+        if (DB::connection()->getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE lacak_paket ALTER COLUMN ekspedisi_id TYPE VARCHAR(255)');
+        }
     }
 
     public function down()

@@ -32,6 +32,8 @@
   <!-- Flatpickr for date picker -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+  <!-- SweetAlert2 for beautiful popups -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <!-- Custom CSS -->
     <style>
@@ -81,6 +83,9 @@
   <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   <!-- Custom JS (Optional for additional functionality) -->
   <script>
@@ -122,6 +127,13 @@
 
   <!-- Soft UI Dashboard Scripts -->
   <script src="{{ asset('assets/js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
+
+  <!-- Demo Mode Restrictions -->
+  @auth
+    @if(auth()->user()->is_demo)
+      <script src="{{ asset('assets/js/demo-mode.js') }}"></script>
+    @endif
+  @endauth
 
   @push('dashboard')
     <script>

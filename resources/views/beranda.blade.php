@@ -54,7 +54,7 @@
                         <input type="text" name="resi" id="resi" class="form-control" placeholder="Masukkan nomor resi atau nama pemilik" aria-label="Nomor Resi" aria-describedby="resi-addon" required>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn bg-gradient-dark w-100 mt-4 mb-0">Cari Paket</button>
+                        <button type="submit" class="btn btn-primary w-100 mt-4 mb-0">CARI PAKET</button>
                     </div>
                 </form>
             </div>

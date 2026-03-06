@@ -26,7 +26,7 @@
                   </g>
                 </svg>
               </div>
-              <span class="nav-link-text ms-1" style="color: #6A4C9C;">Beranda</span>
+              <span class="nav-link-text ms-1">Beranda</span>
             </a>
           </li>
       <li class="nav-item">

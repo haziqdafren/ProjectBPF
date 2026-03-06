@@ -61,60 +61,55 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pemilik</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Resi</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Produk</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Ekspedisi</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No HP Penerima</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Tiba</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lokasi</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bukti Terima Paket</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Security</th> <!-- Kolom untuk Nama Security -->
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th> <!-- Kolom untuk tombol aksi -->
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Resi</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pemilik</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Produk</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ekspedisi</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tgl Tiba</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lokasi</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($dataPakets as $item)
                                         <tr>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->nama_pemilik }}</p> <!-- Menampilkan nama pemilik -->
-                                            </td>
-                                            <td class="ps-4">
+                                            <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->no_resi }}</p>
                                             </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->nama_produk }}</p>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->nama_pemilik }}</p>
+                                                    <p class="text-xxs text-secondary mb-0">{{ $item->no_hpPenerima }}</p>
+                                                </div>
                                             </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->ekspedisi ? $item->ekspedisi->nama_ekspedisi : 'Tidak Diketahui' }}</p>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ Str::limit($item->nama_produk, 20) }}</p>
                                             </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->no_hpPenerima }}</p>
+                                            <td>
+                                                <span class="badge badge-sm bg-gradient-info">{{ $item->ekspedisi ? $item->ekspedisi->nama_ekspedisi : 'N/A' }}</span>
                                             </td>
-                                            <td class="text-center">
+                                            <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ \Carbon\Carbon::parse($item->tgl_tiba)->format('d/m/Y') }}</p>
                                             </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->lokasi }}</p>
+                                            <td>
+                                                <span class="badge badge-sm {{ $item->lokasi === 'Pos Security' ? 'bg-gradient-warning' : 'bg-gradient-success' }}">
+                                                    {{ $item->lokasi }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-sm {{ $item->status === 'Belum Diterima' ? 'bg-gradient-danger' : 'bg-gradient-success' }}">
+                                                    {{ $item->status }}
+                                                </span>
                                             </td>
                                             <td class="text-center">
-                                                @if($item->bukti_serah_terima)
-                                                    <img src="{{ asset('storage/' . $item->bukti_serah_terima) }}" alt="Bukti Serah Terima" style="width: 50px; height: auto;" class="img-thumbnail">
-                                                @else
-                                                    <p class="text-xs font-weight-bold mb-0">Tidak ada</p>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->security_name }}</p> <!-- Menampilkan nama security -->
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('data-paket.edit', $item->no_resi) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                <a href="{{ route('data-paket.edit', $item->no_resi) }}" class="btn btn-warning btn-sm mb-0" data-bs-toggle="tooltip" title="Edit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{ route('data-paket.destroy', $item->no_resi) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data?')">
+                                                <form action="{{ route('data-paket.destroy', $item->no_resi) }}" method="POST" class="d-inline delete-form">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus">
+                                                    <button class="btn btn-danger btn-sm mb-0" type="submit" data-bs-toggle="tooltip" title="Hapus">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -122,22 +117,42 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="10" class="text-center text-muted">Data tidak tersedia</td>
+                                            <td colspan="8" class="text-center text-muted py-4">Belum ada data paket</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
-                            {{-- Pagination --}}
-                            @if ($dataPakets->hasPages())
-                                <div class="d-flex justify-content-center mt-3">
-                                    {!! $dataPakets->links('pagination::bootstrap-5') !!}
-                                </div>
-                            @endif
                         </div>
+                        {{-- Pagination --}}
+                        @if ($dataPakets->hasPages())
+                            <div class="d-flex justify-content-center mt-3 pb-3">
+                                {!! $dataPakets->links('pagination::bootstrap-5') !!}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+@push('scripts')
+<script>
+    // For NON-demo users: Add confirmation dialog for delete
+    @if(!auth()->user()->is_demo)
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('.delete-form');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Yakin ingin menghapus data?')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    });
+    @endif
+</script>
+@endpush
+
 @endsection

@@ -134,11 +134,883 @@ body {
     transition: background-color 0.3s, fill 0.3s; /* Smooth transition for icon background and color */
 }
 
+/* ===== CONSISTENT COLOR PALETTE (Dark Blue-Gray) ===== */
+/* Primary: #4A5568 (Matches reference image exactly)    */
+/* Hover: #5A6579 (Slightly lighter)                     */
+/* Active: #3A4558 (Slightly darker)                     */
+/* =======================================================  */
+
 .bg-gradient-primary {
-    background: linear-gradient(180deg, #343a40 0%, #212529 100%) !important; /* Change to dark colors */
+    background: linear-gradient(195deg, #4A5568 0%, #3A4558 100%) !important;
 }
 
 .text-primary {
-    color: #ffffff !important; /* Change text color to white */
+    color: #4A5568 !important;
 }
 
+/* Consistent primary button color */
+.btn-primary {
+    background-color: #4A5568 !important;
+    border-color: #4A5568 !important;
+    color: #ffffff !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #5A6579 !important;
+    border-color: #5A6579 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #3A4558 !important;
+    border-color: #3A4558 !important;
+    box-shadow: 0 0 0 0.2rem rgba(74, 85, 104, 0.25) !important;
+}
+
+/* Override form input focus to modern slate blue */
+.form-control:focus {
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.15) !important;
+}
+
+.form-select:focus {
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.15) !important;
+}
+
+/* Override pagination to consistent dark blue-gray */
+.pagination .page-item.active .page-link {
+    background-color: #4A5568 !important;
+    border-color: #4A5568 !important;
+    color: #ffffff !important;
+}
+
+.pagination .page-link {
+    color: #4A5568 !important;
+    border-color: #e2e8f0 !important;
+}
+
+.pagination .page-link:hover {
+    background-color: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #3A4558 !important;
+}
+
+.pagination .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(74, 85, 104, 0.15) !important;
+}
+
+/* Override checkbox and radio to consistent dark blue-gray */
+.form-check-input:focus {
+    border-color: #4A5568 !important;
+    box-shadow: 0 0 0 0.2rem rgba(74, 85, 104, 0.15) !important;
+}
+
+.form-check-input:checked {
+    background-color: #4A5568 !important;
+    border-color: #4A5568 !important;
+}
+
+/* Make checkbox rounded for better UX */
+.form-check-input {
+    border-radius: 0.25rem !important;
+    width: 1.2em !important;
+    height: 1.2em !important;
+    cursor: pointer !important;
+}
+
+/* Override link colors to consistent dark blue-gray */
+a {
+    color: #4A5568 !important;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #5A6579 !important;
+}
+
+/* Override badge primary to consistent dark blue-gray */
+.badge.bg-primary {
+    background-color: #4A5568 !important;
+}
+
+/* Override alert primary to consistent dark blue-gray */
+.alert-primary {
+    background-color: #f0f9ff !important;
+    border-color: #7dd3fc !important;
+    color: #075985 !important;
+}
+
+/* Override progress bar primary to consistent dark blue-gray */
+.progress-bar {
+    background-color: #4A5568 !important;
+}
+
+/* Override nav pills active to consistent dark blue-gray */
+.nav-pills .nav-link.active {
+    background-color: #4A5568 !important;
+}
+
+/* Override list group item active to consistent dark blue-gray */
+.list-group-item.active {
+    background-color: #4A5568 !important;
+    border-color: #4A5568 !important;
+}
+
+/* Override dropdown item active to consistent dark blue-gray */
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: #4A5568 !important;
+}
+
+/* Override border-primary to consistent dark blue-gray */
+.border-primary {
+    border-color: #4A5568 !important;
+}
+
+/* ===== SIDEBAR & NAVIGATION COLORS ===== */
+/* Consistent Dark Blue-Gray Theme */
+
+/* Sidebar active background - consistent with reference image */
+.sidenav .nav-link.active,
+aside.sidenav .navbar-nav .nav-link.active {
+    background-color: #4A5568 !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+/* CRITICAL: Override the purple icon gradient with consistent dark blue-gray */
+.sidenav .nav-link.active .icon,
+aside.sidenav .navbar-nav .nav-link.active .icon,
+.sidenav .navbar-nav > .nav-item > .nav-link.active .icon,
+.sidenav[data-color="primary"] .navbar-nav > .nav-item > .nav-link.active .icon {
+    background-image: linear-gradient(310deg, #4A5568 0%, #5A6579 100%) !important;
+    background-color: #4A5568 !important;
+}
+
+/* Override icon color backgrounds in sidebar */
+.icon.icon-shape {
+    background-color: #f8f9fa !important;
+    transition: all 0.2s ease;
+}
+
+.nav-link.active .icon.icon-shape {
+    background-image: linear-gradient(310deg, #4A5568 0%, #5A6579 100%) !important;
+    background-color: #4A5568 !important;
+}
+
+/* Override the theme's primary color variable effects */
+[class*="bg-gradient-primary"] {
+    background: linear-gradient(195deg, #4A5568 0%, #3A4558 100%) !important;
+}
+
+/* Override sidebar configurator colors */
+.badge.filter[data-color="primary"] {
+    background: linear-gradient(195deg, #4A5568 0%, #3A4558 100%) !important;
+}
+
+/* Search button on beranda */
+button[type="submit"].btn,
+.btn.bg-gradient-primary {
+    background: linear-gradient(195deg, #4A5568 0%, #3A4558 100%) !important;
+    border-color: #4A5568 !important;
+}
+
+/* Override any background-primary class */
+.bg-primary {
+    background-color: #4A5568 !important;
+}
+
+/* Override sidebar active with more specificity */
+.sidenav[data-color="primary"] .nav-link.active {
+    background-color: #4A5568 !important;
+}
+
+/* Override fixed plugin primary button */
+.fixed-plugin .badge.bg-gradient-primary,
+.fixed-plugin .btn.bg-gradient-primary {
+    background: linear-gradient(195deg, #4A5568 0%, #3A4558 100%) !important;
+}
+
+/* Sidebar hover states for better interactivity */
+.sidenav .nav-link:hover:not(.active) {
+    background-color: #f1f5f9 !important;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+/* ===== MODERN TABLE STYLING ===== */
+/* Enhanced table design with smooth animations and modern aesthetics */
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Table header improvements */
+.table thead th {
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding: 1rem 0.75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em;
+    white-space: nowrap;
+    background-color: #f8fafc !important;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Table body improvements */
+.table tbody td {
+    padding: 1rem 0.75rem !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    transition: all 0.2s ease;
+}
+
+/* Table row hover effects */
+.table tbody tr {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc !important;
+    transform: scale(1.01);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Badge improvements with animations */
+.badge {
+    padding: 0.35rem 0.75rem !important;
+    border-radius: 0.5rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.025em;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced badge colors with gradients */
+.badge.bg-gradient-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+}
+
+.badge.bg-gradient-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+}
+
+.badge.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.badge.bg-gradient-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+}
+
+/* ===== CARD ENHANCEMENTS ===== */
+/* Modern card design with smooth animations */
+
+.card {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: cardFadeIn 0.5s ease-out;
+    overflow: hidden;
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    padding: 1.5rem !important;
+}
+
+.card-body {
+    background-color: #ffffff !important;
+}
+
+/* ===== BUTTON ENHANCEMENTS ===== */
+/* Improved button animations and interactions */
+
+.btn {
+    border-radius: 0.75rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.025em;
+    padding: 0.625rem 1.25rem !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button ripple effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Small button improvements */
+.btn-sm {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+    border-radius: 0.5rem !important;
+}
+
+/* Icon buttons */
+.btn i {
+    transition: transform 0.2s ease;
+}
+
+.btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Button group spacing */
+.btn + .btn {
+    margin-left: 0.5rem;
+}
+
+form.d-inline + form.d-inline {
+    margin-left: 0;
+}
+
+/* ===== FORM ENHANCEMENTS ===== */
+/* Modern form design with smooth transitions */
+
+.form-control,
+.form-select {
+    border-radius: 0.75rem !important;
+    border: 2px solid #e2e8f0 !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: #cbd5e1 !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #4A5568 !important;
+    box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1) !important;
+    transform: scale(1.01);
+}
+
+/* Placeholder animation */
+.form-control::placeholder {
+    color: #94a3b8;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus::placeholder {
+    opacity: 0.5;
+    transform: translateX(5px);
+}
+
+/* ===== ALERT ENHANCEMENTS ===== */
+/* Modern alert design with animations */
+
+.alert {
+    border-radius: 0.75rem !important;
+    border: none !important;
+    padding: 1rem 1.25rem !important;
+    animation: slideDown 0.4s ease-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-success {
+    background-color: #d1fae5 !important;
+    color: #065f46 !important;
+    border-left: 4px solid #10b981 !important;
+}
+
+.alert-danger {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+    border-left: 4px solid #ef4444 !important;
+}
+
+.alert-warning {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border-left: 4px solid #f59e0b !important;
+}
+
+.alert-info {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+    border-left: 4px solid #3b82f6 !important;
+}
+
+/* ===== PAGINATION ENHANCEMENTS ===== */
+/* Modern pagination design */
+
+.pagination {
+    gap: 0.5rem;
+}
+
+.pagination .page-item {
+    margin: 0 0.25rem;
+}
+
+.pagination .page-link {
+    border-radius: 0.5rem !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 0.5rem 0.75rem !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagination .page-item.active .page-link {
+    transform: scale(1.05);
+}
+
+/* ===== LOADING STATES ===== */
+/* Loading animation for better UX */
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ===== TOOLTIP ENHANCEMENTS ===== */
+/* Improved tooltip styling */
+
+.tooltip-inner {
+    background-color: #1e293b !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+}
+
+/* ===== MODAL ENHANCEMENTS ===== */
+/* Modern modal design */
+
+.modal-content {
+    border-radius: 1rem !important;
+    border: none !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    border-bottom: 1px solid #f1f5f9 !important;
+    padding: 1.5rem !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #f1f5f9 !important;
+    padding: 1.5rem !important;
+}
+
+/* ===== SCROLL BEHAVIOR ===== */
+/* Smooth scrolling */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* ===== TEXT ENHANCEMENTS ===== */
+/* Better text rendering */
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ===== BUTTON TEXT SIZING ===== */
+/* Fix button text sizing issues */
+
+.btn {
+    font-size: 0.875rem !important;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-sm {
+    font-size: 0.75rem !important;
+}
+
+.btn-lg {
+    font-size: 1rem !important;
+    padding: 0.875rem 1.5rem !important;
+}
+
+/* Ensure button text is properly aligned */
+.btn i {
+    vertical-align: middle;
+    margin-right: 0.25rem;
+}
+
+/* Fix CARI button specifically */
+button[type="submit"] {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap;
+}
+
+/* ===== RESPONSIVE IMPROVEMENTS ===== */
+/* Better mobile experience */
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.875rem;
+    }
+
+    .table thead th {
+        padding: 0.75rem 0.5rem !important;
+        font-size: 0.65rem !important;
+    }
+
+    .table tbody td {
+        padding: 0.75rem 0.5rem !important;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .card {
+        border-radius: 0.75rem !important;
+    }
+
+    /* Mobile table adjustments */
+    .badge {
+        font-size: 0.65rem !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+
+    /* Stack search form on mobile */
+    .row.g-2 {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Extra small devices */
+    .table thead th {
+        font-size: 0.6rem !important;
+        padding: 0.5rem 0.25rem !important;
+    }
+
+    .table tbody td {
+        font-size: 0.75rem !important;
+        padding: 0.5rem 0.25rem !important;
+    }
+
+    .btn-sm {
+        padding: 0.375rem 0.75rem !important;
+        font-size: 0.7rem !important;
+    }
+}
+
+/* ===== LAYOUT FIXES ===== */
+/* Prevent content blocking */
+
+.card-plain {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Fix form layouts */
+.form-control {
+    width: 100%;
+}
+
+/* Ensure proper spacing */
+.container {
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+/* ===== TABLE CONSISTENCY ===== */
+/* Ensure all tables have the same structure */
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    min-width: 100%;
+    margin-bottom: 0 !important;
+}
+
+.table thead th {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.table tbody td {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* ===== GUEST PAGE IMPROVEMENTS ===== */
+/* Better styling for login and lacak paket pages */
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.curved-image {
+    transition: all 0.3s ease;
+}
+
+.curved-image:hover {
+    transform: scale(1.02);
+}
+
+/* ===== FIX FONT VISIBILITY ON GUEST PAGES ===== */
+/* Ensure text is not blocked by layout - REMOVED WHITE TEXT CONFLICT */
+
+.card-plain .card-header {
+    position: relative;
+    z-index: 10;
+}
+
+.card-plain .card-body {
+    position: relative;
+    z-index: 10;
+}
+
+/* Make sure labels are visible */
+label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Guest page card transparency fix */
+.card-plain {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Ensure text on transparent cards is visible - FORCE DARK TEXT */
+.card-plain h3,
+.card-plain .card-header h3,
+.card-plain p,
+.card-plain .card-header p,
+.card-plain label {
+    color: #1e293b !important;
+    text-shadow: none !important;
+}
+
+/* Override any white text classes */
+.card-plain .text-white {
+    color: #1e293b !important;
+}
+
+.card-plain .text-secondary {
+    color: #64748b !important;
+}
+
+/* Override any blocking styles */
+.card-header h3,
+.card-header p {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* ===== FOCUS VISIBLE ===== */
+/* Accessibility improvements */
+
+*:focus-visible {
+    outline: 2px solid #4A5568;
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* ===== TRANSITION UTILITIES ===== */
+/* Smooth transitions for all interactive elements */
+
+a, button, input, select, textarea, .nav-link, .card, .badge, .btn, .form-control {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== EMPTY STATE STYLING ===== */
+/* Better empty state design */
+
+td.text-muted {
+    font-size: 1rem !important;
+    padding: 3rem 1rem !important;
+    color: #64748b !important;
+}
+
+/* ===== STATUS INDICATORS ===== */
+/* Visual status indicators with pulse animation */
+
+.badge.bg-gradient-success::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+.badge.bg-gradient-danger::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+}
